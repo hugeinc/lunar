@@ -1,0 +1,16 @@
+{
+  "name": "Orbit",
+  "version": "0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "author": "Caio Vaccaro, Jonas Mendes",
+  "license": "MIT",
+  "devDependencies": {
+    "lodash": "^3.10.0",
+    "q": "^1.0.1",
+    "postaljs/postal.js": "^1.0.7",
+    "postaljs/postal.request-response": "^0.3.1",
+    "stampit": "npm:stampit@^2.1.1"
+  }
+}
