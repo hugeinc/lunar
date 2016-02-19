@@ -3,6 +3,29 @@
 #### In process, merging repos...
 The business logic of your app should be free of framework boundaries and specifications. In order to achieve that, your logic should be as stateless as possible and reside in a different layer. Read more for further instructions.
 
+## Development
+
+* Install [Docker](https://docs.docker.com/mac/step_one/)*
+* Open the Launchpad and locate the Docker Quickstart Terminal icon and click it.*
+
+If you are doing this for the first time:
+
+```
+$ make setup
+```
+
+Then:
+
+```
+$ make up
+```
+
+Executing commands:
+
+```
+docker exec orbit npm run serve
+```
+
 ![](images/ApplicationLayer.png)
 [Open full size version](images/ApplicationLayerGraph.pdf)
 
