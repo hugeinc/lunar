@@ -1,4 +1,4 @@
-define('Home', ['../index', './actions'], function(Orbit, actions) {
+define('Example', ['../index', './actions'], function(Orbit, actions) {
 	var props = {},
 		methods = {};
 
