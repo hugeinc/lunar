@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve": "webpack -dw | ./reporter-filter"
+    "start": "webpack -dw | ./reporter-filter"
   },
   "author": "Caio Vaccaro, Jonas Mendes",
   "license": "MIT",
