@@ -1,16 +1,37 @@
 {
   "name": "Orbit",
-  "version": "0.1",
+  "version": "0.1.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "start": "webpack -dw | ./reporter-filter"
+  },
   "author": "Caio Vaccaro, Jonas Mendes",
   "license": "MIT",
   "devDependencies": {
+    "babel-core": "^6.3.26",
+    "babel-eslint": "^5.0.0-beta6",
+    "babel-loader": "^6.2.0",
+    "babel-plugin-add-module-exports": "^0.1.2",
+    "babel-plugin-transform-runtime": "^6.5.2",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-stage-2": "^6.3.13",
+    "blue-tape": "^0.1.11",
+    "browser-sync": "^2.10.1",
+    "browser-sync-webpack-plugin": "^1.0.1",
+    "extract-text-webpack-plugin": "^0.9.1",
+    "faucet": "0.0.1",
+    "istanbul-instrumenter-loader": "^0.1.3",
     "lodash": "^3.10.0",
+    "node-libs-browser": "^0.5.3",
+    "once": "^1.3.3",
+    "postal": "^1.0.7",
+    "postal.request-response": "^0.3.1",
     "q": "^1.0.1",
-    "postaljs/postal.js": "^1.0.7",
-    "postaljs/postal.request-response": "^0.3.1",
-    "stampit": "npm:stampit@^2.1.1"
+    "split": "^1.0.0",
+    "stampit": "^2.1.1",
+    "style-loader": "^0.13.0",
+    "through2": "^2.0.0",
+    "webpack": "^1.12.9"
   }
 }

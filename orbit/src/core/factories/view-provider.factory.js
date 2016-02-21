@@ -1,59 +1,59 @@
-define('ViewProviderFactory', ['stampit'], function(stampit) {
-    var publicViewProviderFactory = {
-        extend: extend
-    };
+import stampit from 'stampit';
 
-    function extend(services) {
-        var stamp = stampit({
-            props: {
-                services: services
-            }
-        });
+let publicViewProviderFactory = {
+    extend: extend
+};
 
-        return stampit.compose(stamp, internalViewProviderFactory())();
-    }
+function extend(services) {
+    let stamp = stampit({
+        props: {
+            services: services
+        }
+    });
 
-    function internalViewProviderFactory() {
-        return stampit().init(function(construct) {
-            var instance = construct.instance,
-                serviceObject;
+    return stampit.compose(stamp, internalViewProviderFactory())();
+}
 
-            for (serviceObject in instance.services) {
-                var service = instance.services[serviceObject];
+function internalViewProviderFactory() {
+    return stampit().init(function(construct) {
+        let instance = construct.instance,
+            serviceObject;
 
-                if (!service.actions) continue;
+        for (serviceObject in instance.services) {
+            let service = instance.services[serviceObject];
 
-                instance.actions = collectActions(service.actions, service);
-                instance.methods = createActionsMethods(service.actions, service);
-            }
+            if (!service.actions) continue;
 
-            delete instance.services;
-        });
-    }
-
-    function collectActions(actions, service) {
-        var actionsCollection = {},
-            action;
-
-        for (action in actions) {
-            actionsCollection[action] = actions[action];
+            instance.actions = collectActions(service.actions, service);
+            instance.methods = createActionsMethods(service.actions, service);
         }
 
-        return actionsCollection;
+        delete instance.services;
+    });
+}
+
+function collectActions(actions, service) {
+    let actionsCollection = {},
+        action;
+
+    for (action in actions) {
+        actionsCollection[action] = actions[action];
     }
 
-    function createActionsMethods(actions, service) {
-        var methods = {},
-            action;
+    return actionsCollection;
+}
 
-        for (action in actions) {
-            methods[actions[action]] = function(params) {
-                return service.do(service.actions[action], params);
-            }
+function createActionsMethods(actions, service) {
+    let methods = {},
+        action;
+
+    for (action in actions) {
+        methods[actions[action]] = function(params) {
+            return service.do(service.actions[action], params);
         }
-
-        return methods;
     }
 
-    return publicViewProviderFactory;
-});
+    return methods;
+}
+
+export default publicViewProviderFactory;

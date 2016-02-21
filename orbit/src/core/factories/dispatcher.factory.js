@@ -1,19 +1,21 @@
-define('DispatcherFactory', ['../factories/action-emitter.factory', '../factories/view-provider.factory', 'lodash'], function(ActionEmitter, ViewProvider, _) {
-    function extend(actions, middlewares) {
-        var emitter = {},
-            dispatcher = {},
-            middleware;
+import ActionEmitter from '../factories/action-emitter.factory';
+import ViewProvider from '../factories/view-provider.factory';
+import _ from 'lodash';
 
-        _.extend(emitter, ActionEmitter.extend(actions));
+function extend(actions, middlewares) {
+    let emitter = {},
+        dispatcher = {},
+        middleware;
 
-        for (middleware in middlewares) {
-            emitter.addMiddleware(middlewares[middleware]);
-        }
+    _.extend(emitter, ActionEmitter.extend(actions));
 
-        _.extend(dispatcher, ViewProvider.extend([emitter.service]));
-
-        return dispatcher;
+    for (middleware in middlewares) {
+        emitter.addMiddleware(middlewares[middleware]);
     }
 
-    return extend;
-});
+    _.extend(dispatcher, ViewProvider.extend([emitter.service]));
+
+    return dispatcher;
+}
+
+export default extend;

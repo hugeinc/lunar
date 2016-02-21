@@ -1,15 +1,17 @@
-define('Orbit', ['./core/mediator/channel',
-			'./core/factories/application-class.factory',
-			'./core/factories/view-provider.factory',
-			'./core/factories/action-emitter.factory',
-			'./core/factories/dispatcher.factory'], function(Mediator, Class, ViewProvider, ActionEmitter, Dispatcher) {
-	return {
-		Mediator: Mediator,
-		Class: Class,
-		ViewProvider: ViewProvider,
-		ActionEmitter: ActionEmitter,
-		Controller: ViewProvider,
-		Service: ActionEmitter,
-		Dispatcher: Dispatcher
-	}
-});
+import Mediator from './core/mediator/channel';
+import Class from './core/factories/application-class.factory';
+import ViewProvider from './core/factories/view-provider.factory';
+import ActionEmitter from './core/factories/action-emitter.factory';
+import Dispatcher from './core/factories/dispatcher.factory';
+import ActionsCreator from './core/factories/actions-creator.factory';
+
+export default {
+	Mediator: Mediator,
+	Class: Class,
+	ViewProvider: ViewProvider,
+	ActionEmitter: ActionEmitter,
+	Controller: ViewProvider,
+	Service: ActionEmitter,
+	Dispatcher: Dispatcher,
+	ActionsCreator: ActionsCreator
+}
