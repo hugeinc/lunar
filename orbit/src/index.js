@@ -3,6 +3,7 @@ import Class from './core/factories/application-class.factory';
 import ViewProvider from './core/factories/view-provider.factory';
 import ActionEmitter from './core/factories/action-emitter.factory';
 import Dispatcher from './core/factories/dispatcher.factory';
+import ActionsCreator from './core/factories/actions-creator.factory';
 
 export default {
 	Mediator: Mediator,
@@ -11,5 +12,6 @@ export default {
 	ActionEmitter: ActionEmitter,
 	Controller: ViewProvider,
 	Service: ActionEmitter,
-	Dispatcher: Dispatcher
+	Dispatcher: Dispatcher,
+	ActionsCreator: ActionsCreator
 }

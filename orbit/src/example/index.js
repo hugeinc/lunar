@@ -1,27 +1,28 @@
-define('Example', ['../index', './actions'], function(Orbit, actions) {
-	var props = {},
-		methods = {};
+import Orbit from '../index';
+import actions from './actions';
 
-	props.title = 'Hello.';
+var props = {},
+	methods = {};
 
-	methods.one = function() {
-		this.two();
-	};
+props.title = 'Hello.';
 
-	methods.two = function() {
-		console.log('one called two');
-	};
+methods.one = function() {
+	this.two();
+};
 
-	methods[actions.GET_TITLE] = function(data) {
-		// throw 'Sorry.';
-		//return data;
-		return 'Hello.';
-		// return data.data[0].title;
-	};
+methods.two = function() {
+	console.log('one called two');
+};
 
-	return Orbit.Class.extend({
-		props: props,
-		methods: methods,
-		actions: actions
-	});
+methods[actions.GET_TITLE] = function(data) {
+	// throw 'Sorry.';
+	//return data;
+	return 'Hello.';
+	// return data.data[0].title;
+};
+
+export default Orbit.Class.extend({
+	props: props,
+	methods: methods,
+	actions: actions
 });
