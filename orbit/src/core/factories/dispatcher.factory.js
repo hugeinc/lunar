@@ -3,19 +3,19 @@ import ViewProvider from '../factories/view-provider.factory';
 import _ from 'lodash';
 
 function extend(actions, middlewares) {
-    let emitter = {},
-        dispatcher = {},
-        middleware;
+  let emitter = {},
+      dispatcher = {},
+      middleware;
 
-    _.extend(emitter, ActionEmitter.extend(actions));
+  _.extend(emitter, ActionEmitter.extend(actions));
 
-    for (middleware in middlewares) {
-        emitter.addMiddleware(middlewares[middleware]);
-    }
+  for (middleware in middlewares) {
+    emitter.addMiddleware(middlewares[middleware]);
+  }
 
-    _.extend(dispatcher, ViewProvider.extend([emitter.service]));
+  _.extend(dispatcher, ViewProvider.extend([emitter.service]));
 
-    return dispatcher;
+  return dispatcher;
 }
 
 export default extend;

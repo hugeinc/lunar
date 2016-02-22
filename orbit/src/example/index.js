@@ -7,22 +7,22 @@ var props = {},
 props.title = 'Hello.';
 
 methods.one = function() {
-	this.two();
+  this.two();
 };
 
 methods.two = function() {
-	console.log('one called two');
+  console.log('one called two');
 };
 
 methods[actions.GET_TITLE] = function(data) {
-	// throw 'Sorry.';
-	//return data;
-	return 'Hello.';
-	// return data.data[0].title;
+  // throw 'Sorry.';
+  //return data;
+  return 'Hello.';
+  // return data.data[0].title;
 };
 
 export default Orbit.Class.extend({
-	props: props,
-	methods: methods,
-	actions: actions
+  props: props,
+  methods: methods,
+  actions: actions
 });

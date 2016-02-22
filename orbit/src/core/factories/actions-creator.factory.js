@@ -1,11 +1,11 @@
 function actionsCreator(actions) {
-	let symbolActions = {};
+  let symbolActions = {};
 
-	for (action in actions) {
-		symbolActions[action] = Symbol(action);
-	}
+  for (action in actions) {
+    symbolActions[action] = Symbol(action);
+  }
 
-	return symbolActions;
+  return symbolActions;
 }
 
 export default actionsCreator;
