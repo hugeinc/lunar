@@ -23,7 +23,7 @@ $ make up
 Executing commands:
 
 ```
-docker exec orbit npm run serve
+docker exec orbit npm start
 ```
 
 ![](images/ApplicationLayer.png)
