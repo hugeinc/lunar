@@ -2,11 +2,13 @@ import stampit from 'stampit';
 import OrbitMediator from '../mediator/channel';
 
 let publicClassFactory = {
-  extend: function(options) {
-    let stamp = stampit({
-      props: options.props,
-      methods: options.methods
-    });
+	extend: function(options) {
+    let { props, methods } = options;
+
+		let stamp = stampit({
+			props,
+			methods
+		});
 
     return stampit.compose(stamp, internalClassFactory(options.actions))();
   }
@@ -22,25 +24,23 @@ function internalClassFactory(actions) {
 }
 
 function registerActions(actions, instance) {
-  for (let action in actions) {
-    if (typeof instance[actions[action]] === 'function') {
-      OrbitMediator.subscribe({
-        topic: actions[action],
-        callback: actionCallback(data, envelope)
+	for (let action in actions) {
+		if (typeof instance[actions[action]] === 'function') {
+			OrbitMediator.subscribe({
+				topic: actions[action],
+				callback: (data, envelope) => {
+					let response, error;
+
+          try {
+            response = instance[actions[action]](data);
+          } catch (e) {
+            error = e;
+          } finally {
+            envelope.reply(error, response);
+          }
+        }
       });
     }
-  }
-}
-
-function actionCallback(data, envelope) {
-  let response, error;
-
-  try {
-    response = instance[actions[action]](data);
-  } catch (e) {
-    error = e;
-  } finally {
-    envelope.reply(error, response);
   }
 }
 

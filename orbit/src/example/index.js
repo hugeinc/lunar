@@ -22,7 +22,7 @@ methods[actions.GET_TITLE] = function(data) {
 };
 
 export default Orbit.Class.extend({
-  props: props,
-  methods: methods,
-  actions: actions
+	props,
+	methods,
+	actions
 });

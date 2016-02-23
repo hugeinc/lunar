@@ -9,7 +9,7 @@ function extend(actions, middlewares) {
 
   _.extend(emitter, ActionEmitter.extend(actions));
 
-  for (middleware in middlewares) {
+  for (let middleware in middlewares) {
     emitter.addMiddleware(middlewares[middleware]);
   }
 
