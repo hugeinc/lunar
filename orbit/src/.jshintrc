@@ -29,7 +29,7 @@
   "indent": 2,
 
   // Prohibit use of a variable before it is defined.
-  "latedef": true,
+  "latedef": false,
 
   // Require capitalized names for constructor functions.
   "newcap": true,
