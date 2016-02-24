@@ -14,9 +14,7 @@ let publicClassFactory = {
 
 function internalClassFactory(actions) {
   return stampit().init(function(construct) {
-    let instance = construct.instance,
-    action,
-    i;
+    let instance = construct.instance;
 
     instance.actions = actions;
     registerActions(actions, instance);
@@ -24,23 +22,25 @@ function internalClassFactory(actions) {
 }
 
 function registerActions(actions, instance) {
-  for (action in actions) {
+  for (let action in actions) {
     if (typeof instance[actions[action]] === 'function') {
       OrbitMediator.subscribe({
         topic: actions[action],
-        callback: function(data, envelope) {
-          let response, error;
-
-          try {
-            response = instance[actions[action]](data);
-          } catch (e) {
-            error = e;
-          } finally {
-            envelope.reply(error, response);
-          }
-        }
+        callback: actionCallback(data, envelope)
       });
     }
+  }
+}
+
+function actionCallback(data, envelope) {
+  let response, error;
+
+  try {
+    response = instance[actions[action]](data);
+  } catch (e) {
+    error = e;
+  } finally {
+    envelope.reply(error, response);
   }
 }
 

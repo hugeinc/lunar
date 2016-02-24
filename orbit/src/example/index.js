@@ -17,7 +17,7 @@ methods.two = function() {
 methods[actions.GET_TITLE] = function(data) {
   // throw 'Sorry.';
   //return data;
-  return 'Hello.';
+  return `Hello ${data}.`;
   // return data.data[0].title;
 };
 

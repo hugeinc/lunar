@@ -45,7 +45,7 @@ function internalActionEmitterFactory() {
       }
 
       return promise;
-    };
+    }
   });
 }
 

@@ -32,28 +32,28 @@ function internalViewProviderFactory() {
   });
 }
 
-function collectActions(actions, service) {
-  let actionsCollection = {},
-      action;
+function collectActions(actions) {
+  let actionsCollection = {};
 
-  for (action in actions) {
+  for (let action in actions) {
     actionsCollection[action] = actions[action];
   }
 
   return actionsCollection;
 }
 
-function createActionsMethods(actions, service) {
-  let methods = {},
-      action;
+function createActionsMethods(actions) {
+  let methods = {};
 
-  for (action in actions) {
-    methods[actions[action]] = function(params) {
-      return service.do(service.actions[action], params);
-    }
+  for (let action in actions) {
+    methods[actions[action]] = actionCallback(params);
   }
 
   return methods;
+}
+
+function actionCallback(params) {
+  return service.do(service.actions[action], params);
 }
 
 export default publicViewProviderFactory;

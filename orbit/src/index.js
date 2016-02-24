@@ -14,4 +14,4 @@ export default {
   Service: ActionEmitter,
   Dispatcher: Dispatcher,
   ActionsCreator: ActionsCreator
-}
+};

@@ -1,7 +1,7 @@
 function actionsCreator(actions) {
   let symbolActions = {};
 
-  for (action in actions) {
+  for (let action in actions) {
     symbolActions[action] = Symbol(action);
   }
 
