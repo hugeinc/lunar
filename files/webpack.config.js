@@ -5,11 +5,13 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
-const SRC = path.resolve(__dirname, 'src');
-const DIST = path.resolve(__dirname, 'dist');
+const DIST = path.resolve(__dirname, 'orbit/dist');
 
 module.exports = {
-  entry: SRC,
+  context: __dirname + '/orbit/src',
+  entry: {
+    orbit: './index.js'
+  },
 
   resolve: {
     extensions: ['', '.js']
@@ -17,7 +19,8 @@ module.exports = {
 
   output: {
     path: DIST,
-    filename: 'index.js'
+    filename: 'index.js',
+    libraryTarget: 'umd'
   },
 
   devtool: 'eval-source-map',
@@ -31,7 +34,7 @@ module.exports = {
         query: {
           cacheDirectory: true,
           presets: ['es2015', 'stage-2'],
-          plugins: ['transform-runtime']
+          plugins: ['transform-runtime', 'add-module-exports', 'transform-es2015-modules-commonjs']
         }
       }
     ]

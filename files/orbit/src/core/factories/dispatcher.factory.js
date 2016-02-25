@@ -4,8 +4,8 @@ import _ from 'lodash';
 
 function extend(actions, middlewares) {
   let emitter = {},
-      dispatcher = {},
-      middleware;
+    dispatcher = {},
+    middleware;
 
   _.extend(emitter, ActionEmitter.extend(actions));
 

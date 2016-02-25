@@ -1,9 +1,9 @@
 FROM node:5.4.0
 
-RUN mkdir -p /orbit
+RUN mkdir -p /app
 
-COPY . /orbit
-WORKDIR /orbit
+COPY . /app
+WORKDIR /app
 RUN npm i && npm i --save-dev
 
 EXPOSE 4000

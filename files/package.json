@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/.bin/webpack -d --watch | ./reporter-filter",
+    "start": "webpack -d --watch | ./reporter-filter",
     "jshint": "./node_modules/jshint/bin/jshint .",
     "jscs": "./node_modules/jscs/bin/jscs .",
     "jscsfix": "./node_modules/jscs/bin/jscs . --fix"
