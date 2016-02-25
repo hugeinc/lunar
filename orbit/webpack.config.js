@@ -1,13 +1,14 @@
 /* global __dirname, module */
+'use strict';
 
-import path from 'path';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import BrowserSyncPlugin from 'browser-sync-webpack-plugin';
+const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
-const SRC = path.resolve(__dirname);
-const DIST = path.resolve(__dirname, '../dist');
+const SRC = path.resolve(__dirname, 'src');
+const DIST = path.resolve(__dirname, 'dist');
 
-export default {
+module.exports = {
   entry: SRC,
 
   resolve: {
