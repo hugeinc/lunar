@@ -3,14 +3,14 @@ import OrbitMediator from '../mediator/channel';
 import Q from 'q';
 
 let publicActionEmitterFactory = {
-  extend: extend
+  extend
 };
 
 function extend(actions) {
   let stamp = stampit({
     props: {
       service: {
-        actions: actions
+        actions
       }
     }
   });
@@ -28,8 +28,8 @@ function internalActionEmitterFactory() {
 
     function addMiddleware(serviceMiddleware) {
       let action = serviceMiddleware.action;
-      instance['before' + action] = serviceMiddleware.before;
-      instance['after' + action] = serviceMiddleware.after;
+      instance[`before${action}`] = serviceMiddleware.before;
+      instance[`after${action}`] = serviceMiddleware.after;
     }
 
     function doAction(action, params) {
@@ -50,8 +50,8 @@ function internalActionEmitterFactory() {
 }
 
 function executeBeforeCallback(action, params, instance) {
-  if (actionFunctionExists('before' + action, instance)) {
-    params = instance['before' + action](params);
+  if (actionFunctionExists(`before${action}`, instance)) {
+    params = instance[`before${action}`](params);
   }
 
   return params;
@@ -61,7 +61,7 @@ function handleBeforeReponseAndMakeRequest(action, response, instance) {
   let promise;
 
   if (isPromise(response)) {
-    promise = response.then(function(data) {
+    promise = response.then((data) => {
       return requestApplication(action, data, instance);
     });
   } else {
@@ -80,20 +80,13 @@ function isPromise(data) {
 }
 
 function requestApplication(action, params, instance) {
-  return OrbitMediator.request({ topic: action, data: params }).then(function(data) {
-    return extractProperDataFromRequest(action, data, instance);
-  });
+  return OrbitMediator.request({ topic: action, data: params })
+    .then( data => extractProperDataFromRequest(action, data, instance) );
 }
 
 function extractProperDataFromRequest(action, data, instance) {
-  if (actionFunctionExists('after' + action, instance)) {
-    data = instance['after' + action](data);
-
-    if (isPromise(data)) {
-      data = data.then(function(response) {
-        return response;
-      });
-    }
+  if (actionFunctionExists(`after${action}`, instance)) {
+    data = instance[`after${action}`](data);
   }
 
   return data;

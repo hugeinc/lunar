@@ -6,12 +6,12 @@ import Dispatcher from './core/factories/dispatcher.factory';
 import ActionsCreator from './core/factories/actions-creator.factory';
 
 export default {
-  Mediator: Mediator,
-  Class: Class,
-  ViewProvider: ViewProvider,
-  ActionEmitter: ActionEmitter,
+	Mediator,
+	Class,
+	ViewProvider,
+	ActionEmitter,
+	Dispatcher,
+	ActionsCreator,
   Controller: ViewProvider,
-  Service: ActionEmitter,
-  Dispatcher: Dispatcher,
-  ActionsCreator: ActionsCreator
+  Service: ActionEmitter
 };
