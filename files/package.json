@@ -8,8 +8,8 @@
     "jshint": "./node_modules/jshint/bin/jshint .",
     "jscs": "./node_modules/jscs/bin/jscs .",
     "jscsfix": "./node_modules/jscs/bin/jscs . --fix",
-    "unit": "node orbit/tests/unit/*.js",
-    "integration": "node orbit/tests/integration/*.js"
+    "unit": "./node_modules/.bin/blue-tape orbit/tests/unit/*.js",
+    "integration": "./node_modules/.bin/blue-tape orbit/tests/integration/*.js"
   },
   "author": "Caio Vaccaro, Jonas Mendes",
   "license": "MIT",
