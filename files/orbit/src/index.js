@@ -12,6 +12,6 @@ export default {
 	ActionEmitter,
 	Dispatcher,
 	ActionsCreator,
-  Controller: ViewProvider,
-  Service: ActionEmitter
+	Controller: ViewProvider,
+	Service: ActionEmitter
 };

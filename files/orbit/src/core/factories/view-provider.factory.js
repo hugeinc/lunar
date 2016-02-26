@@ -42,7 +42,7 @@ function collectActions(actions) {
   return actionsCollection;
 }
 
-function createActionsMethods(actions) {
+function createActionsMethods(actions, service) {
   let methods = {};
 
   for (let action in actions) {

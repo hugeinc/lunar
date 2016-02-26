@@ -22803,9 +22803,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function internalClassFactory(actions) {
 	  return (0, _stampit2.default)().init(function (construct) {
-	    var instance = construct.instance,
-	        action = undefined,
-	        i = undefined;
+	    var instance = construct.instance;
 	
 	    instance.actions = actions;
 	    registerActions(actions, instance);
@@ -25090,29 +25088,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	  });
 	}
 	
-	function collectActions(actions, service) {
-	  var actionsCollection = {},
-	      action = undefined;
+	function collectActions(actions) {
+	  var actionsCollection = {};
 	
-	  for (var _action in actions) {
-	    actionsCollection[_action] = actions[_action];
+	  for (var action in actions) {
+	    actionsCollection[action] = actions[action];
 	  }
 	
 	  return actionsCollection;
 	}
 	
 	function createActionsMethods(actions, service) {
-	  var methods = {},
-	      action = undefined;
+	  var methods = {};
 	
-	  var _loop = function _loop(_action2) {
-	    methods[actions[_action2]] = function (params) {
-	      return service.do(service.actions[_action2], params);
+	  var _loop = function _loop(action) {
+	    methods[actions[action]] = function (params) {
+	      return service.do(service.actions[action], params);
 	    };
 	  };
 	
-	  for (var _action2 in actions) {
-	    _loop(_action2);
+	  for (var action in actions) {
+	    _loop(action);
 	  }
 	
 	  return methods;
@@ -25298,7 +25294,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
 	
 	var _symbol = __webpack_require__(/*! babel-runtime/core-js/symbol */ 59);
@@ -25308,13 +25304,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function actionsCreator(actions) {
-		var symbolActions = {};
+	  var symbolActions = {};
 	
-		for (var action in actions) {
-			symbolActions[action] = (0, _symbol2.default)(action);
-		}
+	  for (var action in actions) {
+	    symbolActions[action] = (0, _symbol2.default)(action);
+	  }
 	
-		return symbolActions;
+	  return symbolActions;
 	}
 	
 	exports.default = actionsCreator;

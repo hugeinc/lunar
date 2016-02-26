@@ -7,7 +7,9 @@
     "start": "webpack -d --watch | ./reporter-filter",
     "jshint": "./node_modules/jshint/bin/jshint .",
     "jscs": "./node_modules/jscs/bin/jscs .",
-    "jscsfix": "./node_modules/jscs/bin/jscs . --fix"
+    "jscsfix": "./node_modules/jscs/bin/jscs . --fix",
+    "unit": "node orbit/tests/unit/*.js",
+    "integration": "node orbit/tests/integration/*.js"
   },
   "author": "Caio Vaccaro, Jonas Mendes",
   "license": "MIT",
