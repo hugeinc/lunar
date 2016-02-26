@@ -1,3 +1,6 @@
+sdocker:
+	@bash '/Applications/Docker/Docker Quickstart Terminal.app/Contents/Resources/Scripts/start.sh'
+
 setup:
 	@docker build -t huge/orbit .
 
@@ -9,3 +12,6 @@ remake:
 
 ssh:
 	@docker exec -i -t orbit bash
+
+sync-config:
+	@docker exec orbit rm package.json webpack.config.js && docker cp package.json orbit:/app/package.json && docker cp webpack.config.js orbit:/app/webpack.config.js
