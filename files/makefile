@@ -15,3 +15,9 @@ ssh:
 
 sync-config:
 	@docker exec orbit rm package.json webpack.config.js && docker cp package.json orbit:/app/package.json && docker cp webpack.config.js orbit:/app/webpack.config.js
+
+unit:
+	@docker exec orbit npm run unit
+
+integration:
+	@docker exec orbit npm run integration
