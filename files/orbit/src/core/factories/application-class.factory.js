@@ -3,14 +3,19 @@ import OrbitMediator from '../mediator/channel';
 
 let publicClassFactory = {
 	extend: function(options) {
-    let { props, methods } = options;
+    let { props, methods, actions } = options;
 
 		let stamp = stampit({
-			props,
-			methods
+			props
 		});
 
-    return stampit.compose(stamp, internalClassFactory(options.actions))();
+    let stampClass = stampit.compose(stamp, internalClassFactory(actions))();
+
+    for (let method of Object.getOwnPropertySymbols(methods)) {
+    	stampClass[method] = methods[method];
+    }
+
+    return stampClass;
   }
 };
 

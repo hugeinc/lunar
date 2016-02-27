@@ -6,11 +6,11 @@ var obj = {
 	},
 	methods: {},
 	actions: actions
-}
+};
 
 obj.methods[actions.ONE] = function(n) {
 	var n = n || 0;
-	
+
 	this.number = n + 1;
 
 	return this.number;
@@ -18,10 +18,10 @@ obj.methods[actions.ONE] = function(n) {
 
 obj.methods[actions.TWO] = function(n) {
 	var n = n || 0;
-	
+
 	this.number = n + 2;
 
 	return this.number;
 };
 
-module.exports = obj;	
+module.exports = obj;

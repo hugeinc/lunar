@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import Mediator from './core/mediator/channel';
 import Class from './core/factories/application-class.factory';
 import ViewProvider from './core/factories/view-provider.factory';

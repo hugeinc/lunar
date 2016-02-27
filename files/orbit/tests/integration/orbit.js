@@ -3,7 +3,7 @@ var test = require('blue-tape'),
 	Orbit = require('../../dist/index'),
 	SimpleObjectExample = require('./mocks/object');
 
-var Example = Orbit.Class.extend(SimpleObjectExample);	
+var Example = Orbit.Class.extend(SimpleObjectExample);
 
 var AppExample = {
 	state: {
@@ -41,7 +41,8 @@ test('Example.number should be 0', function(t) {
 test('Example.number should be 1', function(t) {
 	t.plan(1);
 
-	Example.ONE();
+	Example[Example.actions.ONE]();
+
 	t.equal(Example.number, 1);
 	t.end();
 });
@@ -49,7 +50,7 @@ test('Example.number should be 1', function(t) {
 test('Example.number should be 6', function(t) {
 	t.plan(1);
 
-	Example.ONE(5);
+	Example[Example.actions.ONE](5);
 	t.equal(Example.number, 6);
 	t.end();
 });
@@ -57,7 +58,7 @@ test('Example.number should be 6', function(t) {
 test('Example.number should be 2', function(t) {
 	t.plan(1);
 
-	Example.TWO();
+	Example[Example.actions.TWO]();
 	t.equal(Example.number, 2);
 	t.end();
 });
@@ -65,7 +66,7 @@ test('Example.number should be 2', function(t) {
 test('Example.number should be 7', function(t) {
 	t.plan(1);
 
-	Example.TWO(5);
+	Example[Example.actions.TWO](5);
 	t.equal(Example.number, 7);
 	t.end();
 });
