@@ -1,32 +1,9 @@
 var test = require('blue-tape'),
 	_ = require('lodash'),
-	Orbit = require('../../dist/index');
+	Orbit = require('../../dist/index'),
+	SimpleObjectExample = require('./mocks/object');
 
-var Example = Orbit.Class.extend({
-	props: {
-		number: 0
-	},
-	methods: {
-		ONE: function(n) {
-			var n = n || 0;
-			
-			this.number = n + 1;
-
-			return this.number;
-		},
-		TWO: function(n) {
-			var n = n || 0;
-			
-			this.number = n + 2;
-
-			return this.number;
-		}
-	},
-	actions: {
-		ONE: 'ONE',
-		TWO: 'TWO'
-	}
-});	
+var Example = Orbit.Class.extend(SimpleObjectExample);	
 
 var AppExample = {
 	state: {

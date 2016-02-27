@@ -25307,7 +25307,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var symbolActions = {};
 	
 	  for (var action in actions) {
-	    symbolActions[action] = (0, _symbol2.default)(action);
+	    symbolActions[action] = (0, _symbol2.default)(actions[action]);
 	  }
 	
 	  return symbolActions;
