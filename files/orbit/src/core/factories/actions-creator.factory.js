@@ -2,7 +2,7 @@ function actionsCreator(actions) {
   let symbolActions = {};
 
   for (let action in actions) {
-    symbolActions[action] = Symbol(actions[action]);
+    symbolActions[action] = Symbol(action);
   }
 
   return symbolActions;

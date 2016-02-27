@@ -12,7 +12,7 @@ let publicClassFactory = {
     let stampClass = stampit.compose(stamp, internalClassFactory(actions))();
 
     for (let method of Object.getOwnPropertySymbols(methods)) {
-    	stampClass[method] = methods[method];
+    	stampClass.__proto__[method] = methods[method];
     }
 
     return stampClass;
