@@ -1,13 +1,32 @@
-import postal from 'postal';
-import 'postal.request-response';
 import Q from 'q';
 
-postal.configuration.promise.createDeferred = function() {
-  return Q.defer();
+const channel = {
+	subscriptions: {},
+	subscribe,
+	unsubscribe,
+	publish,
+	request
 };
 
-postal.configuration.promise.getPromise = function(dfd) {
-  return dfd.promise;
-};
+function subscribe(options) {
+	pushTopicIfNeeded(options.topic);
+	pushCallbackToTopic(options.topic, options.callback);
+}
 
-export default postal.channel('ORBIT');
+function pushTopicIfNeeded(topic) {
+	if(!channel.subscriptions.contains(topic)) {
+		channel.subscriptions[topic] = {
+			queue: []
+		}
+	}
+}
+
+function pushCallbackToTopic(topic, callback) {
+	channel.subscriptions[topic].queue.push(callback);
+}
+
+function unsubscribe(subscription) {}
+
+function publish(envelope) {}
+
+function request(options) {}
