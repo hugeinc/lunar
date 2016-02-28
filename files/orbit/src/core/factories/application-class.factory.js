@@ -9,21 +9,20 @@ let publicClassFactory = {
 			props
 		});
 
-    let stampClass = stampit.compose(stamp, internalClassFactory(actions))();
-
-    for (let method of Object.getOwnPropertySymbols(methods)) {
-    	stampClass.__proto__[method] = methods[method];
-    }
-
-    return stampClass;
+    return stampit.compose(stamp, internalClassFactory(actions, methods))();
   }
 };
 
-function internalClassFactory(actions) {
+function internalClassFactory(actions, methods) {
   return stampit().init(function(construct) {
     let instance = construct.instance;
 
     instance.actions = actions;
+
+    for (let method of Object.getOwnPropertySymbols(methods)) {
+      instance.__proto__[method] = methods[method];
+    }
+
     registerActions(actions, instance);
   });
 }
@@ -32,7 +31,7 @@ function registerActions(actions, instance) {
 	for (let action in actions) {
 		if (typeof instance[actions[action]] === 'function') {
 			OrbitMediator.subscribe({
-				topic: actions[action],
+				topic: action,
 				callback: (data, envelope) => {
 					let response, error;
 

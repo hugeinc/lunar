@@ -10,6 +10,9 @@ up:
 remake:
 	@docker rm -f orbit && docker rmi huge/orbit && make setup
 
+bundle:
+	@docker exec orbit npm start	
+
 ssh:
 	@docker exec -i -t orbit bash
 

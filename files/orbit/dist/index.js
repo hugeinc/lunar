@@ -28540,7 +28540,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	      props: props
 	    });
 	
-	    var stampClass = _stampit2.default.compose(stamp, internalClassFactory(actions))();
+	    return _stampit2.default.compose(stamp, internalClassFactory(actions, methods))();
+	  }
+	};
+	
+	function internalClassFactory(actions, methods) {
+	  return (0, _stampit2.default)().init(function (construct) {
+	    var instance = construct.instance;
+	
+	    instance.actions = actions;
 	
 	    var _iteratorNormalCompletion = true;
 	    var _didIteratorError = false;
@@ -28550,7 +28558,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      for (var _iterator = (0, _getIterator3.default)((0, _getOwnPropertySymbols2.default)(methods)), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
 	        var method = _step.value;
 	
-	        stampClass.__proto__[method] = methods[method];
+	        instance.__proto__[method] = methods[method];
 	      }
 	    } catch (err) {
 	      _didIteratorError = true;
@@ -28567,15 +28575,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	    }
 	
-	    return stampClass;
-	  }
-	};
-	
-	function internalClassFactory(actions) {
-	  return (0, _stampit2.default)().init(function (construct) {
-	    var instance = construct.instance;
-	
-	    instance.actions = actions;
 	    registerActions(actions, instance);
 	  });
 	}
@@ -28584,7 +28583,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var _loop = function _loop(action) {
 	    if (typeof instance[actions[action]] === 'function') {
 	      _channel2.default.subscribe({
-	        topic: actions[action],
+	        topic: action,
 	        callback: function callback(data, envelope) {
 	          var response = undefined,
 	              error = undefined;
