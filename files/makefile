@@ -30,3 +30,15 @@ unit-pretty:
 
 integration-pretty:
 	@docker exec orbit npm run integration-pretty
+
+unit-diff:
+	@docker exec orbit npm run unit-diff
+
+integration-diff:
+	@docker exec orbit npm run integration-diff
+
+unit-nyan:
+	@docker exec orbit npm run unit-nyan
+
+integration-nyan:
+	@docker exec orbit npm run integration-nyan
