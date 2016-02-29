@@ -80,7 +80,6 @@ function isPromise(data) {
 }
 
 function requestApplication(action, params, instance) {
-  console.log(action);
   return OrbitMediator.request({ topic: action, data: params })
     .then( data => extractProperDataFromRequest(action, data, instance) );
 }
