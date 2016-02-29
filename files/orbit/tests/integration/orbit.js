@@ -3,6 +3,9 @@ var test = require('blue-tape'),
 	Orbit = require('../../dist/index'),
 	SimpleObjectExample = require('./mocks/object');
 
+Orbit.Mediator.unsubscribe({ topic: SimpleObjectExample.actions.ONE });
+Orbit.Mediator.unsubscribe({ topic: SimpleObjectExample.actions.TWO });
+
 var Example = Orbit.Class.extend(SimpleObjectExample);
 
 var AppExample = {
@@ -28,23 +31,19 @@ test('Example should have a number prop', function(t) {
 	t.plan(1);
 
 	t.equal(typeof Example.number, 'number');
-	t.end();
 });
 
 test('Example.number should be 0', function(t) {
 	t.plan(1);
 
 	t.equal(Example.number, 0);
-	t.end();
 });
 
 test('Example.number should be 1', function(t) {
 	t.plan(1);
 
 	Example[Example.actions.ONE]();
-
 	t.equal(Example.number, 1);
-	t.end();
 });
 
 test('Example.number should be 6', function(t) {
@@ -52,7 +51,6 @@ test('Example.number should be 6', function(t) {
 
 	Example[Example.actions.ONE](5);
 	t.equal(Example.number, 6);
-	t.end();
 });
 
 test('Example.number should be 2', function(t) {
@@ -60,7 +58,6 @@ test('Example.number should be 2', function(t) {
 
 	Example[Example.actions.TWO]();
 	t.equal(Example.number, 2);
-	t.end();
 });
 
 test('Example.number should be 7', function(t) {
@@ -68,7 +65,6 @@ test('Example.number should be 7', function(t) {
 
 	Example[Example.actions.TWO](5);
 	t.equal(Example.number, 7);
-	t.end();
 });
 
 test('AppExample.state.number should be 1', function(t) {
@@ -76,7 +72,6 @@ test('AppExample.state.number should be 1', function(t) {
 
 	AppExample.test().then(function() {
 		t.equal(AppExample.state.number, 1);
-		t.end();
 	});
 });
 
@@ -85,6 +80,5 @@ test('AppExample.state.number should be 101', function(t) {
 
 	AppExample.test(100).then(function() {
 		t.equal(AppExample.state.number, 101);
-		t.end();
 	});
 });

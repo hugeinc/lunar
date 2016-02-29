@@ -1,14 +1,11 @@
 var actions = require('./actions-symbols');
 
 var obj = {
-	props: {
-		number: 0
-	},
-	methods: {},
+	number: 0,
 	actions: actions
 };
 
-obj.methods[actions.ONE] = function(n) {
+obj[actions.ONE] = function(n) {
 	var n = n || 0;
 
 	this.number = n + 1;
@@ -16,7 +13,7 @@ obj.methods[actions.ONE] = function(n) {
 	return this.number;
 };
 
-obj.methods[actions.TWO] = function(n) {
+obj[actions.TWO] = function(n) {
 	var n = n || 0;
 
 	this.number = n + 2;

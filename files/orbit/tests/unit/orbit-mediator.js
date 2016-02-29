@@ -109,7 +109,9 @@ test('Mediator.request should call and return data from topic callback', functio
 
 	Mediator.subscribe(options);
 
-	t.plan(1);
+	t.plan(1)
 
-	t.equal(Mediator.request(envelope), 2);
+	Mediator.request(envelope).then(function(data) {
+		t.equal(data, 2);
+	});
 });
