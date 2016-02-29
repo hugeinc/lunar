@@ -6068,7 +6068,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var _loop = function _loop(action) {
 	    if (typeof instance[actions[action]] === 'function') {
 	      _channel2.default.subscribe({
-	        topic: action,
+	        topic: actions[action],
 	        callback: function callback(data, envelope) {
 	          var response = undefined,
 	              error = undefined;
@@ -6078,7 +6078,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          } catch (e) {
 	            error = e;
 	          } finally {
-	            envelope.reply(error, response);
+	            // envelope.reply(error, response);
 	          }
 	        }
 	      });
@@ -9467,6 +9467,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	function handleBeforeReponseAndMakeRequest(action, response, instance) {
 	  var promise = undefined;
 	
+	  console.log(action);
+	
 	  if (isPromise(response)) {
 	    promise = response.then(function (data) {
 	      return requestApplication(action, data, instance);
@@ -9487,6 +9489,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	
 	function requestApplication(action, params, instance) {
+	  console.log(action);
 	  return _channel2.default.request({ topic: action, data: params }).then(function (data) {
 	    return extractProperDataFromRequest(action, data, instance);
 	  });

@@ -31,7 +31,7 @@ function registerActions(actions, instance) {
 	for (let action in actions) {
 		if (typeof instance[actions[action]] === 'function') {
 			OrbitMediator.subscribe({
-				topic: action,
+				topic: actions[action],
 				callback: (data, envelope) => {
 					let response, error;
 

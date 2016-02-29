@@ -1,9 +1,16 @@
 var test = require('blue-tape'),
-	Class = require('../../dist/index').Class,
-	SimpleObjectExample = require('./mocks/object');
+	Orbit = require('../../dist/index'),
+	SimpleObjectExample = require('./mocks/object'),
+	Class = Orbit.Class,
+	Mediator = Orbit.Mediator;
 
 test('Simple object should be converted to "class"', function(t) {
-	var OrbitClass = Class.extend(SimpleObjectExample);
+	var OrbitClass;
+
+	Mediator.unsubscribe({ topic: SimpleObjectExample.actions.ONE });
+	Mediator.unsubscribe({ topic: SimpleObjectExample.actions.TWO });
+	
+	OrbitClass = Class.extend(SimpleObjectExample);
 
 	t.plan(14);
 
