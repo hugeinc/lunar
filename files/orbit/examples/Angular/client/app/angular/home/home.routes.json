@@ -1,0 +1,11 @@
+{
+  "routes": [
+    {
+      "state": "home",
+      "url": "/",
+      "templateUrl": "../app/angular/home/home.html",
+      "controller": "HomeController",
+      "services": ["HomeService"]
+    }
+  ]
+}
