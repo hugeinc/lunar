@@ -1,5 +1,5 @@
 var test = require('blue-tape'),
-	Orbit = require('../../dist/index');
+	Orbit = require('../../dist/index').Orbit;
 
 test('Orbit should be an object', function(t) {
 	t.plan(1);
