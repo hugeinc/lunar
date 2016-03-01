@@ -1,7 +1,7 @@
 'use strict';
 
 var test = require('blue-tape'),
-	Mediator = require('../../dist/index').Mediator;
+	Mediator = require('../../dist/index').Orbit.Mediator;
 
 test('Mediator should be an object', function(t) {
 	t.plan(1);

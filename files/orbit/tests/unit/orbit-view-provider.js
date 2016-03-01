@@ -1,12 +1,12 @@
 var test = require('blue-tape'),
-	ActionEmitter = require('../../dist/index').ActionEmitter,
+	ActionEmitter = require('../../dist/index').Orbit.ActionEmitter,
 	ActionsSymbols = require('../mocks/actions-symbols'),
-	ViewProvider = require('../../dist/index').ViewProvider;
+	ViewProvider = require('../../dist/index').Orbit.ViewProvider;
 
 test('ViewProvider should be an object', function(t) {
 	t.plan(1);
 
-	t.equal(typeof ViewProvider, 'object', 'UHUUUUL');
+	t.equal(typeof ViewProvider, 'object');
 });
 
 test('ViewProvider should have an extend method', function(t) {

@@ -1,5 +1,5 @@
 var test = require('blue-tape'),
-	Dispatcher = require('../../dist/index').Dispatcher,
+	Dispatcher = require('../../dist/index').Orbit.Dispatcher,
 	ActionsSymbols = require('../mocks/actions-symbols');
 
 test('Dispatcher should be a function', function(t) {
