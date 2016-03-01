@@ -1,5 +1,5 @@
 # Orbit
-### v0.1
+### v0.2.0
 #### In process, merging repos...
 The business logic of your app should be free of framework boundaries and specifications. In order to achieve that, your logic should be as stateless as possible and reside in a different layer. Read more for further instructions.
 
@@ -23,11 +23,26 @@ $ make up
 Executing commands:
 
 ```
-docker exec orbit npm run serve
+docker exec orbit npm start
 ```
 
 ![](images/ApplicationLayer.png)
 [Open full size version](images/ApplicationLayerGraph.pdf)
+
+## Flow
+
+### Setup
+1- Your Application Code > ActionsCreator  
+2- Your Application Code > Orbit.Class > which calls: Mediator  
+
+### Trigger (decoupled)
+1- Your View Code > ViewProvider > which calls: ActionEmitter > which calls: Mediator > which calls: Class (Your Application Code)  
+2- And goes back: Mediator > ActionEmitter > ViewProvider > Your View Code  
+
+### Trigger (coupled)
+1- Your View Code > Dispatcher (ViewProvider + ActionEmitter) > which calls: Mediator > which calls: Class (Your Application Code)  
+2- And goes back: Mediator > Dispatcher > Your View Code  
+
 
 Example structure:  
 
