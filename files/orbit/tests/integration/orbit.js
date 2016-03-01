@@ -1,7 +1,7 @@
 var test = require('blue-tape'),
 	_ = require('lodash'),
 	Orbit = require('../../dist/index'),
-	SimpleObjectExample = require('./mocks/object');
+	SimpleObjectExample = require('../mocks/object');
 
 Orbit.Mediator.unsubscribe({ topic: SimpleObjectExample.actions.ONE });
 Orbit.Mediator.unsubscribe({ topic: SimpleObjectExample.actions.TWO });
@@ -19,7 +19,7 @@ var AppExample = {
 		var self = this;
 		this.dispatcher();
 
-		return this.methods[this.actions.ONE](n).then(function(data) {
+		return this.methods[Example.actions.ONE](n).then(function(data) {
             self.state.number = data;
         }, function(err) {
             console.log('Error: ', err);

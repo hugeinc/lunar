@@ -7944,49 +7944,43 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-			value: true
+		value: true
 	});
 	var publicViewProviderFactory = {
-			extend: extend
+		extend: extend
 	};
 	
 	function extend(services) {
-			return internalViewProviderFactory(services);
+		return internalViewProviderFactory(services);
 	}
 	
 	function internalViewProviderFactory(services) {
-			var instance = {};
-			instance.actions = {};
-			instance.methods = {};
+		var instance = {};
+		instance.methods = {};
 	
-			for (var serviceObject in services) {
-					var service = services[serviceObject];
+		for (var serviceObject in services) {
+			var service = services[serviceObject];
 	
-					if (!service.actions) continue;
+			if (!service.actions) continue;
 	
-					collectActions(service.actions, instance);
-					createActionsMethods(service.actions, service, instance);
-			}
+			createActionsMethods(service.actions, service, instance);
+		}
 	
-			return instance;
-	}
+		delete instance.actions;
 	
-	function collectActions(actions, instance) {
-			for (var action in actions) {
-					instance.actions[action] = actions[action];
-			}
+		return instance;
 	}
 	
 	function createActionsMethods(actions, service, instance) {
-			var _loop = function _loop(action) {
-					instance.methods[actions[action]] = function (params) {
-							return service.do(actions[action], params);
-					};
+		var _loop = function _loop(action) {
+			instance.methods[actions[action]] = function (params) {
+				return service.do(actions[action], params);
 			};
+		};
 	
-			for (var action in actions) {
-					_loop(action);
-			}
+		for (var action in actions) {
+			_loop(action);
+		}
 	}
 	
 	exports.default = publicViewProviderFactory;

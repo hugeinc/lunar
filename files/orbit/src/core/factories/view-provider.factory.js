@@ -18,6 +18,8 @@ function internalViewProviderFactory(services) {
 		createActionsMethods(service.actions, service, instance);
 	}
 
+	delete instance.actions;
+
 	return instance;
 }
 

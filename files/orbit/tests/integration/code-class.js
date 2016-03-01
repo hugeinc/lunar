@@ -1,6 +1,6 @@
 var test = require('blue-tape'),
 	Orbit = require('../../dist/index'),
-	SimpleObjectExample = require('./mocks/object'),
+	SimpleObjectExample = require('../mocks/object'),
 	Class = Orbit.Class,
 	Mediator = Orbit.Mediator;
 
