@@ -1,13 +1,36 @@
-import postal from 'postal';
-import 'postal.request-response';
-import Q from 'q';
+const subscriptions = {};
 
-postal.configuration.promise.createDeferred = function() {
-  return Q.defer();
+const channel = {
+	subscribe,
+	unsubscribe,
+	request
 };
 
-postal.configuration.promise.getPromise = function(dfd) {
-  return dfd.promise;
-};
+function subscribe(options) {
+	if(typeof subscriptions[options.topic] !== 'undefined') {
+		throw new Error('Topic already exist, exiting.');
+	}
 
-export default postal.channel('ORBIT');
+	subscriptions[options.topic] = options.callback;
+}
+
+function unsubscribe(subscription) {
+	if(typeof subscriptions[subscription.topic] === 'undefined') return false;
+	delete subscriptions[subscription.topic];
+}
+
+function request(envelope) {
+	if(typeof subscriptions[envelope.topic] === 'undefined') {
+		throw new Error('Topic does not exist, exiting.');
+	}
+
+	return new Promise(function(resolve, reject) {
+		try {
+			resolve(subscriptions[envelope.topic](envelope.data));
+		} catch(e) {
+			reject(e);
+		}
+	});
+}
+
+export default channel;

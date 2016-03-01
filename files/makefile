@@ -10,6 +10,9 @@ up:
 remake:
 	@docker rm -f orbit && docker rmi huge/orbit && make setup
 
+bundle:
+	@docker exec orbit npm start
+
 ssh:
 	@docker exec -i -t orbit bash
 
@@ -21,3 +24,21 @@ unit:
 
 integration:
 	@docker exec orbit npm run integration
+
+unit-pretty:
+	@docker exec orbit npm run unit-pretty
+
+integration-pretty:
+	@docker exec orbit npm run integration-pretty
+
+unit-diff:
+	@docker exec orbit npm run unit-diff
+
+integration-diff:
+	@docker exec orbit npm run integration-diff
+
+unit-nyan:
+	@docker exec orbit npm run unit-nyan
+
+integration-nyan:
+	@docker exec orbit npm run integration-nyan

@@ -1,63 +1,55 @@
-import stampit from 'stampit';
 import OrbitMediator from '../mediator/channel';
-import Q from 'q';
 
 let publicActionEmitterFactory = {
   extend
 };
 
 function extend(actions) {
-  let stamp = stampit({
-    props: {
-      service: {
-        actions
-      }
-    }
-  });
-
-  return stampit.compose(stamp, internalActionEmitterFactory())();
+  return internalActionEmitterFactory(actions);
 }
 
-function internalActionEmitterFactory() {
-  return stampit().init(function(construct) {
-    let instance = construct.instance;
+function internalActionEmitterFactory(actions) {
+	let instance = {};
+	instance.service = {};
+	instance.service.actions = actions;
+	instance.addMiddleware = addMiddleware;
+	instance.service.do = doAction;
 
-    instance.service = instance.service || {};
-    instance.addMiddleware = addMiddleware;
-    instance.service.do = doAction;
+	function addMiddleware(serviceMiddleware) {
+		let action = serviceMiddleware.action;
+		instance[action] = {};
+		instance[action].before = serviceMiddleware.before;
+		instance[action].after = serviceMiddleware.after;
+	}
 
-    function addMiddleware(serviceMiddleware) {
-      let action = serviceMiddleware.action;
-      instance[`before${action}`] = serviceMiddleware.before;
-      instance[`after${action}`] = serviceMiddleware.after;
-    }
+	function doAction(action, params) {
+		let promise,
+			beforeResponse;
 
-    function doAction(action, params) {
-      let promise = Q.defer(),
-          beforeResponse;
+		promise = new Promise(function(resolve, reject) {
+			try {
+				beforeResponse = executeBeforeCallback(action, params, instance);
+				resolve(handleBeforeResponseAndMakeRequest(action, beforeResponse, instance));
+			} catch (e) {
+				reject(e);
+			}
+		});
 
-      try {
-        beforeResponse = executeBeforeCallback(action, params, instance);
-        promise = handleBeforeReponseAndMakeRequest(action, beforeResponse, instance);
-      } catch (e) {
-        promise.reject(e);
-        promise = promise.promise;
-      }
+		return promise;
+	}
 
-      return promise;
-    }
-  });
+	return instance;
 }
 
 function executeBeforeCallback(action, params, instance) {
-  if (actionFunctionExists(`before${action}`, instance)) {
-    params = instance[`before${action}`](params);
+  if (middlewareActionFunctionExists(action, instance, 'before')) {
+    params = instance[action].before(params);
   }
 
   return params;
 }
 
-function handleBeforeReponseAndMakeRequest(action, response, instance) {
+function handleBeforeResponseAndMakeRequest(action, response, instance) {
   let promise;
 
   if (isPromise(response)) {
@@ -71,8 +63,8 @@ function handleBeforeReponseAndMakeRequest(action, response, instance) {
   return promise;
 }
 
-function actionFunctionExists(action, instance) {
-  return (typeof instance[action] !== 'undefined' && typeof instance[action] === 'function');
+function middlewareActionFunctionExists(action, instance, type) {
+  return (typeof instance[action] !== 'undefined' && typeof instance[action][type] !== 'undefined' && typeof instance[action][type] === 'function');
 }
 
 function isPromise(data) {
@@ -85,8 +77,8 @@ function requestApplication(action, params, instance) {
 }
 
 function extractProperDataFromRequest(action, data, instance) {
-  if (actionFunctionExists(`after${action}`, instance)) {
-    data = instance[`after${action}`](data);
+  if (middlewareActionFunctionExists(action, instance, 'after')) {
+    data = instance[action].after(data);
   }
 
   return data;
