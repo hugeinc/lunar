@@ -4,15 +4,16 @@ import _ from 'lodash';
 
 function extend(actions, middlewares) {
   let emitter = {},
-    dispatcher = {};
+    dispatcher = {},
+		middleware;
 
   _.extend(emitter, ActionEmitter.extend(actions));
 
-	if(typeof middlewares !== 'undefined' && middlewares.length) {
-		for (let middleware in middlewares) {
-			emitter.addMiddleware(middlewares[middleware]);
-		}
-	}
+  if (typeof middlewares !== 'undefined' && middlewares.length) {
+    for (middleware in middlewares) {
+      emitter.addMiddleware(middlewares[middleware]);
+    }
+  }
 
   _.extend(dispatcher, ViewProvider.extend([emitter.service]));
 

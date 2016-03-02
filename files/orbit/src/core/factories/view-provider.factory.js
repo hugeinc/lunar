@@ -3,24 +3,24 @@ let publicViewProviderFactory = {
 };
 
 function extend(services) {
-	return internalViewProviderFactory(services);
+  return internalViewProviderFactory(services);
 }
 
 function internalViewProviderFactory(services) {
-	let instance = {};
-	instance.methods = {};
+  let instance = {};
+  instance.methods = {};
 
-	for (let serviceObject in services) {
-		let service = services[serviceObject];
+  for (let serviceObject in services) {
+    let service = services[serviceObject];
 
-		if (!service.actions) continue;
+    if (!service.actions) continue;
 
-		createActionsMethods(service.actions, service, instance);
-	}
+    createActionsMethods(service.actions, service, instance);
+  }
 
-	delete instance.actions;
+  delete instance.actions;
 
-	return instance;
+  return instance;
 }
 
 function createActionsMethods(actions, service, instance) {

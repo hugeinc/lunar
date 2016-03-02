@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "bundle": "webpack -d --watch | ./reporter-filter",
-    "jshint": "./node_modules/jshint/bin/jshint .",
-    "jscs": "./node_modules/jscs/bin/jscs .",
-    "jscsfix": "./node_modules/jscs/bin/jscs . --fix",
+    "jshint": "./node_modules/jshint/bin/jshint ./orbit/src",
+    "jscs": "./node_modules/jscs/bin/jscs ./orbit/src",
+    "jscsfix": "./node_modules/jscs/bin/jscs ./orbit/src --fix",
     "unit": "./node_modules/.bin/blue-tape orbit/tests/unit/*.js",
     "integration": "./node_modules/.bin/blue-tape orbit/tests/integration/*.js",
     "unit-pretty": "./node_modules/.bin/blue-tape orbit/tests/unit/*.js | ./node_modules/.bin/faucet",
