@@ -1,5 +1,5 @@
 var test = require('blue-tape'),
-	ActionEmitter = require('../../dist/index').Orbit.ActionEmitter,
+	ActionEmitter = require('../../dist/orbit').Orbit.ActionEmitter,
 	ActionsSymbols = require('../mocks/actions-symbols');
 
 test('ActionEmitter should be an object', function(t) {

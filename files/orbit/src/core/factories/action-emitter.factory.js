@@ -9,36 +9,36 @@ function extend(actions) {
 }
 
 function internalActionEmitterFactory(actions) {
-	let instance = {};
-	instance.service = {};
-	instance.service.actions = actions;
-	instance.addMiddleware = addMiddleware;
-	instance.service.do = doAction;
+  let instance = {};
+  instance.service = {};
+  instance.service.actions = actions;
+  instance.addMiddleware = addMiddleware;
+  instance.service.do = doAction;
 
-	function addMiddleware(serviceMiddleware) {
-		let action = serviceMiddleware.action;
-		instance[action] = {};
-		instance[action].before = serviceMiddleware.before;
-		instance[action].after = serviceMiddleware.after;
-	}
+  function addMiddleware(serviceMiddleware) {
+    let action = serviceMiddleware.action;
+    instance[action] = {};
+    instance[action].before = serviceMiddleware.before;
+    instance[action].after = serviceMiddleware.after;
+  }
 
-	function doAction(action, params) {
-		let promise,
-			beforeResponse;
+  function doAction(action, params) {
+    let promise,
+    beforeResponse;
 
-		promise = new Promise(function(resolve, reject) {
-			try {
-				beforeResponse = executeBeforeCallback(action, params, instance);
-				resolve(handleBeforeResponseAndMakeRequest(action, beforeResponse, instance));
-			} catch (e) {
-				reject(e);
-			}
-		});
+    promise = new Promise(function (resolve, reject) {
+      try {
+        beforeResponse = executeBeforeCallback(action, params, instance);
+        resolve(handleBeforeResponseAndMakeRequest(action, beforeResponse, instance));
+      } catch (e) {
+        reject(e);
+      }
+    });
 
-		return promise;
-	}
+    return promise;
+  }
 
-	return instance;
+  return instance;
 }
 
 function executeBeforeCallback(action, params, instance) {
@@ -64,16 +64,20 @@ function handleBeforeResponseAndMakeRequest(action, response, instance) {
 }
 
 function middlewareActionFunctionExists(action, instance, type) {
-  return (typeof instance[action] !== 'undefined' && typeof instance[action][type] !== 'undefined' && typeof instance[action][type] === 'function');
+  return (typeof instance[action] !== 'undefined' &&
+					typeof instance[action][type] !== 'undefined' &&
+					typeof instance[action][type] === 'function');
 }
 
 function isPromise(data) {
-  return typeof data !== 'undefined' && typeof data.then !== 'undefined' && typeof data.then === 'function';
+  return (typeof data !== 'undefined' &&
+					typeof data.then !== 'undefined' &&
+					typeof data.then === 'function');
 }
 
 function requestApplication(action, params, instance) {
   return OrbitMediator.request({ topic: action, data: params })
-    .then( data => extractProperDataFromRequest(action, data, instance) );
+    .then(data => extractProperDataFromRequest(action, data, instance));
 }
 
 function extractProperDataFromRequest(action, data, instance) {

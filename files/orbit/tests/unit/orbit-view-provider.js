@@ -1,7 +1,7 @@
 var test = require('blue-tape'),
-	ActionEmitter = require('../../dist/index').Orbit.ActionEmitter,
+	ActionEmitter = require('../../dist/orbit').Orbit.ActionEmitter,
 	ActionsSymbols = require('../mocks/actions-symbols'),
-	ViewProvider = require('../../dist/index').Orbit.ViewProvider;
+	ViewProvider = require('../../dist/orbit').Orbit.ViewProvider;
 
 test('ViewProvider should be an object', function(t) {
 	t.plan(1);

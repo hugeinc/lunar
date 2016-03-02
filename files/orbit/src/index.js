@@ -7,14 +7,14 @@ import Dispatcher from './core/factories/dispatcher.factory';
 import ActionsCreator from './core/factories/actions-creator.factory';
 
 export default {
-	Orbit: {
-		Mediator,
-		Class,
-		ViewProvider,
-		ActionEmitter,
-		Dispatcher,
-		ActionsCreator,
-		Controller: ViewProvider,
-		Service: ActionEmitter
-	}
+  Orbit: {
+    Mediator,
+    Class,
+    ViewProvider,
+    ActionEmitter,
+    Dispatcher,
+    ActionsCreator,
+    Controller: ViewProvider,
+    Service: ActionEmitter
+  }
 };
