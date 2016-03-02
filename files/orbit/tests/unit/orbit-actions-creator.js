@@ -1,5 +1,5 @@
 var test = require('blue-tape'),
-	ActionsCreator = require('../../dist/index').Orbit.ActionsCreator,
+	ActionsCreator = require('../../dist/orbit').Orbit.ActionsCreator,
 	ActionsStrings = require('../mocks/actions-string');
 
 test('ActionsCreator should be an object', function(t) {

@@ -1,6 +1,6 @@
 var test = require('blue-tape'),
 	_ = require('lodash'),
-	Orbit = require('../../dist/index').Orbit,
+	Orbit = require('../../dist/orbit').Orbit,
 	SimpleObjectExample = require('../mocks/object');
 
 Orbit.Mediator.unsubscribe({ topic: SimpleObjectExample.actions.ONE });

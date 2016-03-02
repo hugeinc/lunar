@@ -19,7 +19,7 @@ module.exports = {
 
   output: {
     path: DIST,
-    filename: 'index.js',
+    filename: 'orbit.js',
     libraryTarget: 'umd'
   },
 
