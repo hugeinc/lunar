@@ -51,3 +51,6 @@ unit-nyan:
 
 integration-nyan:
 	@docker exec orbit npm run integration-nyan
+
+unit-coverage:
+	@docker exec orbit npm run unit-coverage

@@ -1,6 +1,6 @@
-var test = require('blue-tape'),
-	Dispatcher = require('../../dist/orbit').Orbit.Dispatcher,
-	ActionsSymbols = require('../mocks/actions-symbols');
+import test from 'blue-tape';
+import Dispatcher from '../../src/core/factories/dispatcher.factory';
+import ActionsSymbols from '../mocks/actions-symbols';
 
 test('Dispatcher should be a function', function(t) {
 	t.plan(1);
