@@ -1,7 +1,10 @@
 import OrbitMediator from '../mediator/channel';
+import Logger from '../logger/logger';
 
 let publicClassFactory = {
   extend: function (object) {
+		Logger.log('[ApplicationClass] Extending ' + JSON.stringify(object) + '.', 'ALL');
+
     return internalClassFactory(object);
   }
 };
