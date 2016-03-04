@@ -1,7 +1,8 @@
-var test = require('blue-tape'),
-	ActionEmitter = require('../../dist/orbit').Orbit.ActionEmitter,
-	ActionsSymbols = require('../mocks/actions-symbols'),
-	ViewProvider = require('../../dist/orbit').Orbit.ViewProvider;
+import test from 'blue-tape';
+import { Orbit } from '../../src/index';
+import ActionsSymbols from '../mocks/actions-symbols';
+const ActionEmitter = Orbit.ActionEmitter;
+const ViewProvider = Orbit.ViewProvider;
 
 test('ViewProvider should be an object', function(t) {
 	t.plan(1);

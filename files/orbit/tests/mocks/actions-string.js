@@ -1,4 +1,4 @@
-module.exports = {
-	ONE: 'ONE',
-	TWO: 'TWO'
+export default {
+  ONE: 'ONE',
+  TWO: 'TWO'
 };
