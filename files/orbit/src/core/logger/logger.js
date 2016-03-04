@@ -38,8 +38,16 @@ function log(message, messageLevel) {
 	}
 }
 
+function getDateString() {
+	let now = new Date(),
+		period = now.toLocaleString().slice(-3);
+
+	return now.toLocaleString().replace(period, ':' + now.getMilliseconds()) + period;
+}
+
 function output(message) {
-	let finalMessage = '*' + levelString + '* ' + message;
+	let finalMessage = `[${levelString}] ${getDateString()}:\n${message}\n`;
+
 	console.log(finalMessage);
 	return finalMessage;
 }
