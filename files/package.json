@@ -17,7 +17,8 @@
     "unit-nyan": "./node_modules/.bin/babel-node ./node_modules/.bin/blue-tape orbit/tests/unit/*.js | ./node_modules/.bin/tap-nyan",
     "integration-nyan": "./node_modules/.bin/babel-node ./node_modules/.bin/blue-tape orbit/tests/integration/*.js | ./node_modules/.bin/tap-nyan",
     "unit-coverage": "./node_modules/.bin/babel-node ./node_modules/.bin/babel-istanbul cover ./node_modules/.bin/blue-tape orbit/tests/unit/*.js",
-		"integration-coverage": "./node_modules/.bin/babel-node ./node_modules/.bin/babel-istanbul cover ./node_modules/.bin/blue-tape orbit/tests/integration/*.js"
+    "integration-coverage": "./node_modules/.bin/babel-node ./node_modules/.bin/babel-istanbul cover ./node_modules/.bin/blue-tape orbit/tests/integration/*.js",
+    "coverage": "./node_modules/.bin/babel-node ./node_modules/.bin/babel-istanbul cover ./node_modules/.bin/blue-tape orbit/tests/**/*.js"
   },
   "author": "Caio Vaccaro, Jonas Mendes",
   "license": "MIT",
