@@ -1,5 +1,5 @@
-var test = require('blue-tape'),
-	Orbit = require('../../dist/orbit').Orbit;
+import test from 'blue-tape';
+import { Orbit } from '../../src/index';
 
 test('Orbit should be an object', function(t) {
 	t.plan(1);

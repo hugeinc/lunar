@@ -1,4 +1,4 @@
-var actionStrings = require('./actions-string');
-var ActionsCreator = require('../../dist/orbit').Orbit.ActionsCreator;
+import actionStrings from './actions-string';
+import ActionsCreator from '../../src/core/factories/actions-creator.factory';
 
-module.exports = ActionsCreator(actionStrings);
+export default ActionsCreator(actionStrings);
