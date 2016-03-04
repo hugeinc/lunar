@@ -1,17 +1,17 @@
-var test = require('blue-tape'),
-	_ = require('lodash'),
-	Orbit = require('../../dist/orbit').Orbit,
-	SimpleObjectExample = require('../mocks/object');
+import test from 'blue-tape';
+import _ from 'lodash';
+import { Orbit } from '../../src/index';
+import SimpleObjectExample from '../mocks/object';
 
 Orbit.Mediator.unsubscribe({ topic: SimpleObjectExample.actions.ONE });
 Orbit.Mediator.unsubscribe({ topic: SimpleObjectExample.actions.TWO });
 
-var Example = Orbit.Class.extend(SimpleObjectExample);
+let Example = Orbit.Class.extend(SimpleObjectExample);
 
-var ModelExample = {
+let ModelExample = {
 	state: { text: '' },
 	initialize: function () {
-		var model = this;
+		let model = this;
 		_.extend(this, Orbit.ActionEmitter.extend(Example.actions));
 
 		this.addMiddleware({
@@ -23,10 +23,10 @@ var ModelExample = {
 	}
 };
 
-var ModelWithBeforeMiddlewareExample = {
+let ModelWithBeforeMiddlewareExample = {
 	state: { text: '' },
 	initialize: function () {
-		var model = this;
+		let model = this;
 		_.extend(this, Orbit.ActionEmitter.extend(Example.actions));
 
 		this.addMiddleware({
@@ -41,7 +41,7 @@ var ModelWithBeforeMiddlewareExample = {
 	}
 };
 
-var ViewExample = {
+let ViewExample = {
 	initialize: function(model) {
 		_.extend(this, Orbit.ViewProvider.extend([model.service]));
 	},
