@@ -1,6 +1,15 @@
 import test from 'blue-tape';
 import Logger from '../../src/core/logger/logger';
 
+function testSuccessfulSingleLog(message, level, t) {
+	let log;
+
+	log = Logger.log({ message: message, level: level });
+
+	t.equal(log.includes(`[${level}]`), true);
+	t.equal(log.includes(message), true);
+}
+
 test('Logger should be an object', function(t) {
 	t.plan(1);
 
@@ -44,15 +53,16 @@ test('Logger.log should not return if level is different than the one chosen', f
 
 	Logger.setLevel('OFF');
 
-	t.equal(Logger.log('Testing a message', 'WARN'), false);
+	t.equal(Logger.log({ message: 'Testing a message', level: 'WARN' }), undefined);
 });
 
 test('Logger.log should return if level is equal than the one chosen', function(t) {
-	t.plan(1);
+	let level = 'WARN';
 
-	Logger.setLevel('WARN');
+	t.plan(2);
 
-	t.equal(Logger.log('Testing a message', 'WARN'), '[WARN] Testing a message');
+	Logger.setLevel(level);
+	testSuccessfulSingleLog('Testing a message', level, t);
 });
 
 test('Logger.log should show no log if OFF', function(t) {
@@ -60,17 +70,28 @@ test('Logger.log should show no log if OFF', function(t) {
 
 	Logger.setLevel('OFF');
 
-	t.equal(Logger.log('Testing a message', 'WARN'), false);
+	t.equal(Logger.log({ message: 'Testing a message', level: 'WARN' }), undefined);
 });
 
 test('Logger.log should show only FATAL if set FATAL', function(t) {
-	t.plan(4);
+	t.plan(5);
 
 	Logger.setLevel('FATAL');
 
-	t.equal(Logger.log('Testing a message', 'FATAL'), '[FATAL] Testing a message');
-	t.equal(Logger.log('Testing a message', 'ERROR'), undefined);
-	t.equal(Logger.log('Testing a message', 'WARN'), undefined);
-	t.equal(Logger.log('Testing a message', 'ALL'), undefined);
+	testSuccessfulSingleLog('Testing a message', 'FATAL', t);
+	t.equal(Logger.log({ message: 'Testing a message', level: 'ERROR' }), undefined);
+	t.equal(Logger.log({ message: 'Testing a message', level: 'WARN' }), undefined);
+	t.equal(Logger.log({ message: 'Testing a message', level: 'ALL' }), undefined);
 
+});
+
+test('Logger.log should show ALL logs if ALL is set', function(t) {
+	t.plan(8);
+
+	Logger.setLevel('ALL');
+
+	testSuccessfulSingleLog('Testing a message', 'FATAL', t);
+	testSuccessfulSingleLog('Testing a message', 'ERROR', t);
+	testSuccessfulSingleLog('Testing a message', 'WARN', t);
+	testSuccessfulSingleLog('Testing a message', 'ALL', t);
 });

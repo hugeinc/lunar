@@ -28,14 +28,35 @@ let Logger = {
 	log
 };
 
-function log(message, messageLevel) {
+function log(options) {
+	if(Array.isArray(options)) {
+		return multipleLogs(options);
+	} else if(typeof options === 'object') {
+		return singleLog(options);
+	}
+}
+
+function multipleLogs(logs) {
+	for(let i = 0; i < logs.length; i++) {
+		singleLog(logs[i]);
+	}
+}
+
+function singleLog({ message=null, level='OFF' } = {}) {
 	let levelsKeys = Object.keys(levels);
 
-	if(levelString === 'OFF') return false;
+	if(levelString === 'OFF') return undefined;
 
-	if(levelsKeys.indexOf(levelString) >= levelsKeys.indexOf(messageLevel)) {
-		return output(message);
+	if(levelsKeys.indexOf(levelString) >= levelsKeys.indexOf(level)) {
+		return output(message, level);
 	}
+}
+
+function output(message, level) {
+	let finalMessage = `[${level}] ${getDateString()}\n${message}\n`;
+
+	console.log(finalMessage);
+	return finalMessage;
 }
 
 function getDateString() {
@@ -43,13 +64,6 @@ function getDateString() {
 		period = now.toLocaleString().slice(-3);
 
 	return now.toLocaleString().replace(period, ':' + now.getMilliseconds()) + period;
-}
-
-function output(message) {
-	let finalMessage = `[${levelString}] ${getDateString()}:\n${message}\n`;
-
-	console.log(finalMessage);
-	return finalMessage;
 }
 
 export default Logger;
