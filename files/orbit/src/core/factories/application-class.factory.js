@@ -3,7 +3,7 @@ import Logger from '../logger/logger';
 
 let publicClassFactory = {
   extend: function (object) {
-		Logger.log('[ApplicationClass] Extending ' + JSON.stringify(object) + '.', 'ALL');
+		Logger.log({ message: '[ApplicationClass] Extending ' + JSON.stringify(object) + '.', level: 'ALL' });
 
     return internalClassFactory(object);
   }

@@ -53,7 +53,7 @@ function singleLog({ message=null, level='OFF' } = {}) {
 }
 
 function output(message, level) {
-	let finalMessage = `[${level}] ${getDateString()}\n${message}\n`;
+	let finalMessage = `[Orbit.Logger][${level}] ${getDateString()}\n${message}\n`;
 
 	console.log(finalMessage);
 	return finalMessage;

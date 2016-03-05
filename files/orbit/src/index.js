@@ -8,7 +8,7 @@ import ActionsCreator from './core/factories/actions-creator.factory';
 
 export default {
   Orbit: {
-		Logger,
+    Logger,
     Mediator,
     Class,
     ViewProvider,
