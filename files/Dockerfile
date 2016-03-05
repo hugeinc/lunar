@@ -4,7 +4,7 @@ RUN mkdir -p /app
 
 COPY . /app
 WORKDIR /app
-RUN npm i && npm i --save-dev
+RUN npm i
 
 EXPOSE 4000
 
