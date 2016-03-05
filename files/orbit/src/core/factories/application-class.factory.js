@@ -33,13 +33,13 @@ function registerActions(actions, instance) {
         callback: (data) => {
           let response;
 
-					Logger.log(`[ApplicationClass.callback] Action ${action} callback called with ${data}`, 'ALL');
+					Logger.log(`[ApplicationClass.callback] Action ${actions[action].toString()} callback called with ${data}`, 'ALL');
 
           try {
-          	Logger.log(`[ApplicationClass.callback] ${action} Promise resolved`, 'ALL');
+          	Logger.log(`[ApplicationClass.callback] ${actions[action].toString()} Promise resolved`, 'ALL');
             response = instance[actions[action]](data);
           } catch (e) {
-          	Logger.log(`[ApplicationClass.callback] ${action} Promise rejected ${e}`, 'ERROR');
+          	Logger.log(`[ApplicationClass.callback] ${actions[action].toString()} Promise rejected ${e}`, 'ERROR');
             response = e;
           }
 

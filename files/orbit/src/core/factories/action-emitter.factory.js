@@ -30,15 +30,15 @@ function internalActionEmitterFactory(actions) {
     let promise,
     beforeResponse;
 
-    Logger.log({ message: `[ActionEmitter.doAction] Calling action ${action} with ${params}`, level: 'ALL' });
+    Logger.log({ message: `[ActionEmitter.doAction] Calling action ${action.toString()} with ${params}`, level: 'ALL' });
 
     promise = new Promise(function (resolve, reject) {
       try {
         beforeResponse = executeBeforeCallback(action, params, instance);
-        Logger.log({ message: `[ActionEmitter.doAction] Promise ${action} resolved.`, level: 'ALL' });
+        Logger.log({ message: `[ActionEmitter.doAction] Promise ${action.toString()} resolved.`, level: 'ALL' });
         resolve(handleBeforeResponseAndMakeRequest(action, beforeResponse, instance));
       } catch (e) {
-      	Logger.log({ message: `[ActionEmitter.doAction] Promise ${action} rejected ${e}`, level: 'ERROR' });
+      	Logger.log({ message: `[ActionEmitter.doAction] Promise ${action.toString()} rejected ${e}`, level: 'ERROR' });
         reject(e);
       }
     });
@@ -88,7 +88,7 @@ function isPromise(data) {
 }
 
 function requestApplication(action, params, instance) {
-	Logger.log({ message: `[ActionEmitter.requestApplication] Actually requesting application for ${action} with ${params}`, level: 'ALL' });
+	Logger.log({ message: `[ActionEmitter.requestApplication] Actually requesting application for ${action.toString(0)} with ${params}`, level: 'ALL' });
   return OrbitMediator.request({ topic: action, data: params })
     .then(data => extractProperDataFromRequest(action, data, instance));
 }

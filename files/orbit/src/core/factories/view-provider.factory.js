@@ -16,8 +16,6 @@ function internalViewProviderFactory(services) {
   for (let serviceObject in services) {
     let service = services[serviceObject];
 
-    Logger.log({ message: `[ViewProvider.internalViewProviderFactory] Attempting to create action methods for ${serviceObject}`, level: 'ALL' });
-
     if (!service.actions) {
     	Logger.log({ message: `[ViewProvider.internalViewProviderFactory] No actions in service ${serviceObject}`, level: 'WARN' });
     	continue;
@@ -34,7 +32,7 @@ function internalViewProviderFactory(services) {
 function createActionsMethods(actions, service, instance) {
   for (let action in actions) {
     instance.methods[actions[action]] = params => service.do(actions[action], params);
-    Logger.log({ message: `[ViewProvider.createActionsMethods] Created action method for ${action} - ${serviceObject}`, level: 'ALL' });
+    Logger.log({ message: `[ViewProvider.createActionsMethods] Created action method for ${action} - ${service}`, level: 'ALL' });
   }
 }
 
