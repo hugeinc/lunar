@@ -2,7 +2,8 @@ import { Orbit } from '../../src/index';
 
 const RandomGenerator = {
 	randomObjects: randomObjects,
-	randomObject: randomObject
+	randomObject: randomObject,
+	randomMiddleware: randomMiddleware
 };
 
 function randomObjects(numberOfObjects) {
@@ -82,6 +83,37 @@ function randomString() {
 	return String.fromCharCode(65 + randomNumber()) + Date.now();
 }
 
-// function randomMiddleware() {}
+function randomMiddleware(actions) {
+	let middlewares = [];
+
+	for(let action in actions) {
+		let randomMiddlewaresNumber = Math.floor(Math.random() * 2) + 1,
+			middleware = {};
+
+		middleware.action = actions[action];
+		middleware.before = randomMiddlewareFunction();
+
+		if(randomMiddlewaresNumber === 2) {
+			middleware.after = randomMiddlewareFunction();
+		}
+
+		middlewares.push(middleware);
+	}
+
+	return middlewares;
+}
+
+function randomMiddlewareFunction() {
+	let randomTimeout = Math.floor(Math.random() * 10000) + 1;
+
+	return function(data) {
+		return new Promise(function(resolve, reject) {
+			setTimeout(function() {
+				console.log('After ' + randomTimeout + ' timeout.');
+				resolve(data);
+			}, randomTimeout);
+		})
+	}
+}
 
 export default RandomGenerator;
