@@ -1,6 +1,5 @@
 # Orbit
 ### v0.2.0
-#### In process, merging repos...
 The business logic of your app should be free of framework boundaries and specifications. In order to achieve that, your logic should be as stateless as possible and reside in a different layer. Read more for further instructions.
 
 ## Development
