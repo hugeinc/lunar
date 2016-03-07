@@ -3,14 +3,14 @@
 Making the core of your application framework-independent.
 
 ## Index
-- MVC frameworks and the "oponnent", the problem: Refactoring
-- What we propose
-- Angular Example
-- Wiki
-- Installing
-- Contributing
+- **[MVC frameworks and the "oponnent", the problem: Refactoring]("#mvc")**
+- **[What we propose]("#proposal")**
+- **[Angular Example]("#angular")**
+- **[Wiki](https://github.com/hugeinc/orbit/wiki/)**
+- **[Installing]("#installing")**
+- **[Contributing]("#contributing")**
 
-## MVC frameworks and the "opponent", the problem: Refactoring
+## MVC frameworks and the "opponent", the problem: Refactoring <a href="#mvc"></a>
 Usual frameworks propose a good enough separation of concerns by the three major areas that we deal with:
 
 - Data
@@ -23,12 +23,13 @@ Functional, Reactive programming and alike means a tremendous evolution compared
  
 Refactoring is a reality nowadays, specially when developing big and long lasting applications. The benefits from Client-Side applications are very clear to us but the number of frameworks and their updates rain on us every week. We might feel tempted to test or do proof of concepts on different platforms, frameworks and philosophies but it seems too difficult that we can stay stuck into the same old application for years.
 
-## What we propose
-We just have one concern here, the C of MVC. Controllers usually holds the Business Logic of your application, it is what distinguish your product from others. Frameworks do have their role, and makes view rendering and model sincronization a lot easier. It would just be even easier for us if the Business Logic could be decoupled from tools and easily migrated when needed.
+## What we propose <a href="#proposal"></a>
+We just have one concern here, the C of MVC. Controllers usually holds the Business Logic of your application, it is what distinguish your product from others. Frameworks do have their role, and makes view rendering and model sincronization a lot easier. It would just be even easier for us if the Business Logic could be decoupled from tools and easily migrated when needed. So, use any framework or library you want, but keep your core code agnostic.
 
 First, you should separate "framework-code" from "application-code". Frameworks should deal with HTTP requests, view/templaing/virtual-dom rendering, data synchronization and/or database integration if needed. Application should be just functions, pure functions in the best case scenario. Let's see an example.
 
-## Angular Example
+## Angular Example <a href="#angular"></a>
+The Angular team saw that M, V and C are not enough for code decoupling. They added a few extra things like Services, Factories and Providers. Whenever you have code that you will reuse in multiple places, put them into Services. This is very helpful but still coupled. Refactoring means changing your Service, Controller and Directive at least.
 
 ![](images/ApplicationLayer.png)
 [Open full size version](images/ApplicationLayerGraph.pdf)
@@ -66,32 +67,25 @@ You can divide this file into multiple modules as needed, but all functionalitie
 
 Your file will look something like this:
 
-```
-define('Home', ['orbit', './actions'], function(Orbit, actions) {
-	var props = {},
-		methods = {};
+```javascript
+// Import your actions constant file
+import { Orbit } from 'orbit';
+import actions from './actions';
 
-	props.title = 'Hello.';
-
-	methods.privateMethod = function() {
-		this.anotherPrivateMethod();
-	};
-
-	methods.anotherPrivateMethod = function() {
-		console.log('privateMethod called anotherPrivateMethod');
-	};
-
-	methods[actions.GET_TITLE] = function(data) {
-		// You can modify, return data or throw error.
-
-		return this.title + ' | ' + data;
-	};
-
-	return Orbit.Class.extend({
-		props: props,
-		methods: methods,
-		actions: actions
-	});
+// Your core feature code, an object with pure functions
+export default Orbit.Class.extend({
+	// You can have private properties if you want
+	title: 'Orbit',
+	actions: actions,
+	[actions.FORMAT_TITLE]: function(data) {
+		return data + ' ' + this.title;
+	},
+	[actions.INCREMENT]: function(data) {
+		return ++data;
+	},
+	[actions.DECREMENT]: function(data) {
+		return --data;
+	}
 });
 ```
 
@@ -99,20 +93,21 @@ define('Home', ['orbit', './actions'], function(Orbit, actions) {
 Refactors happen all the time. In order to change your code in just one place we use actions constants that will set and get functions for you.
 All public functions from the application that you want the framework to be able to access should have an action:
 
-```
-define('actions', function() {
-   return {
-       GET_TITLE: 'FetchTitleFromServer'
-   };
+```javascript
+import { Orbit } from 'orbit';
+
+export default Orbit.ActionsCreator({
+	FORMAT_TITLE: 'FORMAT_TITLE',
+	INCREMENT: 'INCREMENT',
+	DECREMENT: 'DECREMENT'
 });
 ```
 
-**An Angular example:**  
-Let's assume that you consider the Angular Service the holder of logic, Controller the scope provider and the Directive where actions get fired.
+Let's assume that you consider the Angular Service the holder of logic. Controller the scope provider and the Directive where actions get fired.
 
-```  
+```javascript
 // Service
-// After .extend the service can add middlewares
+// After .extend, the service can add middlewares
 // And have the actions and methods built into itself
 // through the Orbit factory
 angular.module('app.home')
@@ -121,15 +116,18 @@ angular.module('app.home')
 function HomeService($http) {
     angular.extend(this, Orbit.Service.extend(Home.actions));
 
+	// This is optional.
+	// You might want to execute something before
+	// your core code is run, or after.
     this.addMiddleware({
-        action: Home.actions.GET_TITLE,
+        action: Home.actions.FORMAT_TITLE,
         before: function(data) {
-             return $http({
-                 method: 'GET',
-                 url: 'http://localhost:4000/posts'
-             });
-            // throw 'pééé';
-            return 'bla ' + data;
+        	// Orbit will send the Promise
+        	// result to your code.
+            return $http({
+                method: 'GET',
+                url: 'http://localhost:4000/posts'
+            });
         }
     });
 
@@ -138,11 +136,11 @@ function HomeService($http) {
 
 HomeService.$inject = ['$http'];
 ```
-```
+```javascript
 // Controller
-// The controller doesn't know about the Orbit,
+// The controller doesn't know about Orbit,
 // it just uses the service.
-// After .extend it gets the actions and methods bound into its scope.
+// After .extend, it gets the methods bound into its scope.
 angular.module('app.home')
     .controller('HomeController', HomeController);
 
@@ -156,17 +154,17 @@ function HomeController(HomeService) {
 
 HomeController.$inject = ['HomeService'];
 ```
-```
+```javascript
 // Page template
 // We pass actions and methods to the directive.
-bv-header(title="vm.title", actions="vm.actions", methods="vm.methods")
+header(title="vm.title", methods="vm.methods")
 ```
-```
+```javascript
 // Directive
 // The directive just calls the method which return a promise.
 angular
     .module('app.header')
-    .directive('bvHeader', HeaderDirective);
+    .directive('header', HeaderDirective);
 
 function HeaderDirective() {
     var directive = {
@@ -175,7 +173,7 @@ function HeaderDirective() {
             var actions = scope.actions;
 
             scope.getTitle = function(params) {
-                scope.methods[actions.GET_TITLE](params).then(function(data) {
+                scope.methods[actions.FORMAT_TITLE](params).then(function(data) {
                     scope.title = data;
                     if (!scope.$root.$$phase) scope.$digest();
                 }, function(err) {
@@ -185,7 +183,6 @@ function HeaderDirective() {
         },
         scope: {
             title: '=',
-            actions: '=',
             methods: '='
         },
         restrict: 'E'
@@ -196,12 +193,21 @@ function HeaderDirective() {
 
 ```
 
-Want to know more? Head to the wiki to see API explanations, React, Backbone and other examples.
+Want to know more? Head to the [wiki](https://github.com/hugeinc/orbit/wiki) to see API explanations, React, Backbone and other examples.
 
-## Installing
-Just download the orbit/files/dist/orbit.js file and placeit in your project.
+## Installing <a href="#installing"></a>
+- Download the [orbit/files/dist/orbit.js](https://github.com/hugeinc/orbit/blob/develop/files/orbit/dist/orbit.js) file and place it in your project.
+- Orbit is under UMD. You can require, import it, or use it as a global variable
 
-## Contributing? Development instructions
+```javascript
+const Orbit = require('vendor/orbit');
+// or
+import { Orbit } from 'vendor/orbit';
+// or global variable
+console.log(Orbit);
+```
+
+## Contributing? Development instructions <a href="#contributing"></a>
 
 * Install [Docker](https://docs.docker.com/mac/step_one/)*
 
