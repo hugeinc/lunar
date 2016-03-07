@@ -2,7 +2,15 @@
 ### v0.2.0
 Making the core of your application framework-independent.
 
-## MVC frameworks and the "opponent"
+## Index
+- MVC frameworks and the "oponnent", the problem: Refactoring
+- What we propose
+- Angular Example
+- Wiki
+- Installing
+- Contributing
+
+## MVC frameworks and the "opponent", the problem: Refactoring
 Usual frameworks propose a good enough separation of concerns by the three major areas that we deal with:
 
 - Data
