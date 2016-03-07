@@ -1,49 +1,31 @@
 # Orbit
 ### v0.2.0
-The business logic of your app should be free of framework boundaries and specifications. In order to achieve that, your logic should be as stateless as possible and reside in a different layer. Read more for further instructions.
+Making the core of your application framework-independent.
 
-## Development
+## MVC frameworks and the "opponent"
+Usual frameworks propose a good enough separation of concerns by the three major areas that we deal with:
 
-* Install [Docker](https://docs.docker.com/mac/step_one/)*
-* Open the Launchpad and locate the Docker Quickstart Terminal icon and click it.*
+- Data
+- Logic
+- User Interface
 
-If you are doing this for the first time:
+They get separated into Model Controller and View, which is far better than the mixed cake that we rarely see nowadays. We can say that from bottom up, things change less, progressively: View changes a lot, Controller changes often and Models change rarely. Best case scenario those 3 are decoupled in a way we can reuse M, V and C. Often, we need to do parallel actions and mix Controllers features. That is when things get complicated.
 
-```
-$ make setup
-```
+Functional, Reactive programming and alike means a tremendous evolution compared to MVC, when regarding scaling and long-term projects. But the main concern we are trying to deal with here is still in place: Refactoring. We just want to propose an easier way to refactor.
+ 
+Refactoring is a reality nowadays, specially when developing big and long lasting applications. The benefits from Client-Side applications are very clear to us but the number of frameworks and their updates rain on us every week. We might feel tempted to test or do proof of concepts on different platforms, frameworks and philosophies but it seems too difficult that we can stay stuck into the same old application for years.
 
-Then:
+## What we propose
+We just have one concern here, the C of MVC. Controllers usually holds the Business Logic of your application, it is what distinguish your product from others. Frameworks do have their role, and makes view rendering and model sincronization a lot easier. It would just be even easier for us if the Business Logic could be decoupled from tools and easily migrated when needed.
 
-```
-$ make up
-```
+First, you should separate "framework-code" from "application-code". Frameworks should deal with HTTP requests, view/templaing/virtual-dom rendering, data synchronization and/or database integration if needed. Application should be just functions, pure functions in the best case scenario. Let's see an example.
 
-Executing commands:
-
-```
-docker exec orbit npm start
-```
+## Angular Example
 
 ![](images/ApplicationLayer.png)
 [Open full size version](images/ApplicationLayerGraph.pdf)
 
-## Flow
-
-### Setup
-1- Your Application Code > ActionsCreator  
-2- Your Application Code > Orbit.Class > which calls: Mediator  
-
-### Trigger (decoupled)
-1- Your View Code > ViewProvider > which calls: ActionEmitter > which calls: Mediator > which calls: Class (Your Application Code)  
-2- And goes back: Mediator > ActionEmitter > ViewProvider > Your View Code  
-
-### Trigger (coupled)
-1- Your View Code > Dispatcher (ViewProvider + ActionEmitter) > which calls: Mediator > which calls: Class (Your Application Code)  
-2- And goes back: Mediator > Dispatcher > Your View Code  
-
-
-Example structure:  
+Structure:  
 
 ```
 /client  
@@ -52,11 +34,9 @@ Example structure:
 ```
 
 ## The orbit folder
-Inside the orbit folder you will find the core folder and your own custom folder, by feature.
 
 ```
 /orbit
-	/core
 	/folder-by-feature
 	/eg-home
 	/simulator
@@ -79,7 +59,7 @@ You can divide this file into multiple modules as needed, but all functionalitie
 Your file will look something like this:
 
 ```
-define('Home', ['orbit/core', './actions'], function(Orbit, actions) {
+define('Home', ['orbit', './actions'], function(Orbit, actions) {
 	var props = {},
 		methods = {};
 
@@ -118,182 +98,6 @@ define('actions', function() {
    };
 });
 ```
-
-
-## The framework folder
-Put yout framework of choice code inside a separate folder.
-
-How do you use the application logic safely inside the framework?
-
-**Example:**  
-If using React, just extend the Orbit.Dispatcher factory with the actions you want.
-
-```
-var App = React.createClass({
-	dispatcher: function() {
-		_.extend(this, Orbit.Dispatcher(Home.actions));
-	},
-	getInitialState: // ...
-	componentDidMount: function() {
-		var self = this;
-		this.dispatcher();
-
-		this.methods[this.actions.GET_TITLE]().then(function(data) {
-            self.setState({
-            	title: data
-            });
-        }, function(err) {
-            console.log('Error: ', err);
-        });
-	},
-	render: // ...
-});
-
-```
-
-**Example:**  
-Using Backbone:
-
-```
-// Our model
-var Greeting = Backbone.Model.extend({ 
-    initialize: function () {
-        var model = this;
-        _.extend(this, Orbit.ActionEmitter.extend(Home.actions));
-
-        this.addMiddleware({
-            action: Home.actions.GET_TITLE,
-            after: function(data) {
-                model.set({'text': data});
-            }
-        });
-    },
-    defaults: { text: '' } 
-});
-
-// Our view
-var GreetingView = Backbone.View.extend({
-    initialize: function() {
-        _.extend(this, Orbit.ViewProvider.extend([this.model.service]));
-
-        this.listenTo(this.model, 'change', this.render);
-        this.methods[Home.actions.GET_TITLE]();
-    },
-    render: function() {
-        this.$el.html(this.template({
-            text: this.model.get('text');
-        }));
-    }
-});
-```
-
-Ok, what happened? Because you are delegating the logic to the Orbit layer, you might want to manipulate/use the data in three moments:
-
-- Right before the data gets to the Orbit layer
-- Right after the data comes
-- When setting the data in the view
-
-So far we found that depending on the framework, you might do that all in one place or in two places:
-
-- If your framework have stronger separation of concerns, you might have a separating between: Model/View and Service/Directive for example
-- All in one place, like on a React component
-
-**Example:**   
-Manipulating the data in one place:
-
-```
-var App = React.createClass({
-	dispatcher: function() {
-		_.extend(this, Orbit.Dispatcher(Home.actions, [
-			{
-				action: Home.actions.GET_TITLE,
-				before: function(data) {
-					return 'Before sending the data ' + data;
-				},
-				after: function(data) {
-					return 'After getting the data and before setting state ' + data;
-				}
-			}
-		]));
-	},
-	getInitialState: // ...
-	componentDidMount: function() {
-		var self = this;
-		this.dispatcher();
-
-		this.methods[this.actions.GET_TITLE]().then(function(data) {
-            self.setState({
-            	title: data
-            });
-        }, function(err) {
-            console.log('Error: ', err);
-        });
-	},
-	render: // ...
-});
-
-```
-
-**Example:**  
-Manipulating the data in two places (the same Backbone example as before):
-
-```
-// Our model
-var Greeting = Backbone.Model.extend({ 
-    initialize: function () {
-        var model = this;
-        _.extend(this, Orbit.ActionEmitter.extend(Home.actions));
-
-        this.addMiddleware({
-            action: Home.actions.GET_TITLE,
-            after: function(data) {
-                model.set({'text': data});
-            }
-        });
-    },
-    defaults: { text: '' } 
-});
-
-// Our view
-var GreetingView = Backbone.View.extend({
-    initialize: function() {
-        _.extend(this, Orbit.ViewProvider.extend([this.model.service]));
-
-        this.listenTo(this.model, 'change', this.render);
-        this.methods[Home.actions.GET_TITLE]();
-    },
-    render: function() {
-        this.$el.html(this.template({
-            text: this.model.get('text');
-        }));
-    }
-});
-```
-
-## ActionEmitter and ViewProvider
-I think you saw those names in the previous example. How does all of this work?
-
-The Orbit basically does:
-
-- Separate your public methods into actions
-- Create a class of your feature methods, subscribing all action methods into a Pub/Sub promise system
-- Offer a way of adding middlewares to each action promise with before and after methods
-- Provide the methods to your view
-
-The first item from that list is your task. The other three can be divided into:
-
-**ActionEmitter:**
-
-- Create a class of your feature methods, subscribing all action methods into a Pub/Sub promise system
-- Offer a way of adding middlewares to each action promise with before and after methods
-
-**ViewProvider:**
-
-- Provide the methods to your view
-
-When everything is done in just one place, both ActionEmitter and ViewProvider comes together into the Dispatcher (like the React example).
-
-PS: Any error that occurs anywhere from the promise until your view will be catch into the error callback.
 
 **An Angular example:**  
 Let's assume that you consider the Angular Service the holder of logic, Controller the scope provider and the Directive where actions get fired.
@@ -383,3 +187,29 @@ function HeaderDirective() {
 }
 
 ```
+
+Want to know more? Head to the wiki to see API explanations, React, Backbone and other examples.
+
+## Installing
+Just download the orbit/files/dist/orbit.js file and placeit in your project.
+
+## Contributing? Development instructions
+
+* Install [Docker](https://docs.docker.com/mac/step_one/)*
+
+```
+$ make sdocker
+```
+Starts Docker default machine, if you are on Mac.
+
+```
+$ make setup
+```
+First time only image setup.
+
+```
+$ make up
+```
+Starts container.
+
+See the **makefile** to see available commands such as unit, integration tests and others.
