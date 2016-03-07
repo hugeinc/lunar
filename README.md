@@ -67,7 +67,7 @@ You can divide this file into multiple modules as needed, but all functionalitie
 
 Your file will look something like this:
 
-```
+```javascript
 // Import your actions constant file
 import { Orbit } from 'orbit';
 import actions from './actions';
@@ -93,7 +93,7 @@ export default Orbit.Class.extend({
 Refactors happen all the time. In order to change your code in just one place we use actions constants that will set and get functions for you.
 All public functions from the application that you want the framework to be able to access should have an action:
 
-```
+```javascript
 import { Orbit } from 'orbit';
 
 export default Orbit.ActionsCreator({
@@ -105,7 +105,7 @@ export default Orbit.ActionsCreator({
 
 Let's assume that you consider the Angular Service the holder of logic. Controller the scope provider and the Directive where actions get fired.
 
-```  
+```javascript
 // Service
 // After .extend, the service can add middlewares
 // And have the actions and methods built into itself
@@ -136,7 +136,7 @@ function HomeService($http) {
 
 HomeService.$inject = ['$http'];
 ```
-```
+```javascript
 // Controller
 // The controller doesn't know about Orbit,
 // it just uses the service.
@@ -154,12 +154,12 @@ function HomeController(HomeService) {
 
 HomeController.$inject = ['HomeService'];
 ```
-```
+```javascript
 // Page template
 // We pass actions and methods to the directive.
 header(title="vm.title", methods="vm.methods")
 ```
-```
+```javascript
 // Directive
 // The directive just calls the method which return a promise.
 angular
@@ -196,10 +196,10 @@ function HeaderDirective() {
 Want to know more? Head to the [wiki](https://github.com/hugeinc/orbit/wiki) to see API explanations, React, Backbone and other examples.
 
 ## Installing <a href="#installing"></a>
-- Download the [orbit/files/dist/orbit.js](https://github.com/hugeinc/orbit/blob/develop/files/orbit/dist/orbit.js) file and placeit in your project.
+- Download the [orbit/files/dist/orbit.js](https://github.com/hugeinc/orbit/blob/develop/files/orbit/dist/orbit.js) file and place it in your project.
 - Orbit is under UMD. You can require, import it, or use it as a global variable
 
-```
+```javascript
 const Orbit = require('vendor/orbit');
 // or
 import { Orbit } from 'vendor/orbit';
