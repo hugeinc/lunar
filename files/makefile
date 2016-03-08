@@ -60,3 +60,6 @@ integration-coverage:
 
 cover:
 	@docker exec orbit npm run coverage
+
+watch:
+	@docker exec orbit npm run watch
