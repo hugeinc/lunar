@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "bundle": "webpack -p | ./reporter-filter",
+    "bundle": "WEBPACK_ENV=dist webpack -p | ./reporter-filter",
     "watch": "webpack -d --watch | ./reporter-filter",
     "jshint": "./node_modules/jshint/bin/jshint ./orbit/src",
     "jscs": "./node_modules/jscs/bin/jscs ./orbit/src",
