@@ -40,8 +40,8 @@ let Objects = RandomGenerator.randomObjects(3),
 
 ModelExample.initialize(Actions);
 ViewExample.initialize(ModelExample);
-
-console.log(Object.keys(Actions).length, Object.keys(ModelExample.service.actions).length);
+//
+//console.log(Object.keys(Actions).length, Object.keys(ModelExample.service.actions).length);
 
 ViewExample.test().then(function(results) {
 	console.log('RESULTS', results);

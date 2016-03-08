@@ -84,36 +84,46 @@ function randomString() {
 }
 
 function randomMiddleware(actions) {
-	let middlewares = [];
+	let middlewares = [],
+		counter = 0;
 
 	for(let action in actions) {
 		let randomMiddlewaresNumber = Math.floor(Math.random() * 2) + 1,
 			middleware = {};
 
 		middleware.action = actions[action];
-		middleware.before = randomMiddlewareFunction();
+		middleware.before = randomMiddlewareFunction('before', counter);
 
 		if(randomMiddlewaresNumber === 2) {
-			middleware.after = randomMiddlewareFunction();
+			middleware.after = randomMiddlewareFunction('after', counter);
 		}
 
 		middlewares.push(middleware);
+		++counter;
 	}
 
 	return middlewares;
 }
 
-function randomMiddlewareFunction() {
+function randomMiddlewareFunction(type, counter) {
 	let randomTimeout = Math.floor(Math.random() * 10000) + 1;
 
 	return function(data) {
 		return new Promise(function(resolve, reject) {
+			console.log('NUM: ' + counter + ' ' + type + ' middleware STARTED. At: ' + getDateString());
 			setTimeout(function() {
-				console.log('After ' + randomTimeout + ' timeout.');
+				console.log('NUM: ' + counter + ' ' + type + ' middleware run after ' + randomTimeout + ' timeout. At: ' + getDateString());
 				resolve(data);
 			}, randomTimeout);
 		})
 	}
+}
+
+function getDateString() {
+	let now = new Date(),
+		period = now.toLocaleString().slice(-3);
+
+	return now.toLocaleString().replace(period, ':' + now.getMilliseconds()) + period;
 }
 
 export default RandomGenerator;
