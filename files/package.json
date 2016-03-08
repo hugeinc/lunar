@@ -5,6 +5,9 @@
   "main": "index.js",
   "scripts": {
     "bundle": "WEBPACK_ENV=dist webpack -p | ./reporter-filter",
+    "bundle:dev": "webpack -d | ./reporter-filter",
+    "dev:tasks": "npm run bundle:dev && npm run test && npm run coverage",
+    "dev": "./node_modules/.bin/watch 'npm run dev:tasks' orbit/src",
     "watch": "webpack -d --watch | ./reporter-filter",
     "jshint": "./node_modules/jshint/bin/jshint ./orbit/src",
     "jscs": "./node_modules/jscs/bin/jscs ./orbit/src",
@@ -50,6 +53,7 @@
     "tap-difflet": "0.4.0",
     "tap-nyan": "0.0.2",
     "through2": "2.0.0",
+    "watch": "0.17.1",
     "webpack": "1.12.9"
   }
 }
