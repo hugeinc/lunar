@@ -66,3 +66,6 @@ test:
 
 watch:
 	@docker exec orbit npm run watch
+
+dev:
+	@docker exec orbit npm run dev
