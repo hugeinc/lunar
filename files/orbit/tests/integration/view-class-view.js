@@ -1,6 +1,6 @@
 import test from 'blue-tape';
 import _ from 'lodash';
-import { Orbit } from '../../src/index';
+import Orbit from '../../src/index';
 import SimpleObjectExample from '../mocks/object';
 
 Orbit.Logger.setLevel('ALL');
