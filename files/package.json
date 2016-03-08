@@ -6,7 +6,7 @@
   "scripts": {
     "bundle": "WEBPACK_ENV=dist webpack -p | ./reporter-filter",
     "bundle:dev": "webpack -d | ./reporter-filter",
-    "dev:tasks": "npm run bundle:dev && npm run test && npm run coverage",
+    "dev:tasks": "npm run bundle:dev --loglevel=silent & npm run test --loglevel=silent & npm run coverage --loglevel=silent",
     "dev": "./node_modules/.bin/watch 'npm run dev:tasks' orbit/src",
     "watch": "webpack -d --watch | ./reporter-filter",
     "jshint": "./node_modules/jshint/bin/jshint ./orbit/src",
