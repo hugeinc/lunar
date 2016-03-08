@@ -3,10 +3,10 @@
 		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
 		define([], factory);
-	else {
-		var a = factory();
-		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
-	}
+	else if(typeof exports === 'object')
+		exports["Orbit"] = factory();
+	else
+		root["Orbit"] = factory();
 })(this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -67,39 +67,42 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _channel2 = _interopRequireDefault(_channel);
 	
-	var _applicationClass = __webpack_require__(/*! ./core/factories/application-class.factory */ 57);
+	var _applicationClass = __webpack_require__(/*! ./core/factories/application-class.factory */ 71);
 	
 	var _applicationClass2 = _interopRequireDefault(_applicationClass);
 	
-	var _viewProvider = __webpack_require__(/*! ./core/factories/view-provider.factory */ 73);
+	var _viewProvider = __webpack_require__(/*! ./core/factories/view-provider.factory */ 83);
 	
 	var _viewProvider2 = _interopRequireDefault(_viewProvider);
 	
-	var _actionEmitter = __webpack_require__(/*! ./core/factories/action-emitter.factory */ 74);
+	var _actionEmitter = __webpack_require__(/*! ./core/factories/action-emitter.factory */ 84);
 	
 	var _actionEmitter2 = _interopRequireDefault(_actionEmitter);
 	
-	var _dispatcher = __webpack_require__(/*! ./core/factories/dispatcher.factory */ 75);
+	var _logger = __webpack_require__(/*! ./core/logger/logger */ 57);
+	
+	var _logger2 = _interopRequireDefault(_logger);
+	
+	var _dispatcher = __webpack_require__(/*! ./core/factories/dispatcher.factory */ 85);
 	
 	var _dispatcher2 = _interopRequireDefault(_dispatcher);
 	
-	var _actionsCreator = __webpack_require__(/*! ./core/factories/actions-creator.factory */ 78);
+	var _actionsCreator = __webpack_require__(/*! ./core/factories/actions-creator.factory */ 88);
 	
 	var _actionsCreator2 = _interopRequireDefault(_actionsCreator);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = {
-	  Orbit: {
-	    Mediator: _channel2.default,
-	    Class: _applicationClass2.default,
-	    ViewProvider: _viewProvider2.default,
-	    ActionEmitter: _actionEmitter2.default,
-	    Dispatcher: _dispatcher2.default,
-	    ActionsCreator: _actionsCreator2.default,
-	    Controller: _viewProvider2.default,
-	    Service: _actionEmitter2.default
-	  }
+	  Logger: _logger2.default,
+	  Mediator: _channel2.default,
+	  Class: _applicationClass2.default,
+	  ViewProvider: _viewProvider2.default,
+	  ActionEmitter: _actionEmitter2.default,
+	  Dispatcher: _dispatcher2.default,
+	  ActionsCreator: _actionsCreator2.default,
+	  Controller: _viewProvider2.default,
+	  Service: _actionEmitter2.default
 	};
 	module.exports = exports['default'];
 
@@ -120,6 +123,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _promise2 = _interopRequireDefault(_promise);
 	
+	var _logger = __webpack_require__(/*! ../logger/logger */ 57);
+	
+	var _logger2 = _interopRequireDefault(_logger);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var subscriptions = {},
@@ -130,27 +137,39 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	
 	function subscribe(options) {
+	  _logger2.default.log({ message: '[Mediator.subscribe] Trying to subscribe.', level: 'ALL' });
 	  if (typeof subscriptions[options.topic] !== 'undefined') {
+	    _logger2.default.log({ message: '[Mediator.subscribe] Topic already exists.', level: 'FATAL' });
 	    throw new Error('Topic already exist, exiting.');
 	  }
-	
+	  _logger2.default.log({ message: '[Mediator.subscribe] Subscribed.', level: 'ALL' });
 	  subscriptions[options.topic] = options.callback;
 	}
 	
 	function unsubscribe(subscription) {
-	  if (typeof subscriptions[subscription.topic] === 'undefined') return false;
+	  _logger2.default.log({ message: '[Mediator.unsubscribe] Trying to unsubscribe.', level: 'ALL' });
+	  if (typeof subscriptions[subscription.topic] === 'undefined') {
+	    _logger2.default.log({ message: '[Mediator.unsubscribe] Topic doesn\'t exist.', level: 'WARN' });
+	    return false;
+	  }
 	  delete subscriptions[subscription.topic];
+	  _logger2.default.log({ message: '[Mediator.unsubscribe] Topic unsubscribed.', level: 'ALL' });
 	}
 	
 	function request(envelope) {
+	  _logger2.default.log({ message: '[Mediator.request] Trying to request callback with ' + envelope.data + '.', level: 'ALL' });
 	  if (typeof subscriptions[envelope.topic] === 'undefined') {
+	    _logger2.default.log({ message: '[Mediator.request] Topic already exists.', level: 'ERROR' });
 	    throw new Error('Topic does not exist, exiting.');
 	  }
 	
+	  _logger2.default.log({ message: '[Mediator.request] Requested, returning Promise.', level: 'ALL' });
 	  return new _promise2.default(function (resolve, reject) {
 	    try {
+	      _logger2.default.log({ message: '[Mediator.request] Promise resolved', level: 'ALL' });
 	      resolve(subscriptions[envelope.topic](envelope.data));
 	    } catch (e) {
+	      _logger2.default.log({ message: '[Mediator.request] Promise rejected ' + e, level: 'ERROR' });
 	      reject(e);
 	    }
 	  });
@@ -1547,125 +1566,215 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 57 */
-/*!*****************************************************!*\
-  !*** ./core/factories/application-class.factory.js ***!
-  \*****************************************************/
+/*!*******************************!*\
+  !*** ./core/logger/logger.js ***!
+  \*******************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 	
-	var _getOwnPropertySymbols = __webpack_require__(/*! babel-runtime/core-js/object/get-own-property-symbols */ 58);
+	var _keys = __webpack_require__(/*! babel-runtime/core-js/object/keys */ 58);
 	
-	var _getOwnPropertySymbols2 = _interopRequireDefault(_getOwnPropertySymbols);
+	var _keys2 = _interopRequireDefault(_keys);
 	
-	var _getIterator2 = __webpack_require__(/*! babel-runtime/core-js/get-iterator */ 65);
+	var _typeof2 = __webpack_require__(/*! babel-runtime/helpers/typeof */ 63);
 	
-	var _getIterator3 = _interopRequireDefault(_getIterator2);
+	var _typeof3 = _interopRequireDefault(_typeof2);
 	
-	var _assign = __webpack_require__(/*! babel-runtime/core-js/object/assign */ 68);
+	var _symbol = __webpack_require__(/*! babel-runtime/core-js/symbol */ 64);
 	
-	var _assign2 = _interopRequireDefault(_assign);
-	
-	var _channel = __webpack_require__(/*! ../mediator/channel */ 1);
-	
-	var _channel2 = _interopRequireDefault(_channel);
+	var _symbol2 = _interopRequireDefault(_symbol);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var publicClassFactory = {
-	  extend: function extend(object) {
-	    return internalClassFactory(object);
-	  }
+	var OFF = (0, _symbol2.default)('No logs will be shown'),
+	    FATAL = (0, _symbol2.default)('Only errors that will break your app will be shown'),
+	    ERROR = (0, _symbol2.default)('Any error will be logged'),
+	    WARN = (0, _symbol2.default)('Errors and warnings will be shown'),
+	    ALL = (0, _symbol2.default)('Everything will be logged and displayed on the console');
+	
+	var levels = {
+		OFF: OFF,
+		FATAL: FATAL,
+		ERROR: ERROR,
+		WARN: WARN,
+		ALL: ALL
 	};
 	
-	function internalClassFactory(object) {
-	  var instance = (0, _assign2.default)({}, object);
+	var level = levels['OFF'],
+	    levelString = 'OFF';
 	
-	  instance.actions = object.actions;
+	var Logger = {
+		getLevel: function getLevel() {
+			return levelString;
+		},
+		setLevel: function setLevel(wantedLevel) {
+			if (levels[wantedLevel]) {
+				level = levels[wantedLevel];
+				levelString = wantedLevel;
+			}
+		},
 	
-	  var _iteratorNormalCompletion = true;
-	  var _didIteratorError = false;
-	  var _iteratorError = undefined;
+		log: log
+	};
 	
-	  try {
-	    for (var _iterator = (0, _getIterator3.default)((0, _getOwnPropertySymbols2.default)(object)), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	      var method = _step.value;
-	
-	      instance[method] = object[method].bind(instance);
-	    }
-	  } catch (err) {
-	    _didIteratorError = true;
-	    _iteratorError = err;
-	  } finally {
-	    try {
-	      if (!_iteratorNormalCompletion && _iterator.return) {
-	        _iterator.return();
-	      }
-	    } finally {
-	      if (_didIteratorError) {
-	        throw _iteratorError;
-	      }
-	    }
-	  }
-	
-	  registerActions(instance.actions, instance);
-	
-	  return instance;
+	function log(options) {
+		if (Array.isArray(options)) {
+			return multipleLogs(options);
+		} else if ((typeof options === 'undefined' ? 'undefined' : (0, _typeof3.default)(options)) === 'object') {
+			return singleLog(options);
+		}
 	}
 	
-	function registerActions(actions, instance) {
-	  var _loop = function _loop(action) {
-	    if (typeof instance[actions[action]] === 'function') {
-	      _channel2.default.subscribe({
-	        topic: actions[action],
-	        callback: function callback(data) {
-	          var response = undefined;
-	
-	          try {
-	            response = instance[actions[action]](data);
-	          } catch (e) {
-	            response = e;
-	          }
-	
-	          return response;
-	        }
-	      });
-	    }
-	  };
-	
-	  for (var action in actions) {
-	    _loop(action);
-	  }
+	function multipleLogs(logs) {
+		for (var i = 0; i < logs.length; i++) {
+			singleLog(logs[i]);
+		}
 	}
 	
-	exports.default = publicClassFactory;
+	function singleLog() {
+		var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	
+		var _ref$message = _ref.message;
+		var message = _ref$message === undefined ? null : _ref$message;
+		var _ref$level = _ref.level;
+		var level = _ref$level === undefined ? 'OFF' : _ref$level;
+	
+		var levelsKeys = (0, _keys2.default)(levels);
+	
+		if (levelString === 'OFF') return undefined;
+	
+		if (levelsKeys.indexOf(levelString) >= levelsKeys.indexOf(level)) {
+			return output(message, level);
+		}
+	}
+	
+	function output(message, level) {
+		var finalMessage = '[Orbit.Logger][' + level + '] ' + getDateString() + '\n' + message + '\n';
+	
+		console.log(finalMessage);
+		return finalMessage;
+	}
+	
+	function getDateString() {
+		var now = new Date(),
+		    period = now.toLocaleString().slice(-3);
+	
+		return now.toLocaleString().replace(period, ':' + now.getMilliseconds()) + period;
+	}
+	
+	exports.default = Logger;
 	module.exports = exports['default'];
 
 /***/ },
 /* 58 */
-/*!***********************************************************************!*\
-  !*** /app/~/babel-runtime/core-js/object/get-own-property-symbols.js ***!
-  \***********************************************************************/
+/*!***************************************************!*\
+  !*** /app/~/babel-runtime/core-js/object/keys.js ***!
+  \***************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/object/get-own-property-symbols */ 59), __esModule: true };
+	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/object/keys */ 59), __esModule: true };
 
 /***/ },
 /* 59 */
-/*!********************************************************************!*\
-  !*** /app/~/core-js/library/fn/object/get-own-property-symbols.js ***!
-  \********************************************************************/
+/*!************************************************!*\
+  !*** /app/~/core-js/library/fn/object/keys.js ***!
+  \************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(/*! ../../modules/es6.symbol */ 60);
-	module.exports = __webpack_require__(/*! ../../modules/$.core */ 13).Object.getOwnPropertySymbols;
+	__webpack_require__(/*! ../../modules/es6.object.keys */ 60);
+	module.exports = __webpack_require__(/*! ../../modules/$.core */ 13).Object.keys;
 
 /***/ },
 /* 60 */
+/*!*********************************************************!*\
+  !*** /app/~/core-js/library/modules/es6.object.keys.js ***!
+  \*********************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	// 19.1.2.14 Object.keys(O)
+	var toObject = __webpack_require__(/*! ./$.to-object */ 61);
+	
+	__webpack_require__(/*! ./$.object-sap */ 62)('keys', function($keys){
+	  return function keys(it){
+	    return $keys(toObject(it));
+	  };
+	});
+
+/***/ },
+/* 61 */
+/*!*****************************************************!*\
+  !*** /app/~/core-js/library/modules/$.to-object.js ***!
+  \*****************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	// 7.1.13 ToObject(argument)
+	var defined = __webpack_require__(/*! ./$.defined */ 8);
+	module.exports = function(it){
+	  return Object(defined(it));
+	};
+
+/***/ },
+/* 62 */
+/*!******************************************************!*\
+  !*** /app/~/core-js/library/modules/$.object-sap.js ***!
+  \******************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	// most Object methods by ES6 should accept primitives
+	var $export = __webpack_require__(/*! ./$.export */ 11)
+	  , core    = __webpack_require__(/*! ./$.core */ 13)
+	  , fails   = __webpack_require__(/*! ./$.fails */ 21);
+	module.exports = function(KEY, exec){
+	  var fn  = (core.Object || {})[KEY] || Object[KEY]
+	    , exp = {};
+	  exp[KEY] = exec(fn);
+	  $export($export.S + $export.F * fails(function(){ fn(1); }), 'Object', exp);
+	};
+
+/***/ },
+/* 63 */
+/*!**********************************************!*\
+  !*** /app/~/babel-runtime/helpers/typeof.js ***!
+  \**********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var _Symbol = __webpack_require__(/*! babel-runtime/core-js/symbol */ 64)["default"];
+	
+	exports["default"] = function (obj) {
+	  return obj && obj.constructor === _Symbol ? "symbol" : typeof obj;
+	};
+	
+	exports.__esModule = true;
+
+/***/ },
+/* 64 */
+/*!**********************************************!*\
+  !*** /app/~/babel-runtime/core-js/symbol.js ***!
+  \**********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/symbol */ 65), __esModule: true };
+
+/***/ },
+/* 65 */
+/*!*************************************************!*\
+  !*** /app/~/core-js/library/fn/symbol/index.js ***!
+  \*************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(/*! ../../modules/es6.symbol */ 66);
+	__webpack_require__(/*! ../../modules/es6.object.to-string */ 4);
+	module.exports = __webpack_require__(/*! ../../modules/$.core */ 13).Symbol;
+
+/***/ },
+/* 66 */
 /*!****************************************************!*\
   !*** /app/~/core-js/library/modules/es6.symbol.js ***!
   \****************************************************/
@@ -1684,10 +1793,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  , setToStringTag = __webpack_require__(/*! ./$.set-to-string-tag */ 25)
 	  , uid            = __webpack_require__(/*! ./$.uid */ 28)
 	  , wks            = __webpack_require__(/*! ./$.wks */ 26)
-	  , keyOf          = __webpack_require__(/*! ./$.keyof */ 61)
-	  , $names         = __webpack_require__(/*! ./$.get-names */ 62)
-	  , enumKeys       = __webpack_require__(/*! ./$.enum-keys */ 63)
-	  , isArray        = __webpack_require__(/*! ./$.is-array */ 64)
+	  , keyOf          = __webpack_require__(/*! ./$.keyof */ 67)
+	  , $names         = __webpack_require__(/*! ./$.get-names */ 68)
+	  , enumKeys       = __webpack_require__(/*! ./$.enum-keys */ 69)
+	  , isArray        = __webpack_require__(/*! ./$.is-array */ 70)
 	  , anObject       = __webpack_require__(/*! ./$.an-object */ 39)
 	  , toIObject      = __webpack_require__(/*! ./$.to-iobject */ 33)
 	  , createDesc     = __webpack_require__(/*! ./$.property-desc */ 19)
@@ -1900,7 +2009,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	setToStringTag(global.JSON, 'JSON', true);
 
 /***/ },
-/* 61 */
+/* 67 */
 /*!*************************************************!*\
   !*** /app/~/core-js/library/modules/$.keyof.js ***!
   \*************************************************/
@@ -1918,7 +2027,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 62 */
+/* 68 */
 /*!*****************************************************!*\
   !*** /app/~/core-js/library/modules/$.get-names.js ***!
   \*****************************************************/
@@ -1946,7 +2055,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 63 */
+/* 69 */
 /*!*****************************************************!*\
   !*** /app/~/core-js/library/modules/$.enum-keys.js ***!
   \*****************************************************/
@@ -1968,7 +2077,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 64 */
+/* 70 */
 /*!****************************************************!*\
   !*** /app/~/core-js/library/modules/$.is-array.js ***!
   \****************************************************/
@@ -1981,16 +2090,154 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 65 */
+/* 71 */
+/*!*****************************************************!*\
+  !*** ./core/factories/application-class.factory.js ***!
+  \*****************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _getOwnPropertySymbols = __webpack_require__(/*! babel-runtime/core-js/object/get-own-property-symbols */ 72);
+	
+	var _getOwnPropertySymbols2 = _interopRequireDefault(_getOwnPropertySymbols);
+	
+	var _getIterator2 = __webpack_require__(/*! babel-runtime/core-js/get-iterator */ 74);
+	
+	var _getIterator3 = _interopRequireDefault(_getIterator2);
+	
+	var _assign = __webpack_require__(/*! babel-runtime/core-js/object/assign */ 77);
+	
+	var _assign2 = _interopRequireDefault(_assign);
+	
+	var _stringify = __webpack_require__(/*! babel-runtime/core-js/json/stringify */ 81);
+	
+	var _stringify2 = _interopRequireDefault(_stringify);
+	
+	var _channel = __webpack_require__(/*! ../mediator/channel */ 1);
+	
+	var _channel2 = _interopRequireDefault(_channel);
+	
+	var _logger = __webpack_require__(/*! ../logger/logger */ 57);
+	
+	var _logger2 = _interopRequireDefault(_logger);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var publicClassFactory = {
+	  extend: function extend(object) {
+	    _logger2.default.log({ message: '[ApplicationClass.extend] Extending ' + (0, _stringify2.default)(object) + '.', level: 'ALL' });
+	    return internalClassFactory(object);
+	  }
+	};
+	
+	function internalClassFactory(object) {
+	  var instance = (0, _assign2.default)({}, object);
+	
+	  instance.actions = object.actions;
+	
+	  var _iteratorNormalCompletion = true;
+	  var _didIteratorError = false;
+	  var _iteratorError = undefined;
+	
+	  try {
+	    for (var _iterator = (0, _getIterator3.default)((0, _getOwnPropertySymbols2.default)(object)), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	      var method = _step.value;
+	
+	      _logger2.default.log({ message: '[ApplicationClass.internalClassFactory] Assigning method ' + method.toString() + '() to object.', level: 'ALL' });
+	      instance[method] = object[method].bind(instance);
+	    }
+	  } catch (err) {
+	    _didIteratorError = true;
+	    _iteratorError = err;
+	  } finally {
+	    try {
+	      if (!_iteratorNormalCompletion && _iterator.return) {
+	        _iterator.return();
+	      }
+	    } finally {
+	      if (_didIteratorError) {
+	        throw _iteratorError;
+	      }
+	    }
+	  }
+	
+	  registerActions(instance.actions, instance);
+	
+	  return instance;
+	}
+	
+	function registerActions(actions, instance) {
+	  _logger2.default.log({ message: '[ApplicationClass.registerActions] Trying to register actions', level: 'ALL' });
+	
+	  var _loop = function _loop(action) {
+	    if (typeof instance[actions[action]] === 'function') {
+	      _logger2.default.log('[ApplicationClass.registerActions] Subscribing to ' + actions[action].toString() + ' action.', 'ALL');
+	      _channel2.default.subscribe({
+	        topic: actions[action],
+	        callback: function callback(data) {
+	          var response = void 0;
+	
+	          _logger2.default.log('[ApplicationClass.callback] Action ' + actions[action].toString() + ' callback called with ' + data, 'ALL');
+	
+	          try {
+	            _logger2.default.log('[ApplicationClass.callback] ' + actions[action].toString() + ' Promise resolved', 'ALL');
+	            response = instance[actions[action]](data);
+	          } catch (e) {
+	            _logger2.default.log('[ApplicationClass.callback] ' + actions[action].toString() + ' Promise rejected ' + e, 'ERROR');
+	            response = e;
+	          }
+	
+	          return response;
+	        }
+	      });
+	    } else {
+	      _logger2.default.log('[ApplicationClass.registerActions] ' + actions[action].toString() + ' doesn\'t have a function callback.', 'ERROR');
+	    }
+	  };
+	
+	  for (var action in actions) {
+	    _loop(action);
+	  }
+	}
+	
+	exports.default = publicClassFactory;
+	module.exports = exports['default'];
+
+/***/ },
+/* 72 */
+/*!***********************************************************************!*\
+  !*** /app/~/babel-runtime/core-js/object/get-own-property-symbols.js ***!
+  \***********************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/object/get-own-property-symbols */ 73), __esModule: true };
+
+/***/ },
+/* 73 */
+/*!********************************************************************!*\
+  !*** /app/~/core-js/library/fn/object/get-own-property-symbols.js ***!
+  \********************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(/*! ../../modules/es6.symbol */ 66);
+	module.exports = __webpack_require__(/*! ../../modules/$.core */ 13).Object.getOwnPropertySymbols;
+
+/***/ },
+/* 74 */
 /*!****************************************************!*\
   !*** /app/~/babel-runtime/core-js/get-iterator.js ***!
   \****************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/get-iterator */ 66), __esModule: true };
+	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/get-iterator */ 75), __esModule: true };
 
 /***/ },
-/* 66 */
+/* 75 */
 /*!*************************************************!*\
   !*** /app/~/core-js/library/fn/get-iterator.js ***!
   \*************************************************/
@@ -1998,10 +2245,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	__webpack_require__(/*! ../modules/web.dom.iterable */ 29);
 	__webpack_require__(/*! ../modules/es6.string.iterator */ 5);
-	module.exports = __webpack_require__(/*! ../modules/core.get-iterator */ 67);
+	module.exports = __webpack_require__(/*! ../modules/core.get-iterator */ 76);
 
 /***/ },
-/* 67 */
+/* 76 */
 /*!***********************************************************!*\
   !*** /app/~/core-js/library/modules/core.get-iterator.js ***!
   \***********************************************************/
@@ -2016,26 +2263,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 68 */
+/* 77 */
 /*!*****************************************************!*\
   !*** /app/~/babel-runtime/core-js/object/assign.js ***!
   \*****************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/object/assign */ 69), __esModule: true };
+	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/object/assign */ 78), __esModule: true };
 
 /***/ },
-/* 69 */
+/* 78 */
 /*!**************************************************!*\
   !*** /app/~/core-js/library/fn/object/assign.js ***!
   \**************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(/*! ../../modules/es6.object.assign */ 70);
+	__webpack_require__(/*! ../../modules/es6.object.assign */ 79);
 	module.exports = __webpack_require__(/*! ../../modules/$.core */ 13).Object.assign;
 
 /***/ },
-/* 70 */
+/* 79 */
 /*!***********************************************************!*\
   !*** /app/~/core-js/library/modules/es6.object.assign.js ***!
   \***********************************************************/
@@ -2044,10 +2291,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	// 19.1.3.1 Object.assign(target, source)
 	var $export = __webpack_require__(/*! ./$.export */ 11);
 	
-	$export($export.S + $export.F, 'Object', {assign: __webpack_require__(/*! ./$.object-assign */ 71)});
+	$export($export.S + $export.F, 'Object', {assign: __webpack_require__(/*! ./$.object-assign */ 80)});
 
 /***/ },
-/* 71 */
+/* 80 */
 /*!*********************************************************!*\
   !*** /app/~/core-js/library/modules/$.object-assign.js ***!
   \*********************************************************/
@@ -2055,7 +2302,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	// 19.1.2.1 Object.assign(target, source, ...)
 	var $        = __webpack_require__(/*! ./$ */ 18)
-	  , toObject = __webpack_require__(/*! ./$.to-object */ 72)
+	  , toObject = __webpack_require__(/*! ./$.to-object */ 61)
 	  , IObject  = __webpack_require__(/*! ./$.iobject */ 34);
 	
 	// should work with symbols and should have deterministic property order (V8 bug)
@@ -2088,35 +2335,51 @@ return /******/ (function(modules) { // webpackBootstrap
 	} : Object.assign;
 
 /***/ },
-/* 72 */
-/*!*****************************************************!*\
-  !*** /app/~/core-js/library/modules/$.to-object.js ***!
-  \*****************************************************/
+/* 81 */
+/*!******************************************************!*\
+  !*** /app/~/babel-runtime/core-js/json/stringify.js ***!
+  \******************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	// 7.1.13 ToObject(argument)
-	var defined = __webpack_require__(/*! ./$.defined */ 8);
-	module.exports = function(it){
-	  return Object(defined(it));
+	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/json/stringify */ 82), __esModule: true };
+
+/***/ },
+/* 82 */
+/*!***************************************************!*\
+  !*** /app/~/core-js/library/fn/json/stringify.js ***!
+  \***************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var core = __webpack_require__(/*! ../../modules/$.core */ 13);
+	module.exports = function stringify(it){ // eslint-disable-line no-unused-vars
+	  return (core.JSON && core.JSON.stringify || JSON.stringify).apply(JSON, arguments);
 	};
 
 /***/ },
-/* 73 */
+/* 83 */
 /*!*************************************************!*\
   !*** ./core/factories/view-provider.factory.js ***!
   \*************************************************/
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	
+	var _logger = __webpack_require__(/*! ../logger/logger */ 57);
+	
+	var _logger2 = _interopRequireDefault(_logger);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
 	var publicViewProviderFactory = {
 	  extend: extend
 	};
 	
 	function extend(services) {
+	  _logger2.default.log({ message: '[ViewProvider.extend] Calling internalViewProviderFactory', level: 'ALL' });
 	  return internalViewProviderFactory(services);
 	}
 	
@@ -2127,7 +2390,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  for (var serviceObject in services) {
 	    var service = services[serviceObject];
 	
-	    if (!service.actions) continue;
+	    if (!service.actions) {
+	      _logger2.default.log({ message: '[ViewProvider.internalViewProviderFactory] No actions in service ' + serviceObject, level: 'WARN' });
+	      continue;
+	    }
 	
 	    createActionsMethods(service.actions, service, instance);
 	  }
@@ -2142,6 +2408,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    instance.methods[actions[action]] = function (params) {
 	      return service.do(actions[action], params);
 	    };
+	    _logger2.default.log({ message: '[ViewProvider.createActionsMethods] Created action method for ' + action + ' - ' + service, level: 'ALL' });
 	  };
 	
 	  for (var action in actions) {
@@ -2153,7 +2420,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 74 */
+/* 84 */
 /*!**************************************************!*\
   !*** ./core/factories/action-emitter.factory.js ***!
   \**************************************************/
@@ -2169,6 +2436,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _promise2 = _interopRequireDefault(_promise);
 	
+	var _logger = __webpack_require__(/*! ../logger/logger */ 57);
+	
+	var _logger2 = _interopRequireDefault(_logger);
+	
 	var _channel = __webpack_require__(/*! ../mediator/channel */ 1);
 	
 	var _channel2 = _interopRequireDefault(_channel);
@@ -2180,6 +2451,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	
 	function extend(actions) {
+	  _logger2.default.log({ message: '[ActionEmitter.extend] Calling internalActionEmitterFactory', level: 'ALL' });
 	  return internalActionEmitterFactory(actions);
 	}
 	
@@ -2195,17 +2467,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	    instance[action] = {};
 	    instance[action].before = serviceMiddleware.before;
 	    instance[action].after = serviceMiddleware.after;
+	
+	    _logger2.default.log({ message: '[ActionEmitter.addMiddleware] Added serviceMiddleware ' + serviceMiddleware, level: 'ALL' });
 	  }
 	
 	  function doAction(action, params) {
-	    var promise = undefined,
-	        beforeResponse = undefined;
+	    var promise = void 0,
+	        beforeResponse = void 0;
+	
+	    _logger2.default.log({ message: '[ActionEmitter.doAction] Calling action ' + action.toString() + ' with ' + params, level: 'ALL' });
 	
 	    promise = new _promise2.default(function (resolve, reject) {
 	      try {
 	        beforeResponse = executeBeforeCallback(action, params, instance);
+	        _logger2.default.log({ message: '[ActionEmitter.doAction] Promise ' + action.toString() + ' resolved.', level: 'ALL' });
 	        resolve(handleBeforeResponseAndMakeRequest(action, beforeResponse, instance));
 	      } catch (e) {
+	        _logger2.default.log({ message: '[ActionEmitter.doAction] Promise ' + action.toString() + ' rejected ' + e, level: 'ERROR' });
 	        reject(e);
 	      }
 	    });
@@ -2218,16 +2496,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function executeBeforeCallback(action, params, instance) {
 	  if (middlewareActionFunctionExists(action, instance, 'before')) {
+	    _logger2.default.log({ message: '[ActionEmitter.executeBeforeCallback] Executing before middleware', level: 'ALL' });
 	    params = instance[action].before(params);
+	  } else {
+	    _logger2.default.log({ message: '[ActionEmitter.executeBeforeCallback] No before middleware to execute', level: 'ALL' });
 	  }
 	
 	  return params;
 	}
 	
 	function handleBeforeResponseAndMakeRequest(action, response, instance) {
-	  var promise = undefined;
+	  var promise = void 0;
 	
 	  if (isPromise(response)) {
+	    _logger2.default.log({ message: '[ActionEmitter.handleBeforeResponseAndMakeRequest] Before middleware is a Promise, waiting..', level: 'ALL' });
 	    promise = response.then(function (data) {
 	      return requestApplication(action, data, instance);
 	    });
@@ -2247,6 +2529,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	
 	function requestApplication(action, params, instance) {
+	  _logger2.default.log({ message: '[ActionEmitter.requestApplication] Actually requesting application for ' + action.toString(0) + ' with ' + params, level: 'ALL' });
 	  return _channel2.default.request({ topic: action, data: params }).then(function (data) {
 	    return extractProperDataFromRequest(action, data, instance);
 	  });
@@ -2254,7 +2537,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function extractProperDataFromRequest(action, data, instance) {
 	  if (middlewareActionFunctionExists(action, instance, 'after')) {
+	    _logger2.default.log({ message: '[ActionEmitter.handleBeforeResponseAndMakeRequest] Executing after middleware', level: 'ALL' });
 	    data = instance[action].after(data);
+	  } else {
+	    _logger2.default.log({ message: '[ActionEmitter.handleBeforeResponseAndMakeRequest] No after middleware to execute', level: 'ALL' });
 	  }
 	
 	  return data;
@@ -2264,7 +2550,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 75 */
+/* 85 */
 /*!**********************************************!*\
   !*** ./core/factories/dispatcher.factory.js ***!
   \**********************************************/
@@ -2276,15 +2562,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	
-	var _actionEmitter = __webpack_require__(/*! ../factories/action-emitter.factory */ 74);
+	var _actionEmitter = __webpack_require__(/*! ../factories/action-emitter.factory */ 84);
 	
 	var _actionEmitter2 = _interopRequireDefault(_actionEmitter);
 	
-	var _viewProvider = __webpack_require__(/*! ../factories/view-provider.factory */ 73);
+	var _viewProvider = __webpack_require__(/*! ../factories/view-provider.factory */ 83);
 	
 	var _viewProvider2 = _interopRequireDefault(_viewProvider);
 	
-	var _lodash = __webpack_require__(/*! lodash */ 76);
+	var _logger = __webpack_require__(/*! ../logger/logger */ 57);
+	
+	var _logger2 = _interopRequireDefault(_logger);
+	
+	var _lodash = __webpack_require__(/*! lodash */ 86);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
 	
@@ -2293,16 +2583,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	function extend(actions, middlewares) {
 	  var emitter = {},
 	      dispatcher = {},
-	      middleware = undefined;
+	      middleware = void 0;
+	
+	  _logger2.default.log({ message: '[Dispatcher.extend] Extending ActionEmitter.', level: 'ALL' });
 	
 	  _lodash2.default.extend(emitter, _actionEmitter2.default.extend(actions));
 	
 	  if (typeof middlewares !== 'undefined' && middlewares.length) {
 	    for (middleware in middlewares) {
+	      _logger2.default.log({ message: '[Dispatcher.extend] Adding middleware ' + middlewares[middleware].toString(), level: 'ALL' });
 	      emitter.addMiddleware(middlewares[middleware]);
 	    }
 	  }
 	
+	  _logger2.default.log({ message: '[Dispatcher.extend] Extending ViewProvider.', level: 'ALL' });
 	  _lodash2.default.extend(dispatcher, _viewProvider2.default.extend([emitter.service]));
 	
 	  return dispatcher;
@@ -2312,7 +2606,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 76 */
+/* 86 */
 /*!******************************!*\
   !*** /app/~/lodash/index.js ***!
   \******************************/
@@ -2320,7 +2614,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/**
 	 * @license
-	 * lodash 3.10.1 (Custom Build) <https://lodash.com/>
+	 * lodash 3.10.0 (Custom Build) <https://lodash.com/>
 	 * Build: `lodash modern -d -o ./index.js`
 	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
 	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
@@ -2333,7 +2627,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var undefined;
 	
 	  /** Used as the semantic version number. */
-	  var VERSION = '3.10.1';
+	  var VERSION = '3.10.0';
 	
 	  /** Used to compose bitmasks for wrapper metadata. */
 	  var BIND_FLAG = 1,
@@ -14670,10 +14964,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	}.call(this));
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../webpack/buildin/module.js */ 77)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../webpack/buildin/module.js */ 87)(module), (function() { return this; }())))
 
 /***/ },
-/* 77 */
+/* 87 */
 /*!***********************************!*\
   !*** (webpack)/buildin/module.js ***!
   \***********************************/
@@ -14692,28 +14986,35 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 78 */
+/* 88 */
 /*!***************************************************!*\
   !*** ./core/factories/actions-creator.factory.js ***!
   \***************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	
-	var _symbol = __webpack_require__(/*! babel-runtime/core-js/symbol */ 79);
+	var _symbol = __webpack_require__(/*! babel-runtime/core-js/symbol */ 64);
 	
 	var _symbol2 = _interopRequireDefault(_symbol);
+	
+	var _logger = __webpack_require__(/*! ../logger/logger */ 57);
+	
+	var _logger2 = _interopRequireDefault(_logger);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function actionsCreator(actions) {
 	  var symbolActions = {};
 	
+	  _logger2.default.log({ message: '[ActionsCreator] Trying to create actions.', level: 'ALL' });
+	
 	  for (var action in actions) {
+	    _logger2.default.log({ message: '[ActionsCreator] Creating action ' + action + '.', level: 'ALL' });
 	    symbolActions[action] = (0, _symbol2.default)(action);
 	  }
 	
@@ -14722,26 +15023,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	exports.default = actionsCreator;
 	module.exports = exports['default'];
-
-/***/ },
-/* 79 */
-/*!**********************************************!*\
-  !*** /app/~/babel-runtime/core-js/symbol.js ***!
-  \**********************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/symbol */ 80), __esModule: true };
-
-/***/ },
-/* 80 */
-/*!*************************************************!*\
-  !*** /app/~/core-js/library/fn/symbol/index.js ***!
-  \*************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(/*! ../../modules/es6.symbol */ 60);
-	__webpack_require__(/*! ../../modules/es6.object.to-string */ 4);
-	module.exports = __webpack_require__(/*! ../../modules/$.core */ 13).Symbol;
 
 /***/ }
 /******/ ])

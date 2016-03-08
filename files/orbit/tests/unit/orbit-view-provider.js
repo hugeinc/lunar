@@ -1,5 +1,5 @@
 import test from 'blue-tape';
-import { Orbit } from '../../src/index';
+import Orbit from '../../src/index';
 import ActionsSymbols from '../mocks/actions-symbols';
 const ActionEmitter = Orbit.ActionEmitter;
 const ViewProvider = Orbit.ViewProvider;
