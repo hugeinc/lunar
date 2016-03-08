@@ -31,8 +31,8 @@ First, you should separate "framework-code" from "application-code". Frameworks 
 ## Angular Example <a href="#angular"></a>
 The Angular team saw that M, V and C are not enough for code decoupling. They added a few extra things like Services, Factories and Providers. Whenever you have code that you will reuse in multiple places, put them into Services. This is very helpful but still coupled. Refactoring means changing your Service, Controller and Directive at least.
 
-![](images/ApplicationLayer.png)
-[Open full size version](images/ApplicationLayerGraph.pdf)
+![](images/OrbitLayer.png)
+[Open full size version](images/OrbitLayer.pdf)
 
 Structure:  
 
