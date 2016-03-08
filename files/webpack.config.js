@@ -21,7 +21,8 @@ module.exports = {
     path: DIST,
     filename: 'orbit.js',
     libraryTarget: 'umd',
-    library: 'Orbit'
+    library: 'Orbit',
+    umdNamedDefine: true
   },
 
   devtool: 'eval-source-map',
