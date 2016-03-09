@@ -73,7 +73,7 @@ import { Orbit } from 'orbit';
 import actions from './actions';
 
 // Your core feature code, an object with pure functions
-export default Orbit.Class.extend({
+export default Orbit.createModule({
 	// You can have private properties if you want
 	title: 'Orbit',
 	actions: actions,
@@ -96,7 +96,7 @@ All public functions from the application that you want the framework to be able
 ```javascript
 import { Orbit } from 'orbit';
 
-export default Orbit.ActionsCreator({
+export default Orbit.createActions({
 	FORMAT_TITLE: 'FORMAT_TITLE',
 	INCREMENT: 'INCREMENT',
 	DECREMENT: 'DECREMENT'
@@ -114,7 +114,7 @@ angular.module('app.home')
     .service('HomeService', HomeService);
 
 function HomeService($http) {
-    angular.extend(this, Orbit.Service.extend(Home.actions));
+    angular.extend(this, Orbit.createService(Home.actions));
 
 	// This is optional.
 	// You might want to execute something before
@@ -149,7 +149,7 @@ function HomeController(HomeService) {
     
     vm.title = 'Hello.';
 
-    angular.extend(this, Orbit.Controller.extend([HomeService]));
+    angular.extend(this, Orbit.createController([HomeService]));
 }
 
 HomeController.$inject = ['HomeService'];
