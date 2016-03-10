@@ -1,4 +1,4 @@
-import { Orbit } from '../../src/index';
+import Orbit from '../../src/index';
 
 const RandomGenerator = {
 	randomObjects: randomObjects,
@@ -35,18 +35,19 @@ function randomObject(numberOfActions) {
 		counter = 0;
 
 	object.actions = actions;
+	object.mockResults = [];
 
 	for(let method in actions) {
 		let methodCounter = counter;
 
 		object[actions[method]] = function() {
 			return methodCounter;
-		}
+		};
+
+		object.mockResults.push(methodCounter);
 
 		counter++;
 	}
-
-	counter = 0;
 
 	return Orbit.Class.extend(object);
 }
@@ -92,10 +93,10 @@ function randomMiddleware(actions) {
 			middleware = {};
 
 		middleware.action = actions[action];
-		middleware.before = randomMiddlewareFunction('before', counter);
+		middleware.before = randomMiddlewareFunction('before', counter, action);
 
 		if(randomMiddlewaresNumber === 2) {
-			middleware.after = randomMiddlewareFunction('after', counter);
+			middleware.after = randomMiddlewareFunction('after', counter, action);
 		}
 
 		middlewares.push(middleware);
@@ -105,14 +106,13 @@ function randomMiddleware(actions) {
 	return middlewares;
 }
 
-function randomMiddlewareFunction(type, counter) {
+function randomMiddlewareFunction(type, counter, action) {
 	let randomTimeout = Math.floor(Math.random() * 10000) + 1;
 
 	return function(data) {
 		return new Promise(function(resolve, reject) {
-			console.log('NUM: ' + counter + ' ' + type + ' middleware STARTED. At: ' + getDateString());
 			setTimeout(function() {
-				console.log('NUM: ' + counter + ' ' + type + ' middleware run after ' + randomTimeout + ' timeout. At: ' + getDateString());
+				Orbit.Logger.log({ message: '[RandomGenerator.randomMiddlewareFunction] Method ' + action + ', middleware number: ' + counter + ', ' + type + ' middleware run after ' + randomTimeout + ' timeout. At: ' + getDateString(), level: 'ALL' });
 				resolve(data);
 			}, randomTimeout);
 		})

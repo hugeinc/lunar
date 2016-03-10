@@ -1,14 +1,13 @@
 import test from 'blue-tape';
 import _ from 'lodash';
-import { Orbit } from '../../src/index';
+import Orbit from '../../src/index';
 import RandomGenerator from '../mocks/random';
 
 Orbit.Logger.setLevel('OFF');
 
 let ModelExample = {
 	initialize: function(actions) {
-		let model = this,
-			middlewares = RandomGenerator.randomMiddleware(actions);
+		let middlewares = RandomGenerator.randomMiddleware(actions);
 
 		_.extend(this, Orbit.ActionEmitter.extend(actions));
 
@@ -23,8 +22,7 @@ let ViewExample = {
 		_.extend(this, Orbit.ViewProvider.extend([model.service]));
 	},
 	test: function() {
-		let results = [],
-			methods = Object.getOwnPropertySymbols(this.methods),
+		let methods = Object.getOwnPropertySymbols(this.methods),
 			promises = [];
 
 		for(let method in methods) {
@@ -36,17 +34,28 @@ let ViewExample = {
 };
 
 let Objects = RandomGenerator.randomObjects(3),
-	Actions = _.extend({}, Objects[0].actions, Objects[1].actions, Objects[2].actions);
+	Actions = _.extend({}, Objects[0].actions, Objects[1].actions, Objects[2].actions),
+	mockResults = [].concat(Objects[0].mockResults, Objects[1].mockResults, Objects[2].mockResults),
+	realResults;
 
 ModelExample.initialize(Actions);
 ViewExample.initialize(ModelExample);
-//
-//console.log(Object.keys(Actions).length, Object.keys(ModelExample.service.actions).length);
 
-ViewExample.test().then(function(results) {
-	console.log('RESULTS', results);
+test('Model actions length should be equal to actions length', function(t) {
+	t.plan(1);
+	t.equal(Object.keys(Actions).length, Object.keys(ModelExample.service.actions).length);
 });
 
-// test('I dont know yet what Im testing', function(t) {
+test('Processed results should be equal to the actions number', function(t) {
+	t.plan(1);
 
-// });
+	ViewExample.test().then(function(results) {
+		realResults = results;
+		t.equal(results.length, Object.keys(Actions).length);
+	});
+});
+
+test('Mocked synchronus results array should be equal to real promised results', function(t) {
+	t.plan(1);
+	t.deepEqual(mockResults, realResults);
+});
