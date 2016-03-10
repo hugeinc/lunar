@@ -37,6 +37,9 @@ integration:
 stress:
 	@docker exec orbit npm run stress
 
+concurrency:
+	@docker exec orbit npm run concurrency
+
 unit-pretty:
 	@docker exec orbit npm run unit-pretty
 
@@ -46,6 +49,9 @@ integration-pretty:
 stress-pretty:
 	@docker exec orbit npm run stress-pretty
 
+concurrency-pretty:
+	@docker exec orbit npm run concurrency-pretty
+
 unit-nyan:
 	@docker exec orbit npm run unit-nyan
 
@@ -54,6 +60,9 @@ integration-nyan:
 
 stress-nyan:
 	@docker exec orbit npm run stress-nyan
+
+concurrency-nyan:
+	@docker exec orbit npm run concurrency-nyan
 
 unit-coverage:
 	@docker exec orbit npm run unit-coverage
