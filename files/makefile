@@ -34,23 +34,26 @@ unit:
 integration:
 	@docker exec orbit npm run integration
 
+stress:
+	@docker exec orbit npm run stress
+
 unit-pretty:
 	@docker exec orbit npm run unit-pretty
 
 integration-pretty:
 	@docker exec orbit npm run integration-pretty
 
-unit-diff:
-	@docker exec orbit npm run unit-diff
-
-integration-diff:
-	@docker exec orbit npm run integration-diff
+stress-pretty:
+	@docker exec orbit npm run stress-pretty
 
 unit-nyan:
 	@docker exec orbit npm run unit-nyan
 
 integration-nyan:
 	@docker exec orbit npm run integration-nyan
+
+stress-nyan:
+	@docker exec orbit npm run stress-nyan
 
 unit-coverage:
 	@docker exec orbit npm run unit-coverage
