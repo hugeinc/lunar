@@ -1,8 +1,7 @@
 ![](images/Orbit.png)
+[![Github All Releases](https://img.shields.io/github/downloads/hugeinc/orbit/total.svg)]() [![GitHub tag](https://img.shields.io/github/tag/hugeinc/orbit.svg)]()
 
-# Orbit
-### v0.2.0
-Making the core of your application framework-independent.
+Orbit. Making the core of your application framework-independent.
 
 ## Index
 - **[MVC frameworks and the "oponnent", the problem: Refactoring]("#mvc")**
