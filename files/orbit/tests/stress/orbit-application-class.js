@@ -18,9 +18,3 @@ test('Should generate 1000 classes without problems', function(t) {
 
 	t.equal(RandomGenerator.randomObjects(1000).length, 1000);
 });
-
-test('Should generate 10000 classes without problems', function(t) {
-	t.plan(1);
-
-	t.equal(RandomGenerator.randomObjects(10000).length, 10000);
-});

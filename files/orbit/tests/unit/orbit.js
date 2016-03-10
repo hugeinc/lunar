@@ -1,5 +1,5 @@
 import test from 'blue-tape';
-import { Orbit } from '../../src/index';
+import Orbit from '../../src/index';
 
 test('Orbit should be an object', function(t) {
 	t.plan(1);
