@@ -1,5 +1,5 @@
 import test from 'blue-tape';
-import { Orbit } from '../../src/index';
+import Orbit from '../../src/index';
 import SimpleObjectExample from '../mocks/object';
 
 const Class = Orbit.Class;
