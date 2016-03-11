@@ -13,11 +13,11 @@ function extend(actions, middlewares) {
   _.extend(emitter, ActionEmitter.extend(actions));
 
   if (typeof middlewares !== 'undefined' && middlewares.length) {
-    for (middleware in middlewares) {
-    	Logger.log({ message: `[Dispatcher.extend] Adding middleware ${middlewares[middleware].toString()}`, level: 'ALL' });
-      emitter.addMiddleware(middlewares[middleware]);
-    }
-  }
+		for (middleware in middlewares) {
+			Logger.log({ message: `[Dispatcher.extend] Adding middleware ${middlewares[middleware].toString()}`, level: 'ALL' });
+			emitter.addMiddleware(middlewares[middleware]);
+		}
+	}
 
   Logger.log({ message: '[Dispatcher.extend] Extending ViewProvider.', level: 'ALL' });
   _.extend(dispatcher, ViewProvider.extend([emitter.service]));
