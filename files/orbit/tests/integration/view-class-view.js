@@ -1,9 +1,9 @@
 import test from 'blue-tape';
 import _ from 'lodash';
-import { Orbit } from '../../src/index';
+import Orbit from '../../src/index';
 import SimpleObjectExample from '../mocks/object';
 
-Orbit.Logger.setLevel('ALL');
+Orbit.Logger.setLevel('OFF');
 
 Orbit.Mediator.unsubscribe({ topic: SimpleObjectExample.actions.ONE });
 Orbit.Mediator.unsubscribe({ topic: SimpleObjectExample.actions.TWO });

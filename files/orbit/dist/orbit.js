@@ -2,11 +2,11 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define([], factory);
-	else {
-		var a = factory();
-		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
-	}
+		define("Orbit", [], factory);
+	else if(typeof exports === 'object')
+		exports["Orbit"] = factory();
+	else
+		root["Orbit"] = factory();
 })(this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -94,17 +94,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = {
-	  Orbit: {
-	    Logger: _logger2.default,
-	    Mediator: _channel2.default,
-	    Class: _applicationClass2.default,
-	    ViewProvider: _viewProvider2.default,
-	    ActionEmitter: _actionEmitter2.default,
-	    Dispatcher: _dispatcher2.default,
-	    ActionsCreator: _actionsCreator2.default,
-	    Controller: _viewProvider2.default,
-	    Service: _actionEmitter2.default
-	  }
+	  Logger: _logger2.default,
+	  Mediator: _channel2.default,
+	  Class: _applicationClass2.default,
+	  ViewProvider: _viewProvider2.default,
+	  ActionEmitter: _actionEmitter2.default,
+	  Dispatcher: _dispatcher2.default,
+	  ActionsCreator: _actionsCreator2.default,
+	  Controller: _viewProvider2.default,
+	  Service: _actionEmitter2.default
 	};
 	module.exports = exports['default'];
 
@@ -2410,7 +2408,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    instance.methods[actions[action]] = function (params) {
 	      return service.do(actions[action], params);
 	    };
-	    _logger2.default.log({ message: '[ViewProvider.createActionsMethods] Created action method for ' + action + ' - ' + service, level: 'ALL' });
+	    _logger2.default.log({ message: '[ViewProvider.createActionsMethods] Created action method for ' + actions[action].toString() + ' - ' + service, level: 'ALL' });
 	  };
 	
 	  for (var action in actions) {
@@ -2616,7 +2614,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/**
 	 * @license
-	 * lodash 3.10.1 (Custom Build) <https://lodash.com/>
+	 * lodash 3.10.0 (Custom Build) <https://lodash.com/>
 	 * Build: `lodash modern -d -o ./index.js`
 	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
 	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
@@ -2629,7 +2627,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var undefined;
 	
 	  /** Used as the semantic version number. */
-	  var VERSION = '3.10.1';
+	  var VERSION = '3.10.0';
 	
 	  /** Used to compose bitmasks for wrapper metadata. */
 	  var BIND_FLAG = 1,
