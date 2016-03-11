@@ -56,6 +56,7 @@ function output(message, level) {
 	let finalMessage = `[Orbit.Logger][${level}] ${getDateString()}\n${message}\n`;
 
 	console.log(finalMessage);
+
 	return finalMessage;
 }
 
