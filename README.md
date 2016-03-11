@@ -2,7 +2,7 @@
 [![Github All Releases](https://img.shields.io/github/downloads/hugeinc/orbit/total.svg)]() [![GitHub tag](https://img.shields.io/github/tag/hugeinc/orbit.svg)]()
 
 Orbit. Making the core of your application framework-independent.
-
+<a name="index"></a>
 ## Index
 - **[Installing](#installing)**
 - **[Inspiration, fancy names](#inspiration)**
@@ -28,7 +28,7 @@ import Orbit from 'vendor/orbit';
 // or global variable
 console.log(Orbit);
 ```
-
+**[Back to top](#index)**
 
 <a name="inspiration"></a>
 ## Inspiration, fancy names
@@ -44,7 +44,7 @@ We were inspired by those amazing tools and philosophies:
 - [Node Events](https://nodejs.org/dist/latest-v4.x/docs/api/events.html)
 
 Why not have the decoupling strategy that already exists between Enterprise Applications, inside your own Single Applications, between your Business Logic and Frameworks? :)
-
+**[Back to top](#index)**
 
 <a name="mvc"></a>
 ## MVC frameworks and the "opponent", the problem: Refactoring
@@ -59,14 +59,14 @@ They get separated into Model Controller and View, which is far better than the 
 Functional, Reactive programming and alike means a tremendous evolution compared to MVC, when regarding scaling and long-term projects. If you have a entrance point of data, you just transform or project it in the way you want, through functions until it gets rendered for the user. But the main concern we are trying to deal with here is still in place: Refactoring.
  
 Refactoring is a reality, specially when developing big and long lasting applications. The benefits from Client-Side applications are very clear to us but the number of frameworks and their updates rain on us every week. We might feel tempted to test or do proof of concepts on different platforms, frameworks and philosophies but it seems too difficult. We can stay stuck into the same old application for years.
-
+**[Back to top](#index)**
 
 <a name="proposal"></a>
 ## What we propose
 We just have one concern here, the C of traditional MVC, the Angular's Service or Redux Reducer. They usually holds the Business Logic of your application -- what distinguish your product from others. Frameworks do have their role, and makes view rendering and model sincronization a lot easier. It would just be even easier for us if the Business Logic could be decoupled from tools and easily migrated when needed. So, use any framework or library you want, but keep your core code agnostic.
 
 First, you should separate "framework-code" from "application-code". Frameworks should deal with HTTP requests, view/templaing/virtual-dom rendering, data synchronization and/or database integration if needed. Application should be just functions, pure functions in the best case scenario. Let's see an example.
-
+**[Back to top](#index)**
 
 <a name="structure"></a>
 ## Structure
@@ -135,7 +135,7 @@ export default {
 	DECREMENT: 'DECREMENT'
 };
 ```
-
+**[Back to top](#index)**
 
 <a name="react"></a>
 ## React Example
@@ -170,7 +170,7 @@ React.createClass({
 	}
 });
 ```
-
+**[Back to top](#index)**
 
 <a name="angular"></a>
 ## Angular Example
@@ -274,7 +274,7 @@ function HeaderDirective() {
 ```
 
 Want to know more? Head to the [wiki](https://github.com/hugeinc/orbit/wiki) to see API explanations, React, Backbone and other examples.
-
+**[Back to top](#index)**
 
 <a name="contributing"></a>
 ## Contributing? Development instructions
@@ -297,3 +297,4 @@ $ make up
 Starts container. When the container starts you will have a live server for testing one of the examples; all the tests running in watch mode and bundle regeneration in watch mode.
 
 See the **makefile** to see available commands such as unit, integration tests and others.
+**[Back to top](#index)**
