@@ -4,15 +4,15 @@
 Orbit. Making the core of your application framework-independent.
 
 ## Index
-- **[Installing]("#installing")**
-- **[Inspiration, fancy names]("#inspiration")**
-- **[MVC, Flux and other frameworks, the problem: Refactoring]("#mvc")**
-- **[What we propose]("#proposal")**
-- **[Structure]("#structure")**
-- **[React Example]("#react")**
-- **[Angular Example]("#angular")**
+- **[Installing](#installing)**
+- **[Inspiration, fancy names](#inspiration)**
+- **[MVC, Flux and other frameworks, the problem: Refactoring](#mvc)**
+- **[What we propose](#proposal)**
+- **[Structure](#structure)**
+- **[React Example](#react)**
+- **[Angular Example](#angular)**
 - **[Wiki](https://github.com/hugeinc/orbit/wiki/)**
-- **[Contributing]("#contributing")**
+- **[Contributing](#contributing)**
 
 ## Installing <a href="#installing"></a>
 - **Not yet** Run ```npm install orbit --save```
