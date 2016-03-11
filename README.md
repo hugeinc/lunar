@@ -70,11 +70,11 @@ Your file will look something like this:
 
 ```javascript
 // Import your actions constant file
-import { Orbit } from 'orbit';
+import Orbit from 'orbit';
 import actions from './actions';
 
 // Your core feature code, an object with pure functions
-export default Orbit.createModule({
+export default Orbit({
 	// You can have private properties if you want
 	title: 'Orbit',
 	actions: actions,
@@ -87,7 +87,7 @@ export default Orbit.createModule({
 	[actions.DECREMENT]: function(data) {
 		return --data;
 	}
-});
+}).createModule();
 ```
 
 ### The actions file
@@ -95,18 +95,18 @@ Refactors happen all the time. In order to change your code in just one place we
 All public functions from the application that you want the framework to be able to access should have an action:
 
 ```javascript
-import { Orbit } from 'orbit';
-
-export default Orbit.createActions({
+export default {
 	FORMAT_TITLE: 'FORMAT_TITLE',
 	INCREMENT: 'INCREMENT',
 	DECREMENT: 'DECREMENT'
-});
+};
 ```
 
 Let's assume that you consider the Angular Service the holder of logic. Controller the scope provider and the Directive where actions get fired.
 
 ```javascript
+import Home from 'orbit/home';
+
 // Service
 // After .extend, the service can add middlewares
 // And have the actions and methods built into itself
@@ -115,7 +115,7 @@ angular.module('app.home')
     .service('HomeService', HomeService);
 
 function HomeService($http) {
-    angular.extend(this, Orbit.createService(Home.actions));
+    Orbit(this).createProxy(Home);
 
 	// This is optional.
 	// You might want to execute something before
@@ -150,15 +150,15 @@ function HomeController(HomeService) {
     
     vm.title = 'Hello.';
 
-    angular.extend(this, Orbit.createController([HomeService]));
+    Orbit(this).createActivator([HomeService]);
 }
 
 HomeController.$inject = ['HomeService'];
 ```
 ```javascript
 // Page template
-// We pass actions and methods to the directive.
-header(title="vm.title", methods="vm.methods")
+// We pass methods (request) to the directive.
+header(title="vm.title", request="vm.request")
 ```
 ```javascript
 // Directive
@@ -174,7 +174,7 @@ function HeaderDirective() {
             var actions = scope.actions;
 
             scope.getTitle = function(params) {
-                scope.methods[actions.FORMAT_TITLE](params).then(function(data) {
+                scope.request[actions.FORMAT_TITLE](params).then(function(data) {
                     scope.title = data;
                     if (!scope.$root.$$phase) scope.$digest();
                 }, function(err) {
@@ -203,7 +203,7 @@ Want to know more? Head to the [wiki](https://github.com/hugeinc/orbit/wiki) to 
 ```javascript
 const Orbit = require('vendor/orbit');
 // or
-import { Orbit } from 'vendor/orbit';
+import Orbit from 'vendor/orbit';
 // or global variable
 console.log(Orbit);
 ```
