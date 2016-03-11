@@ -34,12 +34,6 @@ test('Logger.setLevel should be a function', function(t) {
 	t.equal(typeof Logger.setLevel, 'function');
 });
 
-test('Logger.getLevel should return the levelString, default to OFF', function(t) {
-	t.plan(1);
-
-	t.equal(Logger.getLevel(), 'OFF');
-});
-
 test('Logger.setLevel should set the level', function(t) {
 	t.plan(1);
 
