@@ -2180,7 +2180,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      _channel2.default.subscribe({
 	        topic: actions[action],
 	        callback: function callback(data) {
-	          var response = void 0;
+	          var response = undefined;
 	
 	          _logger2.default.log('[ApplicationClass.callback] Action ' + actions[action].toString() + ' callback called with ' + data, 'ALL');
 	
@@ -2408,7 +2408,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    instance.methods[actions[action]] = function (params) {
 	      return service.do(actions[action], params);
 	    };
-	    _logger2.default.log({ message: '[ViewProvider.createActionsMethods] Created action method for ' + action + ' - ' + service, level: 'ALL' });
+	    _logger2.default.log({ message: '[ViewProvider.createActionsMethods] Created action method for ' + actions[action].toString() + ' - ' + service, level: 'ALL' });
 	  };
 	
 	  for (var action in actions) {
@@ -2472,8 +2472,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	
 	  function doAction(action, params) {
-	    var promise = void 0,
-	        beforeResponse = void 0;
+	    var promise = undefined,
+	        beforeResponse = undefined;
 	
 	    _logger2.default.log({ message: '[ActionEmitter.doAction] Calling action ' + action.toString() + ' with ' + params, level: 'ALL' });
 	
@@ -2506,7 +2506,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	
 	function handleBeforeResponseAndMakeRequest(action, response, instance) {
-	  var promise = void 0;
+	  var promise = undefined;
 	
 	  if (isPromise(response)) {
 	    _logger2.default.log({ message: '[ActionEmitter.handleBeforeResponseAndMakeRequest] Before middleware is a Promise, waiting..', level: 'ALL' });
@@ -2583,7 +2583,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function extend(actions, middlewares) {
 	  var emitter = {},
 	      dispatcher = {},
-	      middleware = void 0;
+	      middleware = undefined;
 	
 	  _logger2.default.log({ message: '[Dispatcher.extend] Extending ActionEmitter.', level: 'ALL' });
 	
