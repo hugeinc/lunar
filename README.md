@@ -14,7 +14,9 @@ Orbit. Making the core of your application framework-independent.
 - **[Wiki](https://github.com/hugeinc/orbit/wiki/)**
 - **[Contributing](#contributing)**
 
-## Installing <a name="installing"></a>
+
+<a name="installing"></a>
+## Installing
 - **Not yet** Run ```npm install orbit --save```
 - Alternatively, download the [orbit/files/dist/orbit.js](https://github.com/hugeinc/orbit/blob/develop/files/orbit/dist/orbit.js) file and place it in your project.
 - Orbit is under UMD. You can require, import it, or use it as a global variable
@@ -27,7 +29,9 @@ import Orbit from 'vendor/orbit';
 console.log(Orbit);
 ```
 
-## Inspiration, fancy names <a name="inspiration"></a>
+
+<a name="inspiration"></a>
+## Inspiration, fancy names
 We were inspired by those amazing tools and philosophies:
 - [CSP](https://github.com/ubolonton/js-csp)
 - [PostalJS](https://github.com/postaljs/postal.js)
@@ -41,7 +45,9 @@ We were inspired by those amazing tools and philosophies:
 
 Why not have the decoupling strategy that already exists between Enterprise Applications, inside your own Single Applications, between your Business Logic and Frameworks? :)
 
-## MVC frameworks and the "opponent", the problem: Refactoring <a name="#mvc"></a>
+
+<a name="#mvc"></a>
+## MVC frameworks and the "opponent", the problem: Refactoring
 Usual frameworks propose a good enough separation of concerns by the three major areas that we deal with:
 
 - Data
@@ -54,12 +60,16 @@ Functional, Reactive programming and alike means a tremendous evolution compared
  
 Refactoring is a reality, specially when developing big and long lasting applications. The benefits from Client-Side applications are very clear to us but the number of frameworks and their updates rain on us every week. We might feel tempted to test or do proof of concepts on different platforms, frameworks and philosophies but it seems too difficult. We can stay stuck into the same old application for years.
 
-## What we propose <a name="proposal"></a>
+
+<a name="proposal"></a>
+## What we propose
 We just have one concern here, the C of traditional MVC, the Angular's Service or Redux Reducer. They usually holds the Business Logic of your application -- what distinguish your product from others. Frameworks do have their role, and makes view rendering and model sincronization a lot easier. It would just be even easier for us if the Business Logic could be decoupled from tools and easily migrated when needed. So, use any framework or library you want, but keep your core code agnostic.
 
 First, you should separate "framework-code" from "application-code". Frameworks should deal with HTTP requests, view/templaing/virtual-dom rendering, data synchronization and/or database integration if needed. Application should be just functions, pure functions in the best case scenario. Let's see an example.
 
-## Structure <a name="structure"></a>
+
+<a name="structure"></a>
+## Structure
 
 ```
 /client  
@@ -126,7 +136,9 @@ export default {
 };
 ```
 
-## React Example <a name="react"></a>
+
+<a name="react"></a>
+## React Example
 We know that React concerns only the V (sort of) of our apps. After you create an Orbit module, you should have an endpoint where you call it. This can be the Component it self.
 
 ```javascript
@@ -159,7 +171,9 @@ React.createClass({
 });
 ```
 
-## Angular Example <a name="angular"></a>
+
+<a name="angular"></a>
+## Angular Example
 The Angular team saw that M, V and C are not enough for code decoupling. They added a few extra things like Services, Factories and Providers. Whenever you have code that you will reuse in multiple places, put them into Services. This is very helpful but still coupled. Refactoring means changing your Service, Controller and Directive at least.
 
 ![](images/OrbitLayer.png)  
@@ -261,7 +275,9 @@ function HeaderDirective() {
 
 Want to know more? Head to the [wiki](https://github.com/hugeinc/orbit/wiki) to see API explanations, React, Backbone and other examples.
 
-## Contributing? Development instructions<a name="contributing"></a>
+
+<a name="contributing"></a>
+## Contributing? Development instructions
 
 * Install [Docker](https://docs.docker.com/mac/step_one/)*
 
