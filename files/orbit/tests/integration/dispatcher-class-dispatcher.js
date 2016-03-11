@@ -1,14 +1,16 @@
-var test = require('blue-tape'),
-	_ = require('lodash'),
-	Orbit = require('../../dist/index').Orbit,
-	SimpleObjectExample = require('../mocks/object');
+import test from 'blue-tape';
+import _ from 'lodash';
+import Orbit from '../../src/index';
+import SimpleObjectExample from '../mocks/object';
+
+Orbit.Logger.setLevel('OFF');
 
 Orbit.Mediator.unsubscribe({ topic: SimpleObjectExample.actions.ONE });
 Orbit.Mediator.unsubscribe({ topic: SimpleObjectExample.actions.TWO });
 
-var Example = Orbit.Class.extend(SimpleObjectExample);
+let Example = Orbit.Class.extend(SimpleObjectExample);
 
-var AppExample = {
+let AppExample = {
 	state: {
 		number: 0
 	},
@@ -16,7 +18,7 @@ var AppExample = {
 		_.extend(this, Orbit.Dispatcher(Example.actions));
 	},
 	test: function(n) {
-		var self = this;
+		let self = this;
 		this.dispatcher();
 
 		return this.methods[Example.actions.ONE](n).then(function(data) {
@@ -27,7 +29,7 @@ var AppExample = {
 	}
 };
 
-var AppExampleWithMiddleware = {
+let AppExampleWithMiddleware = {
 	state: {
 		number: 0
 	},
@@ -45,7 +47,7 @@ var AppExampleWithMiddleware = {
 		]));
 	},
 	test: function(n) {
-		var self = this;
+		let self = this;
 		this.dispatcher();
 
 		return this.methods[Example.actions.ONE](n).then(function(data) {

@@ -1,7 +1,5 @@
-'use strict';
-
-var test = require('blue-tape'),
-	Mediator = require('../../dist/index').Orbit.Mediator;
+import test from 'blue-tape';
+import Mediator from '../../src/core/mediator/channel';
 
 test('Mediator should be an object', function(t) {
 	t.plan(1);

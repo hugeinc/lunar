@@ -7,6 +7,8 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 const DIST = path.resolve(__dirname, 'orbit/dist');
 
+const env = process.env.WEBPACK_ENV;
+
 module.exports = {
   context: __dirname + '/orbit/src',
   entry: {
@@ -19,8 +21,10 @@ module.exports = {
 
   output: {
     path: DIST,
-    filename: 'index.js',
-    libraryTarget: 'umd'
+    filename: env === 'dist' ? 'orbit.min.js' : 'orbit.js',
+    libraryTarget: 'umd',
+    library: 'Orbit',
+    umdNamedDefine: true
   },
 
   devtool: 'eval-source-map',

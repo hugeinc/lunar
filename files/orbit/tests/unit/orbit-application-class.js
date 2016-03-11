@@ -1,11 +1,12 @@
-var test = require('blue-tape'),
-	Orbit = require('../../dist/index').Orbit,
-	SimpleObjectExample = require('../mocks/object'),
-	Class = Orbit.Class,
-	Mediator = Orbit.Mediator;
+import test from 'blue-tape';
+import Orbit from '../../src/index';
+import SimpleObjectExample from '../mocks/object';
+
+const Class = Orbit.Class;
+const Mediator = Orbit.Mediator;
 
 test('Simple object should be converted to "class"', function(t) {
-	var OrbitClass;
+	let OrbitClass;
 
 	Mediator.unsubscribe({ topic: SimpleObjectExample.actions.ONE });
 	Mediator.unsubscribe({ topic: SimpleObjectExample.actions.TWO });

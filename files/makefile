@@ -11,7 +11,7 @@ remake:
 	@docker rm -f orbit && docker rmi huge/orbit && make setup
 
 bundle:
-	@docker exec orbit npm start
+	@docker exec orbit npm run bundle
 
 ssh:
 	@docker exec -i -t orbit bash
@@ -19,11 +19,26 @@ ssh:
 sync-config:
 	@docker exec orbit rm package.json webpack.config.js && docker cp package.json orbit:/app/package.json && docker cp webpack.config.js orbit:/app/webpack.config.js
 
+jshint:
+	@docker exec orbit npm run jshint
+
+jscs:
+	@docker exec orbit npm run jscs
+
+jscs-fix:
+	@docker exec orbit npm run jscsfix
+
 unit:
 	@docker exec orbit npm run unit
 
 integration:
 	@docker exec orbit npm run integration
+
+stress:
+	@docker exec orbit npm run stress
+
+concurrency:
+	@docker exec orbit npm run concurrency
 
 unit-pretty:
 	@docker exec orbit npm run unit-pretty
@@ -31,14 +46,38 @@ unit-pretty:
 integration-pretty:
 	@docker exec orbit npm run integration-pretty
 
-unit-diff:
-	@docker exec orbit npm run unit-diff
+stress-pretty:
+	@docker exec orbit npm run stress-pretty
 
-integration-diff:
-	@docker exec orbit npm run integration-diff
+concurrency-pretty:
+	@docker exec orbit npm run concurrency-pretty
 
 unit-nyan:
 	@docker exec orbit npm run unit-nyan
 
 integration-nyan:
 	@docker exec orbit npm run integration-nyan
+
+stress-nyan:
+	@docker exec orbit npm run stress-nyan
+
+concurrency-nyan:
+	@docker exec orbit npm run concurrency-nyan
+
+unit-coverage:
+	@docker exec orbit npm run unit-coverage
+
+integration-coverage:
+	@docker exec orbit npm run integration-coverage
+
+cover:
+	@docker exec orbit npm run coverage
+
+test:
+	@docker exec orbit npm run test
+
+watch:
+	@docker exec orbit npm run watch
+
+dev:
+	@docker exec orbit npm run dev

@@ -1,6 +1,6 @@
-var test = require('blue-tape'),
-	ActionEmitter = require('../../dist/index').Orbit.ActionEmitter,
-	ActionsSymbols = require('../mocks/actions-symbols');
+import test from 'blue-tape';
+import ActionEmitter from '../../src/core/factories/action-emitter.factory';
+import ActionsSymbols from '../mocks/actions-symbols';
 
 test('ActionEmitter should be an object', function(t) {
 	t.plan(1);

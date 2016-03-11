@@ -1,6 +1,6 @@
-var test = require('blue-tape'),
-	ActionsCreator = require('../../dist/index').Orbit.ActionsCreator,
-	ActionsStrings = require('../mocks/actions-string');
+import test from 'blue-tape';
+import ActionsCreator from '../../src/core/factories/actions-creator.factory';
+import ActionsStrings from '../mocks/actions-string';
 
 test('ActionsCreator should be an object', function(t) {
 	t.plan(1);
