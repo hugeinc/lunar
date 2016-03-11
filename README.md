@@ -22,11 +22,21 @@ Orbit. Making the core of your application framework-independent.
 - Orbit is under UMD. You can require, import it, or use it as a global variable
 
 ```javascript
-const Orbit = require('vendor/orbit');
-// or
-import Orbit from 'vendor/orbit';
-// or global variable
+const Orbit = require('vendor/orbit'); // or
+import Orbit from 'vendor/orbit'; // or global variable
 console.log(Orbit);
+
+const actions = { ONE: 'ONE' };
+const MyFeature = Orbit({...actions}).createModule();
+const ReactComponent = Orbit(this).createActivator([MyFeature,...])
+ReactComponent.addMiddleware([...]) // before and after middlwares
+ReactComponent.request[actions.ONE]().then()
+
+// You can add an additional proxy layer
+const AngularService = Orbit(this).createProxy(MyFeature)
+AngularService.addMiddleware([...]) // before and after middlwares
+const AngularController = Orbit(this).createActivator([AngularService,...])
+Directive.request[actions.ONE]().then()
 ```
 **[Back to top](#index)**
 
