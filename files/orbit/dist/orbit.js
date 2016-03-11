@@ -2408,7 +2408,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    instance.methods[actions[action]] = function (params) {
 	      return service.do(actions[action], params);
 	    };
-	    _logger2.default.log({ message: '[ViewProvider.createActionsMethods] Created action method for ' + action + ' - ' + service, level: 'ALL' });
+	    _logger2.default.log({ message: '[ViewProvider.createActionsMethods] Created action method for ' + actions[action].toString() + ' - ' + service, level: 'ALL' });
 	  };
 	
 	  for (var action in actions) {

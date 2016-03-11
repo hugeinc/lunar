@@ -32,7 +32,7 @@ function internalViewProviderFactory(services) {
 function createActionsMethods(actions, service, instance) {
   for (let action in actions) {
     instance.methods[actions[action]] = params => service.do(actions[action], params);
-    Logger.log({ message: `[ViewProvider.createActionsMethods] Created action method for ${action} - ${service}`, level: 'ALL' });
+    Logger.log({ message: `[ViewProvider.createActionsMethods] Created action method for ${actions[action].toString()} - ${service}`, level: 'ALL' });
   }
 }
 
