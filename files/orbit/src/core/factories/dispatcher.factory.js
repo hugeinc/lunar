@@ -1,7 +1,6 @@
 import ActionEmitter from '../factories/action-emitter.factory';
 import ViewProvider from '../factories/view-provider.factory';
 import Logger from '../logger/logger';
-import _ from 'lodash';
 
 function extend(actions, middlewares) {
   let emitter = {},
@@ -10,7 +9,7 @@ function extend(actions, middlewares) {
 
 	Logger.log({ message: '[Dispatcher.extend] Extending ActionEmitter.', level: 'ALL' });
 
-  _.extend(emitter, ActionEmitter.extend(actions));
+	Object.assign(emitter, ActionEmitter.extend(actions));
 
   if (typeof middlewares !== 'undefined' && middlewares.length) {
     for (middleware in middlewares) {
@@ -20,7 +19,7 @@ function extend(actions, middlewares) {
   }
 
   Logger.log({ message: '[Dispatcher.extend] Extending ViewProvider.', level: 'ALL' });
-  _.extend(dispatcher, ViewProvider.extend([emitter.service]));
+  Object.assign(dispatcher, ViewProvider.extend([emitter.service]));
 
   return dispatcher;
 }

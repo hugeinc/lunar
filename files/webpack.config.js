@@ -27,7 +27,7 @@ module.exports = {
     umdNamedDefine: true
   },
 
-  devtool: 'eval-source-map',
+	devtool: env === 'dist' ? '' : 'eval-source-map',
 
   module: {
     loaders: [
