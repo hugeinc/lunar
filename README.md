@@ -4,12 +4,42 @@
 Orbit. Making the core of your application framework-independent.
 
 ## Index
-- **[MVC frameworks and the "oponnent", the problem: Refactoring]("#mvc")**
+- **[Installing]("#installing")**
+- **[Inspiration, fancy names]("#inspiration")**
+- **[MVC, Flux and other frameworks, the problem: Refactoring]("#mvc")**
 - **[What we propose]("#proposal")**
+- **[Structure]("#structure")**
+- **[React Example]("#react")**
 - **[Angular Example]("#angular")**
 - **[Wiki](https://github.com/hugeinc/orbit/wiki/)**
-- **[Installing]("#installing")**
 - **[Contributing]("#contributing")**
+
+## Installing <a href="#installing"></a>
+- **Not yet** Run ```npm install orbit --save```
+- Alternatively, download the [orbit/files/dist/orbit.js](https://github.com/hugeinc/orbit/blob/develop/files/orbit/dist/orbit.js) file and place it in your project.
+- Orbit is under UMD. You can require, import it, or use it as a global variable
+
+```javascript
+const Orbit = require('vendor/orbit');
+// or
+import Orbit from 'vendor/orbit';
+// or global variable
+console.log(Orbit);
+```
+
+## Inspiration, fancy names
+We were inspired by those amazing tools and philosophies:
+- [CSP](https://github.com/ubolonton/js-csp)
+- [PostalJS](https://github.com/postaljs/postal.js)
+- [EAI](https://en.wikipedia.org/wiki/Enterprise_application_integration)
+- [ESB](https://en.wikipedia.org/wiki/Enterprise_service_bus)
+- [EIP Messaging Patterns](http://www.enterpriseintegrationpatterns.com/patterns/messaging/index.html)
+- [RabbitMQ](https://www.rabbitmq.com/)
+- [AMQP.Node](http://www.squaremobius.net/amqp.node/)
+- [Express Middlewares](http://expressjs.com/en/guide/writing-middleware.html)
+- [Node Events](https://nodejs.org/dist/latest-v4.x/docs/api/events.html)
+
+Why not have the decoupling strategy that already exists between Enterprise Applications, inside your own Single Applications, between your Business Logic and Frameworks? :)
 
 ## MVC frameworks and the "opponent", the problem: Refactoring <a href="#mvc"></a>
 Usual frameworks propose a good enough separation of concerns by the three major areas that we deal with:
@@ -18,24 +48,18 @@ Usual frameworks propose a good enough separation of concerns by the three major
 - Logic
 - User Interface
 
-They get separated into Model Controller and View, which is far better than the mixed cake that we rarely see nowadays. We can say that from bottom up, things change less, progressively: View changes a lot, Controller changes often and Models change rarely. Best case scenario those 3 are decoupled in a way we can reuse M, V and C. Often, we need to do parallel actions and mix Controllers features. That is when things get complicated.
+They get separated into Model Controller and View, which is far better than the mixed cake that we rarely see nowadays (hopefully). We can say that from bottom up, **code** change less, progressively: View changes a lot, Controller changes often and Models change rarely. Best case scenario those 3 are decoupled in a way we can reuse M, V and C. Often, we need to do parallel actions and mix Controllers features. That is when things get complicated.
 
-Functional, Reactive programming and alike means a tremendous evolution compared to MVC, when regarding scaling and long-term projects. But the main concern we are trying to deal with here is still in place: Refactoring. We just want to propose an easier way to refactor.
+Functional, Reactive programming and alike means a tremendous evolution compared to MVC, when regarding scaling and long-term projects. If you have a entrance point of data, you just transform or project it in the way you want, through functions until it gets rendered for the user. But the main concern we are trying to deal with here is still in place: Refactoring.
  
-Refactoring is a reality nowadays, specially when developing big and long lasting applications. The benefits from Client-Side applications are very clear to us but the number of frameworks and their updates rain on us every week. We might feel tempted to test or do proof of concepts on different platforms, frameworks and philosophies but it seems too difficult that we can stay stuck into the same old application for years.
+Refactoring is a reality, specially when developing big and long lasting applications. The benefits from Client-Side applications are very clear to us but the number of frameworks and their updates rain on us every week. We might feel tempted to test or do proof of concepts on different platforms, frameworks and philosophies but it seems too difficult. We can stay stuck into the same old application for years.
 
 ## What we propose <a href="#proposal"></a>
-We just have one concern here, the C of MVC. Controllers usually holds the Business Logic of your application, it is what distinguish your product from others. Frameworks do have their role, and makes view rendering and model sincronization a lot easier. It would just be even easier for us if the Business Logic could be decoupled from tools and easily migrated when needed. So, use any framework or library you want, but keep your core code agnostic.
+We just have one concern here, the C of traditional MVC, the Angular's Service or Redux Reducer. They usually holds the Business Logic of your application -- what distinguish your product from others. Frameworks do have their role, and makes view rendering and model sincronization a lot easier. It would just be even easier for us if the Business Logic could be decoupled from tools and easily migrated when needed. So, use any framework or library you want, but keep your core code agnostic.
 
 First, you should separate "framework-code" from "application-code". Frameworks should deal with HTTP requests, view/templaing/virtual-dom rendering, data synchronization and/or database integration if needed. Application should be just functions, pure functions in the best case scenario. Let's see an example.
 
-## Angular Example <a href="#angular"></a>
-The Angular team saw that M, V and C are not enough for code decoupling. They added a few extra things like Services, Factories and Providers. Whenever you have code that you will reuse in multiple places, put them into Services. This is very helpful but still coupled. Refactoring means changing your Service, Controller and Directive at least.
-
-![](images/OrbitLayer.png)  
-[Open full size version](images/OrbitLayer.pdf)
-
-Structure:  
+## Structure <a href="#structure"></a>
 
 ```
 /client  
@@ -102,7 +126,48 @@ export default {
 };
 ```
 
-Let's assume that you consider the Angular Service the holder of logic. Controller the scope provider and the Directive where actions get fired.
+## React Example <a href="#react"></a>
+We know that React concerns only the V (sort of) of our apps. After you create an Orbit module, you should have an endpoint where you call it. This can be the Component it self.
+
+```javascript
+import Orbit from 'orbit';
+import Home from 'orbit/home';
+
+React.createClass({
+	getInitialState() {
+		return {
+			title: ''
+		}
+	},
+	componentDidMount() {
+		var self = this;
+		Orbit(this).createActivator([Home]);
+
+		this.request[Home.actions.FORMAT_TITLE]('Welcome').then(function(data) {
+			self.setState({
+				title: data
+			});
+		}, function(err) {
+			console.log('Error: ', err);
+		});
+	},
+	render() {
+		return (
+			React.createElement('h1', null, this.state.title)
+		);
+	}
+});
+```
+
+## Angular Example <a href="#angular"></a>
+The Angular team saw that M, V and C are not enough for code decoupling. They added a few extra things like Services, Factories and Providers. Whenever you have code that you will reuse in multiple places, put them into Services. This is very helpful but still coupled. Refactoring means changing your Service, Controller and Directive at least.
+
+![](images/OrbitLayer.png)  
+[Open full size version](images/OrbitLayer.pdf)
+
+
+
+Let's assume that you consider the Angular Service the holder of logic. Controller the scope provider and the Directive where actions get fired. In the previous example we had your Orbit module and an Activator where you fire your actions. If you have/need a layer in between day you can create what we call Proxy. In Angular's architecture that would be in your Service.
 
 ```javascript
 import Home from 'orbit/home';
@@ -120,19 +185,19 @@ function HomeService($http) {
 	// This is optional.
 	// You might want to execute something before
 	// your core code is run, or after.
-    this.addMiddleware({
-        action: Home.actions.FORMAT_TITLE,
-        before: function(data) {
-        	// Orbit will send the Promise
-        	// result to your code.
-            return $http({
-                method: 'GET',
-                url: 'http://localhost:4000/posts'
-            });
-        }
-    });
+	this.addMiddleware({
+		action: Home.actions.FORMAT_TITLE,
+		before: function(data) {
+			// Orbit will send the Promise
+			// result to your code.
+		    return $http({
+		        method: 'GET',
+		        url: 'http://localhost:4000/posts'
+		    });
+		}
+	});
 
-    return this.service;
+	return this.service;
 }
 
 HomeService.$inject = ['$http'];
@@ -196,18 +261,6 @@ function HeaderDirective() {
 
 Want to know more? Head to the [wiki](https://github.com/hugeinc/orbit/wiki) to see API explanations, React, Backbone and other examples.
 
-## Installing <a href="#installing"></a>
-- Download the [orbit/files/dist/orbit.js](https://github.com/hugeinc/orbit/blob/develop/files/orbit/dist/orbit.js) file and place it in your project.
-- Orbit is under UMD. You can require, import it, or use it as a global variable
-
-```javascript
-const Orbit = require('vendor/orbit');
-// or
-import Orbit from 'vendor/orbit';
-// or global variable
-console.log(Orbit);
-```
-
 ## Contributing? Development instructions <a href="#contributing"></a>
 
 * Install [Docker](https://docs.docker.com/mac/step_one/)*
@@ -225,6 +278,6 @@ First time only image setup.
 ```
 $ make up
 ```
-Starts container.
+Starts container. When the container starts you will have a live server for testing one of the examples; all the tests running in watch mode and bundle regeneration in watch mode.
 
 See the **makefile** to see available commands such as unit, integration tests and others.
