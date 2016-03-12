@@ -2,37 +2,43 @@ import Logger from '../logger/logger';
 import createProxy from './proxy.factory';
 
 function createActivator(objects) {
-  this.request = {};
+  let instance = this;
+
+  instance.request = {};
 
   for(let object in objects) {
-    if(typeof object.Proxy !== 'undefined') objectIsProxy(object).bind(this);
-    if(typeof object.actions !== 'undefined') objectIsModule(object).bind(this);
+    if(typeof objects[object].Proxy !== 'undefined') objectIsProxy(objects[object], instance);
+    if(typeof objects[object].actions !== 'undefined') objectIsModule(objects[object], instance);
   }
 
-  delete this.actions;
+  delete instance.actions;
+
+  return instance;
 }
 
-function objectIsProxy(object) {
+function objectIsProxy(object, instance) {
   let proxy = object.Proxy;
 
-  createActionsMethods(proxy.actions, object).bind(this);
+  createActionsMethods(proxy.actions, object, instance);
 }
 
-function objectIsModule(object) {
-  let proxy = {};
+function objectIsModule(object, instance) {
+  let proxy,
+    makeProxy = createProxy.bind({});
 
   Logger.log({ message: '[Activator.createActivator] Extending Proxy.', level: 'ALL' });
 
-  createProxy([object]).bind(proxy);
+  proxy = makeProxy([object]);
+  instance.addMiddleware = proxy.addMiddleware;
 
   Logger.log({ message: '[Activator.createActivator] Extending Activator.', level: 'ALL' });
 
-  createActionsMethods(proxy.Proxy.actions, proxy).bind(this);
+  createActionsMethods(proxy.Proxy.actions, proxy, instance);
 }
 
-function createActionsMethods(actions, proxy) {
+function createActionsMethods(actions, proxy, instance) {
   for (let action in actions) {
-    this.request[actions[action]] = params => proxy.doAction(actions[action], params);
+    instance.request[actions[action]] = params => proxy.Proxy.doAction(actions[action], params);
     Logger.log({ message: `[Activator.createActionsMethods] Created action method for ${actions[action].toString()} - ${proxy}`, level: 'ALL' });
   }
 }

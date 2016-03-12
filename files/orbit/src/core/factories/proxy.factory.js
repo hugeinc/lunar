@@ -2,14 +2,18 @@ import Logger from '../logger/logger';
 import OrbitMediator from '../mediator/channel';
 
 function createProxy(modules) {
-  this.Proxy = {};
-  this.Proxy.actions = {};
-  this.Proxy.doAction = doAction.bind(this);
-  this.addMiddleware = addMiddleware.bind(this);
+  let instance = this;
+
+  instance.Proxy = {};
+  instance.Proxy.actions = {};
+  instance.Proxy.doAction = doAction.bind(instance);
+  instance.addMiddleware = addMiddleware.bind(instance);
 
   for(let module in modules) {
-    this.Proxy.actions = Object.assign(this.Proxy.actions, module.actions);
+    instance.Proxy.actions = Object.assign(instance.Proxy.actions, modules[module].actions);
   }
+
+  return instance;
 }
 
 function addMiddleware(serviceMiddleware) {
@@ -24,15 +28,16 @@ function addMiddleware(serviceMiddleware) {
 
 function doAction(action, params) {
   let promise,
-    beforeResponse;
+    beforeResponse,
+    that = this;
 
   Logger.log({ message: `[Proxy.doAction] Calling action ${action.toString()} with ${params}`, level: 'ALL' });
 
   promise = new Promise(function (resolve, reject) {
     try {
-      beforeResponse = executeBeforeCallback(action, params, this);
+      beforeResponse = executeBeforeCallback(action, params, that);
       Logger.log({ message: `[Proxy.doAction] Promise ${action.toString()} resolved.`, level: 'ALL' });
-      resolve(handleBeforeResponseAndMakeRequest(action, beforeResponse, this));
+      resolve(handleBeforeResponseAndMakeRequest(action, beforeResponse, that));
     } catch (e) {
       Logger.log({ message: `[Proxy.doAction] Promise ${action.toString()} rejected ${e}`, level: 'ERROR' });
       reject(e);

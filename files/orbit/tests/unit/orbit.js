@@ -38,16 +38,16 @@ test('Orbit', function(t) {
 
   test('Orbit.createProxy', function(t) {
     let module = orbitModule.createModule();
-    let proxy = Orbit({}).createProxy(module);
+    let proxy = Orbit({}).createProxy([module]);
 
     t.plan(6);
 
     t.equal(typeof proxy, 'object', 'Should return an object');
     t.equal(proxy.addMiddleware instanceof Function, true, `Should have method 'addMiddleware'`);
-    t.equal(proxy.doAction instanceof Function, true, 'Should have method doAction');
-    t.equal(typeof proxy.actions, 'object', 'Should have actions');
-    t.equal(typeof proxy.actions.ONE, 'symbol', `Should have action 'ONE' as symbol`);
-    t.equal(typeof proxy.actions.TWO, 'symbol', `Should have action 'TWO' as symbol`);
+    t.equal(proxy.Proxy.doAction instanceof Function, true, 'Should have method doAction');
+    t.equal(typeof proxy.Proxy.actions, 'object', 'Should have actions');
+    t.equal(typeof proxy.Proxy.actions.ONE, 'symbol', `Should have action 'ONE' as symbol`);
+    t.equal(typeof proxy.Proxy.actions.TWO, 'symbol', `Should have action 'TWO' as symbol`);
 
     t.end();
   });
@@ -56,8 +56,8 @@ test('Orbit', function(t) {
     let module = orbitModule.createModule();
     let proxy = Orbit({}).createProxy(module);
     console.log(module);
-    let activator = Orbit({}).createActivator([module], [
-      {
+    let activator = Orbit({}).createActivator([module]);
+    activator.addMiddleware({
         action: module.actions.ONE,
         before: function(data) {
           return 'Before sending the data ' + data;
@@ -65,8 +65,7 @@ test('Orbit', function(t) {
         after: function(data) {
           return 'After processing the data ' + data;
         }
-      }
-    ]);
+      });
 
     t.plan(2);
 

@@ -6,9 +6,10 @@ function createModule() {
 
   instance.actions = actionsCreator(this.actions);
 
-  for (let method of Object.getOwnPropertySymbols(this)) {
-    Logger.log({ message: `[Module.createModule] Assigning method ${method.toString()}() to object.`, level: 'ALL'});
-    instance[method] = this[method].bind(instance);
+  for (let action in instance.actions) {
+    Logger.log({ message: `[Module.createModule] Assigning method ${instance.actions[action].toString()}() to object.`, level: 'ALL'});
+    instance[instance.actions[action]] = instance[action].bind(instance);
+    delete instance[action];
   }
 
   registerActions(instance.actions, instance);
@@ -31,6 +32,7 @@ function actionsCreator(actions) {
 
 function registerActions(actions, instance) {
   Logger.log({ message: `[Module.registerActions] Trying to register actions`, level: 'ALL'});
+
   for (let action in actions) {
     if (typeof instance[actions[action]] === 'function') {
       Logger.log(`[Module.registerActions] Subscribing to ${actions[action].toString()} action.`, 'ALL');

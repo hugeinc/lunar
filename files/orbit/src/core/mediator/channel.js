@@ -30,7 +30,7 @@ function unsubscribe(subscription) {
 function request(envelope) {
 	Logger.log({ message: `[Mediator.request] Trying to request callback with ${envelope.data}.`, level: 'ALL' });
   if (typeof subscriptions[envelope.topic] === 'undefined') {
-  	Logger.log({ message: `[Mediator.request] Topic already exists.`, level: 'ERROR' });
+  	Logger.log({ message: `[Mediator.request] Topic does not exists.`, level: 'ERROR' });
     throw new Error(`Topic does not exist, exiting.`);
   }
 
