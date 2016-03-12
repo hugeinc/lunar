@@ -1,7 +1,7 @@
 ![](images/Orbit.png)
 [![Github All Releases](https://img.shields.io/github/downloads/hugeinc/orbit/total.svg)]() [![GitHub tag](https://img.shields.io/github/tag/hugeinc/orbit.svg)]()
 
-Orbit. Making the core of your application framework-independent.
+Orbit **v0.4.0**. Making the core of your application framework-independent.
 <a name="index"></a>
 ## Index
 - **[Installing](#installing)**
