@@ -7,19 +7,6 @@ var Title = React.createClass({
 });
 
 var App = React.createClass({
-	dispatcher: function() {
-		_.extend(this, Orbit.Dispatcher(SimpleExample.actions, [
-			{
-				action: SimpleExample.actions.GET_TITLE,
-				before: function(data) {
-					return 'Huge ' + data;
-				},
-				after: function(data) {
-					return data + ' to the party.';
-				}
-			}
-		]));
-	},
 	getInitialState: function() {
 		return {
 			title: ''
@@ -27,9 +14,20 @@ var App = React.createClass({
 	},
 	componentDidMount: function() {
 		var self = this;
-		this.dispatcher();
 
-		this.methods[SimpleExample.actions.GET_TITLE]('welcomes').then(function(data) {
+    Orbit(this).createActivator([SimpleExample]);
+
+    this.addMiddleware({
+        action: SimpleExample.actions.GET_TITLE,
+        before: function(data) {
+          return 'Huge ' + data;
+        },
+        after: function(data) {
+          return data + ' to the party.';
+        }
+    });
+
+		this.request[SimpleExample.actions.GET_TITLE]('welcomes').then(function(data) {
 				self.setState({
 					title: data
 				});

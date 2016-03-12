@@ -1,5 +1,5 @@
 import test from 'blue-tape';
-import ActionEmitter from '../../src/core/factories/action-emitter.factory';
+import ActionEmitter from '../../src/core/factories/proxy.factory.js';
 import ActionsSymbols from '../mocks/actions-symbols';
 
 test('ActionEmitter should be an object', function(t) {

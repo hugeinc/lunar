@@ -1,5 +1,5 @@
 import test from 'blue-tape';
-import Dispatcher from '../../src/core/factories/dispatcher.factory';
+import Dispatcher from '../../src/core/factories/proxy-activator.factory.js';
 import ActionsSymbols from '../mocks/actions-symbols';
 
 test('Dispatcher should be a function', function(t) {
