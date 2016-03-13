@@ -8,6 +8,7 @@ Orbit **v0.3.0**. Making the core of your application framework-independent.
 - **[Inspiration, fancy names](#inspiration)**
 - **[MVC, Flux and other frameworks, the problem: Refactoring](#mvc)**
 - **[What we propose](#proposal)**
+- **[How is Orbit different than Redux?](#redux)**
 - **[Structure](#structure)**
 - **[Angular Example](#angular)**
 - **[Wiki](https://github.com/hugeinc/orbit/wiki/)**
@@ -74,6 +75,12 @@ Refactoring is a reality, specially when developing big and long lasting applica
 We just have one concern here, the C of traditional MVC, the Angular's Service or Redux Reducer. They usually holds the Business Logic of your application -- what distinguish your product from others. Frameworks do have their role, and makes view rendering and model sincronization a lot easier. It would just be even easier for us if the Business Logic could be decoupled from tools and easily migrated when needed. So, use any framework or library you want, but keep your core code agnostic.
 
 First, you should separate "framework-code" from "application-code". Frameworks should deal with HTTP requests, view/templaing/virtual-dom rendering, data synchronization and/or database integration if needed. Application should be just functions, pure functions in the best case scenario. Let's see an example.  
+**[Back to top](#index)**
+
+<a name="redux"></a>
+## How is Orbit different than Redux?
+Redux is awesome. As the official documentation states, "Redux is a predictable state container for JavaScript apps." and "evolves the ideas of Flux, but avoids its complexity by taking cues from Elm.". Redux is an architecture and it is a state container. Orbit doesn't worry about state or how you structure your application. The difference between them is design. Orbit only concern is how to decouple business logic from frameworks, it doesn't manage state, you can even use Orbit with Redux.
+
 **[Back to top](#index)**
 
 <a name="structure"></a>
