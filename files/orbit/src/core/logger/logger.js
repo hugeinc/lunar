@@ -1,3 +1,5 @@
+'use strict';
+
 const OFF = Symbol('No logs will be shown'),
 	FATAL = Symbol('Only errors that will break your app will be shown'),
 	ERROR = Symbol('Any error will be logged'),

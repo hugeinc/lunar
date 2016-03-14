@@ -1,11 +1,13 @@
+'use strict';
+
 import Logger from '../logger/logger';
 
 const subscriptions = {},
 	channel = {
-  subscribe,
-  unsubscribe,
-  request
-};
+    subscribe,
+    unsubscribe,
+    request
+  };
 
 function subscribe(options) {
 	Logger.log({ message: `[Mediator.subscribe] Trying to subscribe.`, level: 'ALL' });

@@ -1,3 +1,5 @@
+'use strict';
+
 import Logger from '../logger/logger';
 import OrbitMediator from '../mediator/channel';
 
