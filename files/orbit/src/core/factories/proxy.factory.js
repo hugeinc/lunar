@@ -11,8 +11,8 @@ function createProxy(modules) {
   instance.Proxy.doAction = doAction.bind(instance);
   instance.addMiddleware = addMiddleware.bind(instance);
 
-  for(let module in modules) {
-    instance.Proxy.actions = Object.assign(instance.Proxy.actions, modules[module].actions);
+  for (let module of modules) {
+    instance.Proxy.actions = Object.assign(instance.Proxy.actions, module.actions);
   }
 
   return instance;
@@ -30,16 +30,15 @@ function addMiddleware(serviceMiddleware) {
 
 function doAction(action, params) {
   let promise,
-    beforeResponse,
-    that = this;
+    beforeResponse;
 
   Logger.log({ message: `[Proxy.doAction] Calling action ${action.toString()} with ${params}`, level: 'ALL' });
 
-  promise = new Promise(function (resolve, reject) {
+  promise = new Promise((resolve, reject) => {
     try {
-      beforeResponse = executeBeforeCallback(action, params, that);
+      beforeResponse = executeBeforeCallback(action, params, this);
       Logger.log({ message: `[Proxy.doAction] Promise ${action.toString()} resolved.`, level: 'ALL' });
-      resolve(handleBeforeResponseAndMakeRequest(action, beforeResponse, that));
+      resolve(handleBeforeResponseAndMakeRequest(action, beforeResponse, this));
     } catch (e) {
       Logger.log({ message: `[Proxy.doAction] Promise ${action.toString()} rejected ${e}`, level: 'ERROR' });
       reject(e);
