@@ -1,46 +1,57 @@
-/* global __dirname, module */
 'use strict';
 
-const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const path = require('path'),
+	DIST = path.resolve(__dirname, 'orbit/dist'),
+	env = process.env.WEBPACK_ENV,
+	config = {
+		context: __dirname + '/orbit/src',
+		entry: {
+			orbit: './index.js'
+		},
 
-const DIST = path.resolve(__dirname, 'orbit/dist');
+		resolve: {
+			extensions: ['', '.js']
+		},
 
-const env = process.env.WEBPACK_ENV;
+		output: {
+			path: DIST,
+			filename: env === 'dist' ? 'orbit.min.js' : 'orbit.js',
+			libraryTarget: 'umd',
+			library: 'Orbit',
+			umdNamedDefine: true
+		},
 
-module.exports = {
-  context: __dirname + '/orbit/src',
-  entry: {
-    orbit: './index.js'
-  },
+		devtool: env === 'dist' ? '' : 'eval-source-map',
 
-  resolve: {
-    extensions: ['', '.js']
-  },
+		module: {
+			loaders: [
+				{
+					test: /\.js?$/,
+					exclude: /(node_modules|dist)/,
+					loader: 'babel',
+					query: {
+						cacheDirectory: true,
+						presets: ['es2015', 'stage-2'],
+						plugins: ['transform-runtime', 'add-module-exports', 'transform-es2015-modules-commonjs']
+					}
+				}
+			]
+		}
+	};
 
-  output: {
-    path: DIST,
-    filename: env === 'dist' ? 'orbit.min.js' : 'orbit.js',
-    libraryTarget: 'umd',
-    library: 'Orbit',
-    umdNamedDefine: true
-  },
+if(env === 'dist') {
+	config.plugins = [];
+	config.plugins.push(
+		new webpack.optimize.UglifyJsPlugin({
+			compressor: {
+				pure_getters: true,
+				unsafe: true,
+				unsafe_comps: true,
+				screw_ie8: true,
+				warnings: false
+			}
+		})
+	)
+}
 
-	devtool: env === 'dist' ? '' : 'eval-source-map',
-
-  module: {
-    loaders: [
-      {
-        test: /\.js?$/,
-        exclude: /(node_modules|dist)/,
-        loader: 'babel',
-        query: {
-          cacheDirectory: true,
-          presets: ['es2015', 'stage-2'],
-          plugins: ['transform-runtime', 'add-module-exports', 'transform-es2015-modules-commonjs']
-        }
-      }
-    ]
-  }
-};
+module.exports = config;
