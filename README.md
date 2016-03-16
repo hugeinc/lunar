@@ -1,5 +1,5 @@
 ![](images/Orbit.png)
-[![Github All Releases](https://img.shields.io/github/downloads/hugeinc/orbit/total.svg)]() [![GitHub tag](https://img.shields.io/github/tag/hugeinc/orbit.svg)]()
+[![npm](https://img.shields.io/npm/dt/orbit.svg)]() [![GitHub tag](https://img.shields.io/github/tag/hugeinc/orbit.svg)]() [![Travis](https://img.shields.io/travis/hugeinc/orbit.svg)]() [![Coveralls](https://img.shields.io/coveralls/hugeinc/orbit.svg)]()
 
 Orbit **v0.3.0**. Making the core of your application framework-independent.
 <a name="index"></a>
