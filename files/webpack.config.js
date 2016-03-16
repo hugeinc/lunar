@@ -1,6 +1,7 @@
 'use strict';
-
-const path = require('path'),
+const webpack = require('webpack'),
+	StringReplacePlugin = require("string-replace-webpack-plugin"),
+	path = require('path'),
 	DIST = path.resolve(__dirname, 'orbit/dist'),
 	env = process.env.WEBPACK_ENV,
 	config = {
@@ -41,6 +42,23 @@ const path = require('path'),
 
 if(env === 'dist') {
 	config.plugins = [];
+
+	config.plugins.push(new StringReplacePlugin());
+	config.module.loaders.push({
+		test: /\.js?$/,
+		exclude: /(node_modules)/,
+		loader: StringReplacePlugin.replace({
+			replacements: [
+				{
+					pattern: /Logger\.log\({(.*?)}\);/ig,
+					replacement: function(match, p1, offset, string) {
+						return '';
+					}
+				}
+			]
+		})
+	});
+
 	config.plugins.push(
 		new webpack.optimize.UglifyJsPlugin({
 			compressor: {
@@ -51,7 +69,7 @@ if(env === 'dist') {
 				warnings: false
 			}
 		})
-	)
+	);
 }
 
 module.exports = config;
