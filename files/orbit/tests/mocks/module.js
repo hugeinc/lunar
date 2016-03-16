@@ -1,9 +1,6 @@
 'use strict';
 
-let actions = {
-  ONE: Symbol('Plust one'),
-  TWO: Symbol('Plus two')
-};
+import actions from './actions';
 
 let moduleMock = {
   n: 1,

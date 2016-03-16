@@ -1,3 +1,5 @@
+'use strict';
+
 import test from 'blue-tape';
 import Logger from '../../src/core/logger/logger';
 

@@ -8,9 +8,9 @@ function createActivator(objects) {
 
   instance.request = {};
 
-  for(let object in objects) {
-    if(typeof objects[object].Proxy !== 'undefined') objectIsProxy(objects[object], instance);
-    if(typeof objects[object].actions !== 'undefined') objectIsModule(objects[object], instance);
+  for (let object of objects) {
+    if (typeof object.Proxy !== 'undefined') objectIsProxy(object, instance);
+    if (typeof object.actions !== 'undefined') objectIsModule(object, instance);
   }
 
   delete instance.actions;
