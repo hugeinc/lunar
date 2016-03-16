@@ -1,7 +1,39 @@
 {
   "name": "Orbit",
   "version": "0.3.0",
-  "description": "",
+  "description": "Agnostic layer that lets your application live along any framework.",
+  "keywords": [
+    "framework",
+    "javascript",
+    "application",
+    "layer",
+    "message",
+    "broker",
+    "event",
+    "service",
+    "queue",
+    "abstraction",
+    "decoupling"
+  ],
+  "bugs": {
+    "url": "https://github.com/hugeinc/orbit/issues"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Caio Vaccaro",
+    "url": "http://caiovaccaro.com"
+  },
+  "contributors": [
+    {
+      "name": "Jonas Mendes",
+      "url": "https://github.com/nipher"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hugeinc/orbit/"
+  },
+  "private": false,
   "main": "index.js",
   "scripts": {
     "bundle": "WEBPACK_ENV=dist webpack -p | ./reporter-filter",
