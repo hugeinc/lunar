@@ -8,4 +8,4 @@ RUN npm i
 
 EXPOSE 4000
 
-CMD npm run dev
+CMD while true; do sleep 1000; done

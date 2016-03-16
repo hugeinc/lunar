@@ -58,6 +58,7 @@
     "tap-nyan": "0.0.2",
     "through2": "2.0.0",
     "watch": "0.17.1",
-    "webpack": "1.12.9"
+    "webpack": "1.12.9",
+		"string-replace-webpack-plugin": "0.0.3"
   }
 }

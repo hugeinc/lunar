@@ -1,46 +1,75 @@
-/* global __dirname, module */
 'use strict';
+const webpack = require('webpack'),
+	StringReplacePlugin = require("string-replace-webpack-plugin"),
+	path = require('path'),
+	DIST = path.resolve(__dirname, 'orbit/dist'),
+	env = process.env.WEBPACK_ENV,
+	config = {
+		context: __dirname + '/orbit/src',
+		entry: {
+			orbit: './index.js'
+		},
 
-const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+		resolve: {
+			extensions: ['', '.js']
+		},
 
-const DIST = path.resolve(__dirname, 'orbit/dist');
+		output: {
+			path: DIST,
+			filename: env === 'dist' ? 'orbit.min.js' : 'orbit.js',
+			libraryTarget: 'umd',
+			library: 'Orbit',
+			umdNamedDefine: true
+		},
 
-const env = process.env.WEBPACK_ENV;
+		devtool: env === 'dist' ? '' : 'eval-source-map',
 
-module.exports = {
-  context: __dirname + '/orbit/src',
-  entry: {
-    orbit: './index.js'
-  },
+		module: {
+			loaders: [
+				{
+					test: /\.js?$/,
+					exclude: /(node_modules|dist)/,
+					loader: 'babel',
+					query: {
+						cacheDirectory: true,
+						presets: ['es2015', 'stage-2'],
+						plugins: ['transform-runtime', 'add-module-exports', 'transform-es2015-modules-commonjs']
+					}
+				}
+			]
+		}
+	};
 
-  resolve: {
-    extensions: ['', '.js']
-  },
+if(env === 'dist') {
+	config.plugins = [];
 
-  output: {
-    path: DIST,
-    filename: env === 'dist' ? 'orbit.min.js' : 'orbit.js',
-    libraryTarget: 'umd',
-    library: 'Orbit',
-    umdNamedDefine: true
-  },
+	config.plugins.push(new StringReplacePlugin());
+	config.module.loaders.push({
+		test: /\.js?$/,
+		exclude: /(node_modules)/,
+		loader: StringReplacePlugin.replace({
+			replacements: [
+				{
+					pattern: /Logger\.log\({(.*?)}\);/ig,
+					replacement: function(match, p1, offset, string) {
+						return '';
+					}
+				}
+			]
+		})
+	});
 
-	devtool: env === 'dist' ? '' : 'eval-source-map',
+	config.plugins.push(
+		new webpack.optimize.UglifyJsPlugin({
+			compressor: {
+				pure_getters: true,
+				unsafe: true,
+				unsafe_comps: true,
+				screw_ie8: true,
+				warnings: false
+			}
+		})
+	);
+}
 
-  module: {
-    loaders: [
-      {
-        test: /\.js?$/,
-        exclude: /(node_modules|dist)/,
-        loader: 'babel',
-        query: {
-          cacheDirectory: true,
-          presets: ['es2015', 'stage-2'],
-          plugins: ['transform-runtime', 'add-module-exports', 'transform-es2015-modules-commonjs']
-        }
-      }
-    ]
-  }
-};
+module.exports = config;
