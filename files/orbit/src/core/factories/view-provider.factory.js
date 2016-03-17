@@ -5,7 +5,7 @@ let publicViewProviderFactory = {
 };
 
 function extend(services) {
-	Logger.log({ message: '[ViewProvider.extend] Calling internalViewProviderFactory', level: 'ALL' });
+  Logger.log({ message: '[ViewProvider.extend] Calling internalViewProviderFactory', level: 'ALL' });
   return internalViewProviderFactory(services);
 }
 
@@ -17,8 +17,8 @@ function internalViewProviderFactory(services) {
     let service = services[serviceObject];
 
     if (!service.actions) {
-    	Logger.log({ message: `[ViewProvider.internalViewProviderFactory] No actions in service ${serviceObject}`, level: 'WARN' });
-    	continue;
+      Logger.log({ message: `[ViewProvider.internalViewProviderFactory] No actions in service ${serviceObject}`, level: 'WARN' });
+      continue;
     }
 
     createActionsMethods(service.actions, service, instance);
