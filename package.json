@@ -62,7 +62,6 @@
   },
   "config": {
     "ghooks": {
-      "pre-commit": "make jscsfix && make jshint",
       "commit-msg": "validate-commit-msg",
       "pre-push": "make test"
     },
@@ -81,7 +80,7 @@
       "helpMessage": "Hi friend! Not valid commit message. Use https://github.com/commitizen/cz-cli . More info on https://github.com/angular/angular.js/blob/master/CONTRIBUTING.md#-git-commit-guidelines"
     },
     "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
+      "path": "cz-conventional-changelog"
     }
   },
   "devDependencies": {
@@ -101,12 +100,12 @@
     "cz-conventional-changelog": "^1.1.5",
     "extract-text-webpack-plugin": "0.9.1",
     "faucet": "0.0.1",
-    "ghooks": "^1.0.3",
     "jscs": "2.10.1",
     "jshint": "2.9.1",
     "lodash": "4.6.1",
     "node-libs-browser": "0.5.3",
     "once": "1.3.3",
+    "semantic-release": "^4.3.5",
     "split": "1.0.0",
     "string-replace-webpack-plugin": "0.0.3",
     "style-loader": "0.13.0",
@@ -115,7 +114,6 @@
     "through2": "2.0.0",
     "validate-commit-msg": "^2.4.0",
     "watch": "0.17.1",
-    "webpack": "1.12.9",
-    "semantic-release": "^4.3.5"
+    "webpack": "1.12.9"
   }
 }
