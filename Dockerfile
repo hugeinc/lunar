@@ -2,7 +2,9 @@ FROM node:5.4.0
 
 RUN mkdir -p /app
 
-COPY . /app
+COPY /files /app
+COPY package.json /app
+COPY makefile /app
 WORKDIR /app
 RUN npm i
 
