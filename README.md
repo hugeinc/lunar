@@ -56,7 +56,7 @@ Why not have the decoupling strategy that already exists between Enterprise Appl
 **[Back to top](#index)**
 
 <a name="mvc"></a>
-## MVC frameworks and the "opponent", the problem: Refactoring
+## MVC, Flux and other frameworks, the problem: Refactoring
 Usual frameworks propose a good enough separation of concerns by the three major areas that we deal with:
 
 - Data
