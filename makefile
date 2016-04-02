@@ -2,7 +2,7 @@ sdocker:
 	@bash '/Applications/Docker/Docker Quickstart Terminal.app/Contents/Resources/Scripts/start.sh'
 
 setup:
-	@docker build -t huge/orbit .
+	@npm i ghooks && docker build -t huge/orbit .
 
 up:
 	@docker run --name="orbit" -d -p 4000:4000 -v $(PWD):/app huge/orbit

@@ -5,55 +5,57 @@ const OFF = Symbol('No logs will be shown'),
 	ALL = Symbol('Everything will be logged and displayed on the console');
 
 const levels = {
-	OFF,
-	FATAL,
-	ERROR,
-	WARN,
-	ALL
+  OFF,
+  FATAL,
+  ERROR,
+  WARN,
+  ALL
 };
 
 let level = levels['OFF'],
 	levelString = 'OFF';
 
 let Logger = {
-	getLevel() {
-		return levelString;
-	},
-	setLevel(wantedLevel) {
-		if(levels[wantedLevel]) {
-			level = levels[wantedLevel];
-			levelString = wantedLevel;
-		}
-	},
-	log
+  getLevel() {
+    return levelString;
+  },
+
+  setLevel(wantedLevel) {
+    if (levels[wantedLevel]) {
+      level = levels[wantedLevel];
+      levelString = wantedLevel;
+    }
+  },
+
+  log
 };
 
 function log(options) {
-	if(Array.isArray(options)) {
-		return multipleLogs(options);
-	} else if(typeof options === 'object') {
-		return singleLog(options);
-	}
+  if (Array.isArray(options)) {
+    return multipleLogs(options);
+  } else if (typeof options === 'object') {
+    return singleLog(options);
+  }
 }
 
 function multipleLogs(logs) {
-	for(let i = 0; i < logs.length; i++) {
-		singleLog(logs[i]);
-	}
+  for (let i = 0; i < logs.length; i++) {
+    singleLog(logs[i]);
+  }
 }
 
 function singleLog({ message=null, level='OFF' } = {}) {
-	let levelsKeys = Object.keys(levels);
+  let levelsKeys = Object.keys(levels);
 
-	if(levelString === 'OFF') return undefined;
+  if (levelString === 'OFF') return undefined;
 
-	if(levelsKeys.indexOf(levelString) >= levelsKeys.indexOf(level)) {
-		return output(message, level);
-	}
+  if (levelsKeys.indexOf(levelString) >= levelsKeys.indexOf(level)) {
+    return output(message, level);
+  }
 }
 
 function output(message, level) {
-	let finalMessage = `[Orbit.Logger][${level}] ${getDateString()}\n${message}\n`;
+  let finalMessage = `[Orbit.Logger][${level}] ${getDateString()}\n${message}\n`;
 
 	console.log(finalMessage);
 
@@ -61,10 +63,10 @@ function output(message, level) {
 }
 
 function getDateString() {
-	let now = new Date(),
-		period = now.toLocaleString().slice(-3);
+  let now = new Date(),
+  period = now.toLocaleString().slice(-3);
 
-	return now.toLocaleString().replace(period, ':' + now.getMilliseconds()) + period;
+  return now.toLocaleString().replace(period, ':' + now.getMilliseconds()) + period;
 }
 
 export default Logger;
