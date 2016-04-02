@@ -6,12 +6,16 @@ const webpack = require('webpack'),
 	env = process.env.WEBPACK_ENV,
 	config = {
 		context: __dirname + '/orbit/src',
+    cacheDirectory: false,
 		entry: {
 			orbit: './index.js'
 		},
 
 		resolve: {
-			extensions: ['', '.js']
+			extensions: ['', '.js'],
+      root: [
+        path.resolve('../install/node_modules')
+      ]
 		},
 
 		output: {
@@ -23,6 +27,12 @@ const webpack = require('webpack'),
 		},
 
 		devtool: env === 'dist' ? '' : 'eval-source-map',
+
+    resolveLoader: {
+      modulesDirectories: [
+        path.resolve('../install/node_modules')
+      ]
+    },
 
 		module: {
 			loaders: [
