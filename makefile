@@ -5,19 +5,16 @@ setup:
 	@docker build -t huge/orbit .
 
 up:
-	@docker run --name="orbit" -d -p 4000:4000 -v $(PWD)/orbit:/app/orbit huge/orbit
+	@docker run --name="orbit" -d -p 4000:4000 -v $(PWD):/app huge/orbit
 
 remake:
-	@docker rm -f orbit && docker rmi huge/orbit && make setup
+	@docker rm -f orbit && docker rmi huge/orbit && make setup && make up
 
 bundle:
 	@docker exec orbit npm run bundle
 
 ssh:
 	@docker exec -i -t orbit bash
-
-sync-config:
-	@docker exec orbit rm package.json webpack.config.js && docker cp package.json orbit:/app/package.json && docker cp webpack.config.js orbit:/app/webpack.config.js
 
 jshint:
 	@docker exec orbit npm run jshint
