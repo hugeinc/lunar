@@ -1,3 +1,5 @@
+'use strict';
+
 import Logger from './core/logger/logger';
 import Mediator from './core/mediator/channel';
 import createModuleFactory from './core/factories/module.factory';
@@ -15,7 +17,7 @@ function Orbit(component) {
     createModule,
     createProxy,
     createActivator
-  }
+  };
 }
 
 export default Orbit;

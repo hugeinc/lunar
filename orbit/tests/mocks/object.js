@@ -1,19 +1,17 @@
-import actions from './actions-symbols';
+'use strict';
 
-let obj = {
-	number: 0,
-	actions: actions
+let moduleMock = {
+  n: 1,
+  actions: {
+    ONE: 'Plus one',
+    TWO: 'Plus two'
+  },
+  ONE: function(n) {
+    return n + 1;
+  },
+  TWO: function(n) {
+    return n + 2;
+  }
 };
 
-obj[actions.ONE] = function(n = 0) {
-	this.number = n + 1;
-
-	return this.number;
-};
-obj[actions.TWO] = function(n = 0) {
-	this.number = n + 2;
-
-	return this.number;
-};
-
-export default obj;
+export default moduleMock;

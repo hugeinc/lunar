@@ -1,3 +1,5 @@
+'use strict';
+
 import Logger from '../logger/logger';
 import createProxy from './proxy.factory';
 
@@ -6,9 +8,9 @@ function createActivator(objects) {
 
   instance.request = {};
 
-  for(let object in objects) {
-    if(typeof objects[object].Proxy !== 'undefined') objectIsProxy(objects[object], instance);
-    if(typeof objects[object].actions !== 'undefined') objectIsModule(objects[object], instance);
+  for (let object of objects) {
+    if (typeof object.Proxy !== 'undefined') objectIsProxy(object, instance);
+    if (typeof object.actions !== 'undefined') objectIsModule(object, instance);
   }
 
   delete instance.actions;
@@ -23,12 +25,11 @@ function objectIsProxy(object, instance) {
 }
 
 function objectIsModule(object, instance) {
-  let proxy,
-    makeProxy = createProxy.bind({});
+  let proxy;
 
   Logger.log({ message: '[Activator.createActivator] Extending Proxy.', level: 'ALL' });
 
-  proxy = makeProxy([object]);
+  proxy = createProxy.call({}, [object]);
   instance.addMiddleware = proxy.addMiddleware;
 
   Logger.log({ message: '[Activator.createActivator] Extending Activator.', level: 'ALL' });
