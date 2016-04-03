@@ -113,8 +113,16 @@
     "tap-difflet": "0.4.0",
     "tap-nyan": "0.0.2",
     "through2": "2.0.0",
-    "validate-commit-msg": "^2.4.0",
+    "validate-commit-msg": "2.4.0",
     "watch": "0.17.1",
-    "webpack": "1.12.9"
+    "webpack": "1.12.9",
+    "karma": "0.13.22",
+    "karma-chrome-launcher": "0.2.3",
+    "karma-cli": "0.1.2",
+    "karma-firefox-launcher": "0.1.7",
+    "karma-ie-launcher": "0.2.0",
+    "karma-opera-launcher": "0.3.0",
+    "karma-phantomjs-launcher": "1.0.0",
+    "karma-safari-launcher": "0.1.1"
   }
 }
