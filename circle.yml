@@ -8,4 +8,4 @@ machine:
 
 test:
   override:
-    make ci-test
+    - make ci-test
