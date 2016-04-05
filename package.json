@@ -47,7 +47,9 @@
     "stress": "./node_modules/.bin/babel-node ./node_modules/.bin/blue-tape orbit/tests/stress/*.js",
     "concurrency": "./node_modules/.bin/babel-node ./node_modules/.bin/blue-tape orbit/tests/concurrency/*.js",
     "unit-pretty": "./node_modules/.bin/babel-node ./node_modules/.bin/blue-tape orbit/tests/unit/*.js | ./node_modules/.bin/faucet",
+    "ci-unit-pretty": "./node_modules/.bin/babel-node ./node_modules/.bin/blue-tape ./files/orbit/tests/unit/*.js | ./node_modules/.bin/faucet",
     "integration-pretty": "./node_modules/.bin/babel-node ./node_modules/.bin/blue-tape orbit/tests/integration/*.js | ./node_modules/.bin/faucet",
+    "ci-integration-pretty": "./node_modules/.bin/babel-node ./node_modules/.bin/blue-tape ./files/orbit/tests/integration/*.js | ./node_modules/.bin/faucet",
     "stress-pretty": "./node_modules/.bin/babel-node ./node_modules/.bin/blue-tape orbit/tests/stress/*.js | ./node_modules/.bin/faucet",
     "concurrency-pretty": "./node_modules/.bin/babel-node ./node_modules/.bin/blue-tape orbit/tests/concurrency/*.js | ./node_modules/.bin/faucet",
     "unit-nyan": "./node_modules/.bin/babel-node ./node_modules/.bin/blue-tape orbit/tests/unit/*.js | ./node_modules/.bin/tap-nyan",
@@ -58,6 +60,7 @@
     "integration-coverage": "./node_modules/.bin/babel-node ./node_modules/.bin/babel-istanbul cover ./node_modules/.bin/blue-tape orbit/tests/integration/*.js",
     "coverage": "./node_modules/.bin/babel-node ./node_modules/.bin/babel-istanbul cover ./node_modules/.bin/blue-tape orbit/tests/**/*.js",
     "test": "npm run unit-pretty && npm run integration-pretty",
+    "ci-test": "npm run ci-unit-pretty && npm run ci-integration-pretty",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "config": {
