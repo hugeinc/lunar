@@ -49,7 +49,7 @@ function randomObject(numberOfActions) {
 		counter++;
 	}
 
-	return Orbit.Class.extend(object);
+	return Orbit(object).createModule();
 }
 
 function randomActions(numberOfActions) {
@@ -62,7 +62,7 @@ function randomActions(numberOfActions) {
 		actions = randomActionsGenerator(randomNumberOfActions);
 	}
 
-	return Orbit.ActionsCreator(actions);
+	return actions;
 }
 
 function randomActionsGenerator(numberOfActions) {
