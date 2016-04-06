@@ -1,14 +1,25 @@
 # Contributing
 
 ## Git branching model
-This repo branching model is **inspired by Git Flow**. Currently we have these types of branches:
 - master - Latest release, stable
 - develop - Main development, unstable
 - release/ - Release archive
-- feature/ - Specific features development
-- hotfix/ - Emergency fixes for latest release
+- feat/
+- fix/
+- docs/
+- style/
+- refactor/
+- perf/
+- test/
+- chore/
 
-[Read the Git Flow reference](http://nvie.com/posts/a-successful-git-branching-model/).  
+## Commits
+Read:
+
+- https://github.com/angular/angular.js/blob/master/CONTRIBUTING.md#-git-commit-guidelines
+- https://github.com/commitizen/cz-cli
+- https://github.com/semantic-release/semantic-release
+
 This repo uses [Semantic Versioning](http://semver.org/).
 
 ### Pull Request

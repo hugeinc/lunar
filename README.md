@@ -1,15 +1,16 @@
 ![](images/Orbit.png)
-[![Github All Releases](https://img.shields.io/github/downloads/hugeinc/orbit/total.svg)]() [![GitHub tag](https://img.shields.io/github/tag/hugeinc/orbit.svg)]()
+[![npm](https://img.shields.io/npm/dt/orbit.svg)]() [![GitHub tag](https://img.shields.io/github/tag/hugeinc/orbit.svg)]() [![Travis](https://img.shields.io/travis/hugeinc/orbit.svg)]() [![Coveralls](https://img.shields.io/coveralls/hugeinc/orbit.svg)]() [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 Orbit **v0.4.0**. Making the core of your application framework-independent.
+
 <a name="index"></a>
 ## Index
 - **[Installing](#installing)**
 - **[Inspiration, fancy names](#inspiration)**
 - **[MVC, Flux and other frameworks, the problem: Refactoring](#mvc)**
 - **[What we propose](#proposal)**
+- **[How is Orbit different than Redux?](#redux)**
 - **[Structure](#structure)**
-- **[React Example](#react)**
 - **[Angular Example](#angular)**
 - **[Wiki](https://github.com/hugeinc/orbit/wiki/)**
 - **[Contributing](#contributing)**
@@ -57,7 +58,7 @@ Why not have the decoupling strategy that already exists between Enterprise Appl
 **[Back to top](#index)**
 
 <a name="mvc"></a>
-## MVC frameworks and the "opponent", the problem: Refactoring
+## MVC, Flux and other frameworks, the problem: Refactoring
 Usual frameworks propose a good enough separation of concerns by the three major areas that we deal with:
 
 - Data
@@ -67,7 +68,7 @@ Usual frameworks propose a good enough separation of concerns by the three major
 They get separated into Model Controller and View, which is far better than the mixed cake that we rarely see nowadays (hopefully). We can say that from bottom up, **code** change less, progressively: View changes a lot, Controller changes often and Models change rarely. Best case scenario those 3 are decoupled in a way we can reuse M, V and C. Often, we need to do parallel actions and mix Controllers features. That is when things get complicated.
 
 Functional, Reactive programming and alike means a tremendous evolution compared to MVC, when regarding scaling and long-term projects. If you have a entrance point of data, you just transform or project it in the way you want, through functions until it gets rendered for the user. But the main concern we are trying to deal with here is still in place: Refactoring.
- 
+
 Refactoring is a reality, specially when developing big and long lasting applications. The benefits from Client-Side applications are very clear to us but the number of frameworks and their updates rain on us every week. We might feel tempted to test or do proof of concepts on different platforms, frameworks and philosophies but it seems too difficult. We can stay stuck into the same old application for years.  
 **[Back to top](#index)**
 
@@ -77,6 +78,13 @@ We just have one concern here, the C of traditional MVC, the Angular's Service o
 
 First, you should separate "framework-code" from "application-code". Frameworks should deal with HTTP requests, view/templaing/virtual-dom rendering, data synchronization and/or database integration if needed. Application should be just functions, pure functions in the best case scenario. Let's see an example.  
 **[Back to top](#index)**
+
+<a name="redux"></a>
+## How is Orbit different than Redux?
+Redux is awesome. As the official documentation states, "Redux is a predictable state container for JavaScript apps." and "evolves the ideas of Flux, but avoids its complexity by taking cues from Elm.". Redux is an architecture and it is a state container. Orbit doesn't worry about state or how you structure your application. The difference between them is design. Orbit only concern is how to decouple business logic from frameworks, it doesn't manage state, you can even use Orbit with Redux.
+
+**[Back to top](#index)**
+
 
 <a name="structure"></a>
 ## Structure
@@ -94,7 +102,7 @@ First, you should separate "framework-code" from "application-code". Frameworks 
 	/folder-by-feature
 	/eg-home
 	/simulator
-```	
+```
 
 - Your files will host all functions related to a specific feature.
 - Additionally, each feature have a set of public actions.
@@ -144,7 +152,7 @@ export default {
 	INCREMENT: 'INCREMENT',
 	DECREMENT: 'DECREMENT'
 };
-``` 
+```
 **[Back to top](#index)**
 
 <a name="react"></a>
@@ -236,7 +244,7 @@ angular.module('app.home')
 
 function HomeController(HomeService) {
     var vm = this;
-    
+
     vm.title = 'Hello.';
 
     Orbit(this).createActivator([HomeService]);
