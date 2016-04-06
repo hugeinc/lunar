@@ -1,15 +1,16 @@
 FROM node:5.4.0
 
-RUN mkdir -p /app
+ENV USER root
 
-ADD package.json /app
-ADD makefile /app
-ADD files/ /app/
+RUN mkdir -p /app/
+RUN mkdir -p /install/
+ENV PATH /install/node_modules/.bin:$PATH
+ENV NODE_PATH /install/node_modules/
 
-WORKDIR /app
+COPY ./package.json /install/package.json
+RUN cd install; npm install
 
-RUN npm i
-
-EXPOSE 4000
+WORKDIR /app/
+COPY . /app/
 
 CMD while true; do sleep 1000; done
