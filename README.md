@@ -27,16 +27,17 @@ const Orbit = require('vendor/orbit'); // or
 import Orbit from 'vendor/orbit'; // or global variable
 console.log(Orbit);
 
-const actions = Orbit.ActionsCreator({ ONE: 'ONE' });
-const MyFeature = Orbit.Class.extend({...actions});
-const ReactComponent = { _.extend(this, Orbit.Dispatcher.extend(actions)) }
-ReactComponent.methods[actions.ONE]().then()
+const actions = { ONE: 'ONE' };
+const MyFeature = Orbit({...actions}).createModule();
+const ReactComponent = Orbit(this).createActivator([MyFeature,...])
+ReactComponent.addMiddleware([...]) // before and after middlwares
+ReactComponent.request[actions.ONE]().then()
 
-// You can add an additional layer
-const AngularService { _.extend(this, Orbit.ActionEmitter.extend(actions)) }
+// You can add an additional proxy layer
+const AngularService = Orbit(this).createProxy(MyFeature)
 AngularService.addMiddleware([...]) // before and after middlwares
-const AngularController = { _.extend(this, Orbit.ViewProvider.extend([AngularService])) }
-Directive.methods[actions.ONE]().then()
+const AngularController = Orbit(this).createActivator([AngularService,...])
+Directive.request[actions.ONE]().then()
 ```  
 **[Back to top](#index)**
 
@@ -67,7 +68,7 @@ Usual frameworks propose a good enough separation of concerns by the three major
 They get separated into Model Controller and View, which is far better than the mixed cake that we rarely see nowadays (hopefully). We can say that from bottom up, **code** change less, progressively: View changes a lot, Controller changes often and Models change rarely. Best case scenario those 3 are decoupled in a way we can reuse M, V and C. Often, we need to do parallel actions and mix Controllers features. That is when things get complicated.
 
 Functional, Reactive programming and alike means a tremendous evolution compared to MVC, when regarding scaling and long-term projects. If you have a entrance point of data, you just transform or project it in the way you want, through functions until it gets rendered for the user. But the main concern we are trying to deal with here is still in place: Refactoring.
- 
+
 Refactoring is a reality, specially when developing big and long lasting applications. The benefits from Client-Side applications are very clear to us but the number of frameworks and their updates rain on us every week. We might feel tempted to test or do proof of concepts on different platforms, frameworks and philosophies but it seems too difficult. We can stay stuck into the same old application for years.  
 **[Back to top](#index)**
 
@@ -83,6 +84,7 @@ First, you should separate "framework-code" from "application-code". Frameworks 
 Redux is awesome. As the official documentation states, "Redux is a predictable state container for JavaScript apps." and "evolves the ideas of Flux, but avoids its complexity by taking cues from Elm.". Redux is an architecture and it is a state container. Orbit doesn't worry about state or how you structure your application. The difference between them is design. Orbit only concern is how to decouple business logic from frameworks, it doesn't manage state, you can even use Orbit with Redux.
 
 **[Back to top](#index)**
+
 
 <a name="structure"></a>
 ## Structure
@@ -100,7 +102,7 @@ Redux is awesome. As the official documentation states, "Redux is a predictable 
 	/folder-by-feature
 	/eg-home
 	/simulator
-```	
+```
 
 - Your files will host all functions related to a specific feature.
 - Additionally, each feature have a set of public actions.
@@ -124,20 +126,20 @@ import Orbit from 'orbit';
 import actions from './actions';
 
 // Your core feature code, an object with pure functions
-export default Orbit.Class.extend({
-    // You can have private properties if you want
-    title: 'Orbit',
-    actions: actions,
-    [actions.FORMAT_TITLE]: function(data) {
-        return data + ' ' + this.title;
-    },
-    [actions.INCREMENT]: function(data) {
-        return ++data;
-    },
-    [actions.DECREMENT]: function(data) {
-        return --data;
-    }
-});
+export default Orbit({
+	// You can have private properties if you want
+	title: 'Orbit',
+	actions: actions,
+	[actions.FORMAT_TITLE]: function(data) {
+		return data + ' ' + this.title;
+	},
+	[actions.INCREMENT]: function(data) {
+		return ++data;
+	},
+	[actions.DECREMENT]: function(data) {
+		return --data;
+	}
+}).createModule();
 ```
 
 ### The actions file
@@ -145,14 +147,48 @@ Refactors happen all the time. In order to change your code in just one place we
 All public functions from the application that you want the framework to be able to access should have an action:
 
 ```javascript
-export default Orbit.ActionsCreator({
-    FORMAT_TITLE: 'FORMAT_TITLE',
-    INCREMENT: 'INCREMENT',
-    DECREMENT: 'DECREMENT'
-});
-``` 
+export default {
+	FORMAT_TITLE: 'FORMAT_TITLE',
+	INCREMENT: 'INCREMENT',
+	DECREMENT: 'DECREMENT'
+};
+```
 **[Back to top](#index)**
 
+<a name="react"></a>
+## React Example
+We know that React concerns only the V (sort of) of our apps. After you create an Orbit module, you should have an endpoint where you call it. This can be the Component it self.
+
+```javascript
+import Orbit from 'orbit';
+import Home from 'orbit/home';
+
+React.createClass({
+	getInitialState() {
+		return {
+			title: ''
+		}
+	},
+	componentDidMount() {
+		var self = this;
+		Orbit(this).createActivator([Home]);
+
+		this.request[Home.actions.FORMAT_TITLE]('Welcome').then(function(data) {
+			self.setState({
+				title: data
+			});
+		}, function(err) {
+			console.log('Error: ', err);
+		});
+	},
+	render() {
+		return (
+			React.createElement('h1', null, this.state.title)
+		);
+	}
+});
+```  
+**[Back to top](#index)**
 
 <a name="angular"></a>
 ## Angular Example
@@ -176,24 +212,24 @@ angular.module('app.home')
     .service('HomeService', HomeService);
 
 function HomeService($http) {
-    angular.extend(this, Orbit.ActionEmitter.extend(Home.actions));
+    Orbit(this).createProxy(Home);
 
-    // This is optional.
-    // You might want to execute something before
-    // your core code is run, or after.
-    this.addMiddleware({
-        action: Home.actions.FORMAT_TITLE,
-        before: function(data) {
-            // Orbit will send the Promise
-            // result to your code.
-            return $http({
-                method: 'GET',
-                url: 'http://localhost:4000/posts'
-            });
-        }
-    });
+	// This is optional.
+	// You might want to execute something before
+	// your core code is run, or after.
+	this.addMiddleware({
+		action: Home.actions.FORMAT_TITLE,
+		before: function(data) {
+			// Orbit will send the Promise
+			// result to your code.
+		    return $http({
+		        method: 'GET',
+		        url: 'http://localhost:4000/posts'
+		    });
+		}
+	});
 
-    return this.service;
+	return this.service;
 }
 
 HomeService.$inject = ['$http'];
@@ -211,19 +247,17 @@ function HomeController(HomeService) {
 
     vm.title = 'Hello.';
 
-    angular.extend(this, Orbit.ViewProvider.extend([HomeService]));
+    Orbit(this).createActivator([HomeService]);
 }
 
 HomeController.$inject = ['HomeService'];
 ```
 ```javascript
 // Page template
-// We pass methods to the directive.
-header(title="vm.title", methods="vm.methods")
+// We pass methods (request) to the directive.
+header(title="vm.title", request="vm.request")
 ```
 ```javascript
-import Home from 'orbit/home';
-
 // Directive
 // The directive just calls the method which return a promise.
 angular
@@ -234,8 +268,10 @@ function HeaderDirective() {
     var directive = {
         templateUrl: '../components/header/header.html',
         link: function (scope, element, attr) {
+            var actions = scope.actions;
+
             scope.getTitle = function(params) {
-                scope.methods[Home.actions.FORMAT_TITLE](params).then(function(data) {
+                scope.request[actions.FORMAT_TITLE](params).then(function(data) {
                     scope.title = data;
                     if (!scope.$root.$$phase) scope.$digest();
                 }, function(err) {
@@ -252,6 +288,7 @@ function HeaderDirective() {
 
     return directive;
 }
+
 ```
 
 Want to know more? Head to the [wiki](https://github.com/hugeinc/orbit/wiki) to see API explanations, React, Backbone and other examples.  
@@ -275,7 +312,7 @@ First time only image setup.
 ```
 $ make up
 ```
-Starts container. When the container starts you will have all the tests running in watch mode and bundle regeneration in watch mode.
+Starts container. When the container starts you will have a live server for testing one of the examples; all the tests running in watch mode and bundle regeneration in watch mode.
 
 See the **makefile** to see available commands such as unit, integration tests and others.  
 **[Back to top](#index)**
