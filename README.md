@@ -1,5 +1,5 @@
 ![](images/Orbit.png)
-[![npm](https://img.shields.io/npm/dt/orbit.svg)]() [![GitHub tag](https://img.shields.io/github/tag/hugeinc/orbit.svg)]() [![Travis](https://img.shields.io/travis/hugeinc/orbit.svg)]() [![Coveralls](https://img.shields.io/coveralls/hugeinc/orbit.svg)]() [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+[![npm](https://img.shields.io/npm/dt/orbitjs.svg)]() [![GitHub tag](https://img.shields.io/github/tag/hugeinc/orbitjs.svg)]() [![Build Status](https://snap-ci.com/gl9NE5npyXBTWeoiSf4AFt3SodPh3s8ySD7rWJ9A6l8/build_image)](https://snap-ci.com/hugeinc/orbit/branch/master)
 
 Orbit **v0.4.0**. Making the core of your application framework-independent.
 
@@ -18,8 +18,8 @@ Orbit **v0.4.0**. Making the core of your application framework-independent.
 
 <a name="installing"></a>
 ## Installing
-- **Not yet** Run ```npm install orbit --save```
-- Alternatively, download the [orbit/files/dist/orbit.js](https://github.com/hugeinc/orbit/blob/develop/files/orbit/dist/orbit.js) file and place it in your project.
+- **Run ```npm install orbitjs --save```
+- Alternatively, download the [orbit/dist/orbit.js](https://github.com/hugeinc/orbit/blob/master/orbit/dist/orbit.js) file and place it in your project.
 - Orbit is under UMD. You can require, import it, or use it as a global variable
 
 ```javascript
@@ -310,9 +310,9 @@ $ make setup
 First time only image setup.
 
 ```
-$ make up
+$ make up && docker exec orbit npm run dev
 ```
-Starts container. When the container starts you will have a live server for testing one of the examples; all the tests running in watch mode and bundle regeneration in watch mode.
+Starts container and run watch tasks.
 
 See the **makefile** to see available commands such as unit, integration tests and others.  
 **[Back to top](#index)**
