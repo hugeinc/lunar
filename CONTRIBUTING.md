@@ -33,3 +33,7 @@ Please use our <a href="http://github.com/hugeinc/orbit">Github repository</a> t
 - The browser you are using (name and version)
 - The full copy of any error messages available
 - A full description of how to reproduce the issue you have found
+
+## Changelog
+
+- Using https://github.com/skywinder/github-changelog-generator

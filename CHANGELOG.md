@@ -1,18 +1,28 @@
 # Change Log
 
-## [Unreleased](https://github.com/hugeinc/orbit/tree/HEAD)
+## [v0.4.1](https://github.com/hugeinc/orbit/tree/v0.4.1) (2016-04-07)
+[Full Changelog](https://github.com/hugeinc/orbit/compare/v0.4.0...v0.4.1)
 
-[Full Changelog](https://github.com/hugeinc/orbit/compare/v0.3.0...HEAD)
+## [v0.4.0](https://github.com/hugeinc/orbit/tree/v0.4.0) (2016-04-07)
+[Full Changelog](https://github.com/hugeinc/orbit/compare/v0.3.0...v0.4.0)
 
 **Closed issues:**
 
+- Fix docker node\_modules volume setting NODE\_PATH variable [\#55](https://github.com/hugeinc/orbit/issues/55)
+- Wiki [\#54](https://github.com/hugeinc/orbit/issues/54)
 - Webpack optimization [\#50](https://github.com/hugeinc/orbit/issues/50)
+- Rewrite tests for 0.4 [\#49](https://github.com/hugeinc/orbit/issues/49)
 - API standard [\#39](https://github.com/hugeinc/orbit/issues/39)
 - Development tasks [\#36](https://github.com/hugeinc/orbit/issues/36)
+- Automatic changelog and release process based on commits [\#12](https://github.com/hugeinc/orbit/issues/12)
 - Badges and shields [\#11](https://github.com/hugeinc/orbit/issues/11)
+- Travis or Jenkins setup [\#10](https://github.com/hugeinc/orbit/issues/10)
 
 **Merged pull requests:**
 
+- Feature/tests refactoring [\#57](https://github.com/hugeinc/orbit/pull/57) ([caiovaccaro](https://github.com/caiovaccaro))
+- Chore/docker [\#56](https://github.com/hugeinc/orbit/pull/56) ([caiovaccaro](https://github.com/caiovaccaro))
+- Feature/commits Closes \#12  [\#53](https://github.com/hugeinc/orbit/pull/53) ([caiovaccaro](https://github.com/caiovaccaro))
 - Feature/build [\#51](https://github.com/hugeinc/orbit/pull/51) ([caiovaccaro](https://github.com/caiovaccaro))
 - Feature/refactor [\#48](https://github.com/hugeinc/orbit/pull/48) ([caiovaccaro](https://github.com/caiovaccaro))
 - Fix/bundle [\#47](https://github.com/hugeinc/orbit/pull/47) ([Nipher](https://github.com/Nipher))
@@ -72,7 +82,6 @@
 - Feature/symbols [\#20](https://github.com/hugeinc/orbit/pull/20) ([caiovaccaro](https://github.com/caiovaccaro))
 - AMD converted into ES6 syntax [\#19](https://github.com/hugeinc/orbit/pull/19) ([caiovaccaro](https://github.com/caiovaccaro))
 - Feature/es6 environment [\#18](https://github.com/hugeinc/orbit/pull/18) ([caiovaccaro](https://github.com/caiovaccaro))
-
 
 
 
