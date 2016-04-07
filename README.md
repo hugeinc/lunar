@@ -23,8 +23,8 @@ Orbit **v0.4.0**. Making the core of your application framework-independent.
 - Orbit is under UMD. You can require, import it, or use it as a global variable
 
 ```javascript
-const Orbit = require('vendor/orbit'); // or
-import Orbit from 'vendor/orbit'; // or global variable
+const Orbit = require('orbitjs'); // or
+import Orbit from 'orbitjs'; // or global variable
 console.log(Orbit);
 
 const actions = { ONE: 'ONE' };
@@ -122,7 +122,7 @@ Your file will look something like this:
 
 ```javascript
 // Import your actions constant file
-import Orbit from 'orbit';
+import Orbit from 'orbitjs';
 import actions from './actions';
 
 // Your core feature code, an object with pure functions
@@ -160,7 +160,7 @@ export default {
 We know that React concerns only the V (sort of) of our apps. After you create an Orbit module, you should have an endpoint where you call it. This can be the Component it self.
 
 ```javascript
-import Orbit from 'orbit';
+import Orbit from 'orbitjs';
 import Home from 'orbit/home';
 
 React.createClass({
