@@ -3,13 +3,13 @@ import _ from 'lodash';
 import Orbit from '../../src/index';
 import RandomGenerator from '../mocks/random';
 
-Orbit.Logger.setLevel('OFF');
+Orbit().Logger.setLevel('OFF');
 
 let ModelExample = {
-	initialize: function(actions) {
-		let middlewares = RandomGenerator.randomMiddleware(actions);
+	initialize: function(modules) {
+		let middlewares = RandomGenerator.randomMiddleware(modules);
 
-		_.extend(this, Orbit.ActionEmitter.extend(actions));
+		Orbit(this).createProxy(modules);
 
 		for(let middleware in middlewares) {
 			this.addMiddleware(middlewares[middleware]);
@@ -19,14 +19,14 @@ let ModelExample = {
 
 let ViewExample = {
 	initialize: function(model) {
-		_.extend(this, Orbit.ViewProvider.extend([model.service]));
+		Orbit(this).createActivator([model]);
 	},
 	test: function() {
-		let methods = Object.getOwnPropertySymbols(this.methods),
+		let methods = Object.getOwnPropertySymbols(this.request),
 			promises = [];
 
 		for(let method in methods) {
-			promises.push(this.methods[methods[method]]());
+			promises.push(this.request[methods[method]]());
 		}
 
 		return Promise.all(promises);
@@ -34,24 +34,18 @@ let ViewExample = {
 };
 
 let Objects = RandomGenerator.randomObjects(3),
-	Actions = _.extend({}, Objects[0].actions, Objects[1].actions, Objects[2].actions),
 	mockResults = [].concat(Objects[0].mockResults, Objects[1].mockResults, Objects[2].mockResults),
 	realResults;
 
-ModelExample.initialize(Actions);
+ModelExample.initialize(Objects);
 ViewExample.initialize(ModelExample);
-
-test('Model actions length should be equal to actions length', function(t) {
-	t.plan(1);
-	t.equal(Object.keys(Actions).length, Object.keys(ModelExample.service.actions).length);
-});
 
 test('Processed results should be equal to the actions number', function(t) {
 	t.plan(1);
 
 	ViewExample.test().then(function(results) {
 		realResults = results;
-		t.equal(results.length, Object.keys(Actions).length);
+		t.equal(results.length, Object.keys(ModelExample.Proxy.actions).length);
 	});
 });
 

@@ -20,7 +20,6 @@ Read:
 - https://github.com/commitizen/cz-cli
 - https://github.com/semantic-release/semantic-release
 
-[Read the Git Flow reference](http://nvie.com/posts/a-successful-git-branching-model/).  
 This repo uses [Semantic Versioning](http://semver.org/).
 
 ### Pull Request
