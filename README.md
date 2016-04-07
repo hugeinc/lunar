@@ -18,7 +18,7 @@ Orbit **v0.4.0**. Making the core of your application framework-independent.
 
 <a name="installing"></a>
 ## Installing
-- **Run ```npm install orbitjs --save```
+- Run ```npm install orbitjs --save```
 - Alternatively, download the [orbit/dist/orbit.js](https://github.com/hugeinc/orbit/blob/master/orbit/dist/orbit.js) file and place it in your project.
 - Orbit is under UMD. You can require, import it, or use it as a global variable
 
