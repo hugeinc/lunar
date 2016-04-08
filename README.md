@@ -1,7 +1,12 @@
 ![](images/Orbit.png)
 [![npm](https://img.shields.io/npm/dt/orbitjs.svg)]() [![GitHub tag](https://img.shields.io/github/tag/hugeinc/orbit.svg)]() [![Build Status](https://snap-ci.com/gl9NE5npyXBTWeoiSf4AFt3SodPh3s8ySD7rWJ9A6l8/build_image)](https://snap-ci.com/hugeinc/orbit/branch/master) [![Codacy Badge](https://api.codacy.com/project/badge/grade/de26884f60dd4084bd056f97af5ebae5)](https://www.codacy.com/app/caiovaccaromora/orbit)
 
-Orbit **v01.0.1**. Making the core of your application framework-independent.
+Orbit **v1.0.1**. Making the core of your application framework-independent.
+
+**Tested on:**  
+**OS X Chrome 48, 49, Firefox 44, Safari 8 and 9, Opera 12.15.**  
+**Win 8 Firefox 44, Chrome 49, IE 9, 10 and 11.**   
+**iPhone 6 and Galaxy S5.**  
 
 <a name="index"></a>
 ## Index
