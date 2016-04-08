@@ -1,5 +1,17 @@
 # Change Log
 
+## [Unreleased](https://github.com/hugeinc/orbit/tree/HEAD)
+
+[Full Changelog](https://github.com/hugeinc/orbit/compare/v1.0.0...HEAD)
+
+**Merged pull requests:**
+
+- 1.0.1 [\#60](https://github.com/hugeinc/orbit/pull/60) ([caiovaccaro](https://github.com/caiovaccaro))
+- Fix/crossbrowser [\#59](https://github.com/hugeinc/orbit/pull/59) ([caiovaccaro](https://github.com/caiovaccaro))
+
+## [v1.0.0](https://github.com/hugeinc/orbit/tree/v1.0.0) (2016-04-07)
+[Full Changelog](https://github.com/hugeinc/orbit/compare/v0.4.1...v1.0.0)
+
 ## [v0.4.1](https://github.com/hugeinc/orbit/tree/v0.4.1) (2016-04-07)
 [Full Changelog](https://github.com/hugeinc/orbit/compare/v0.4.0...v0.4.1)
 
