@@ -7,28 +7,31 @@ module.exports = function(config) {
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
 
-
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: [],
     plugins: [require('karma-webpack')],
     webpack: {
        module: {
-			loaders: [
-				{
-					test: /\.js?$/,
-					loader: 'babel',
-					query: {
-						cacheDirectory: true,
-						presets: ['es2015', 'stage-2'],
-						plugins: ['transform-runtime', 'add-module-exports', 'transform-es2015-modules-commonjs']
-					}
-				}
-			]
-		}
+        loaders: [
+          {
+          	test: /\.js?$/,
+          	loader: 'babel',
+          	query: {
+          		cacheDirectory: true,
+          		presets: ['es2015', 'stage-2'],
+          		plugins: ['transform-runtime', 'add-module-exports', 'transform-es2015-modules-commonjs']
+          	}
+          }
+        ]
+      }
     },
     // list of files / patterns to load in the browser
     files: [
+      'node_modules/blue-tape/**/*',
+      'node_modules/sinon/**/*',
+      'node_modules/proxyquire/**/*',
+      'node_modules/lodash/**/*',
       'orbit/src/**/*.js',
       'orbit/tests/**/*.js'
     ],
