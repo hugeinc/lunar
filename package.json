@@ -1,6 +1,6 @@
 {
   "name": "orbitjs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Agnostic layer that lets your application live along any framework.",
   "keywords": [
     "framework",
