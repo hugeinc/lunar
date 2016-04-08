@@ -11,8 +11,22 @@ module.exports = function(config) {
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: [],
-
-
+    plugins: [require('karma-webpack')],
+    webpack: {
+       module: {
+			loaders: [
+				{
+					test: /\.js?$/,
+					loader: 'babel',
+					query: {
+						cacheDirectory: true,
+						presets: ['es2015', 'stage-2'],
+						plugins: ['transform-runtime', 'add-module-exports', 'transform-es2015-modules-commonjs']
+					}
+				}
+			]
+		}
+    },
     // list of files / patterns to load in the browser
     files: [
       'orbit/src/**/*.js',
@@ -28,6 +42,8 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+        'orbit/src/**/*.js': ['webpack'],
+        'orbit/tests/**/*.js': ['webpack']
     },
 
 
@@ -56,7 +72,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome', 'Firefox', 'Safari', 'Opera', 'IE', 'PhantomJS'],
+    browsers: ['Chrome'],
 
 
     // Continuous Integration mode
