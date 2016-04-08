@@ -15,7 +15,7 @@
     "abstraction",
     "decoupling"
   ],
-  "main": "orbit/dist/orbit.js",
+  "main": "orbit/dist/orbit.min.js",
   "bugs": {
     "url": "https://github.com/hugeinc/orbit/issues"
   },
