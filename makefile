@@ -73,6 +73,9 @@ cover:
 test:
 	@docker exec orbit npm run test
 
+ci-test:
+	@docker exec orbit npm run ci-test
+
 watch:
 	@docker exec orbit npm run watch
 

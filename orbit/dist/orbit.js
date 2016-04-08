@@ -79,7 +79,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _proxy2 = _interopRequireDefault(_proxy);
 	
-	var _activator = __webpack_require__(/*! ./core/factories/activator.factory */ 77);
+	var _activator = __webpack_require__(/*! ./core/factories/activator.factory */ 80);
 	
 	var _activator2 = _interopRequireDefault(_activator);
 	
@@ -112,7 +112,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
 	
 	var _keys = __webpack_require__(/*! babel-runtime/core-js/object/keys */ 2);
@@ -136,74 +136,74 @@ return /******/ (function(modules) { // webpackBootstrap
 	    ALL = (0, _symbol2.default)('Everything will be logged and displayed on the console');
 	
 	var levels = {
-		OFF: OFF,
-		FATAL: FATAL,
-		ERROR: ERROR,
-		WARN: WARN,
-		ALL: ALL
+	  OFF: OFF,
+	  FATAL: FATAL,
+	  ERROR: ERROR,
+	  WARN: WARN,
+	  ALL: ALL
 	};
 	
 	var level = levels['OFF'],
 	    levelString = 'OFF';
 	
 	var Logger = {
-		getLevel: function getLevel() {
-			return levelString;
-		},
-		setLevel: function setLevel(wantedLevel) {
-			if (levels[wantedLevel]) {
-				level = levels[wantedLevel];
-				levelString = wantedLevel;
-			}
-		},
+	  getLevel: function getLevel() {
+	    return levelString;
+	  },
+	  setLevel: function setLevel(wantedLevel) {
+	    if (levels[wantedLevel]) {
+	      level = levels[wantedLevel];
+	      levelString = wantedLevel;
+	    }
+	  },
 	
-		log: log
+	  log: log
 	};
 	
 	function log(options) {
-		if (Array.isArray(options)) {
-			return multipleLogs(options);
-		} else if ((typeof options === 'undefined' ? 'undefined' : (0, _typeof3.default)(options)) === 'object') {
-			return singleLog(options);
-		}
+	  if (Array.isArray(options)) {
+	    return multipleLogs(options);
+	  } else if ((typeof options === 'undefined' ? 'undefined' : (0, _typeof3.default)(options)) === 'object') {
+	    return singleLog(options);
+	  }
 	}
 	
 	function multipleLogs(logs) {
-		for (var i = 0; i < logs.length; i++) {
-			singleLog(logs[i]);
-		}
+	  for (var i = 0; i < logs.length; i++) {
+	    singleLog(logs[i]);
+	  }
 	}
 	
 	function singleLog() {
-		var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	  var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 	
-		var _ref$message = _ref.message;
-		var message = _ref$message === undefined ? null : _ref$message;
-		var _ref$level = _ref.level;
-		var level = _ref$level === undefined ? 'OFF' : _ref$level;
+	  var _ref$message = _ref.message;
+	  var message = _ref$message === undefined ? null : _ref$message;
+	  var _ref$level = _ref.level;
+	  var level = _ref$level === undefined ? 'OFF' : _ref$level;
 	
-		var levelsKeys = (0, _keys2.default)(levels);
+	  var levelsKeys = (0, _keys2.default)(levels);
 	
-		if (levelString === 'OFF') return undefined;
+	  if (levelString === 'OFF') return undefined;
 	
-		if (levelsKeys.indexOf(levelString) >= levelsKeys.indexOf(level)) {
-			return output(message, level);
-		}
+	  if (levelsKeys.indexOf(levelString) >= levelsKeys.indexOf(level)) {
+	    return output(message, level);
+	  }
 	}
 	
 	function output(message, level) {
-		var finalMessage = '[Orbit.Logger][' + level + '] ' + getDateString() + '\n' + message + '\n';
+	  var finalMessage = '[Orbit.Logger][' + level + '] ' + getDateString() + '\n' + message + '\n';
 	
-		console.log(finalMessage);
+	  console.log(finalMessage);
 	
-		return finalMessage;
+	  return finalMessage;
 	}
 	
 	function getDateString() {
-		var now = new Date(),
-		    period = now.toLocaleString().slice(-3);
+	  var now = new Date(),
+	      period = now.toLocaleString().slice(-3);
 	
-		return now.toLocaleString().replace(period, ':' + now.getMilliseconds()) + period;
+	  return now.toLocaleString().replace(period, ':' + now.getMilliseconds()) + period;
 	}
 	
 	exports.default = Logger;
@@ -211,18 +211,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 2 */
-/*!***************************************************!*\
-  !*** /app/~/babel-runtime/core-js/object/keys.js ***!
-  \***************************************************/
+/*!*******************************************************!*\
+  !*** /install/~/babel-runtime/core-js/object/keys.js ***!
+  \*******************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/object/keys */ 3), __esModule: true };
 
 /***/ },
 /* 3 */
-/*!************************************************!*\
-  !*** /app/~/core-js/library/fn/object/keys.js ***!
-  \************************************************/
+/*!****************************************************!*\
+  !*** /install/~/core-js/library/fn/object/keys.js ***!
+  \****************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(/*! ../../modules/es6.object.keys */ 4);
@@ -230,9 +230,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 4 */
-/*!*********************************************************!*\
-  !*** /app/~/core-js/library/modules/es6.object.keys.js ***!
-  \*********************************************************/
+/*!*************************************************************!*\
+  !*** /install/~/core-js/library/modules/es6.object.keys.js ***!
+  \*************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	// 19.1.2.14 Object.keys(O)
@@ -246,9 +246,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 5 */
-/*!*****************************************************!*\
-  !*** /app/~/core-js/library/modules/$.to-object.js ***!
-  \*****************************************************/
+/*!*********************************************************!*\
+  !*** /install/~/core-js/library/modules/$.to-object.js ***!
+  \*********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	// 7.1.13 ToObject(argument)
@@ -259,9 +259,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 6 */
-/*!***************************************************!*\
-  !*** /app/~/core-js/library/modules/$.defined.js ***!
-  \***************************************************/
+/*!*******************************************************!*\
+  !*** /install/~/core-js/library/modules/$.defined.js ***!
+  \*******************************************************/
 /***/ function(module, exports) {
 
 	// 7.2.1 RequireObjectCoercible(argument)
@@ -272,9 +272,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 7 */
-/*!******************************************************!*\
-  !*** /app/~/core-js/library/modules/$.object-sap.js ***!
-  \******************************************************/
+/*!**********************************************************!*\
+  !*** /install/~/core-js/library/modules/$.object-sap.js ***!
+  \**********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	// most Object methods by ES6 should accept primitives
@@ -290,9 +290,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 8 */
-/*!**************************************************!*\
-  !*** /app/~/core-js/library/modules/$.export.js ***!
-  \**************************************************/
+/*!******************************************************!*\
+  !*** /install/~/core-js/library/modules/$.export.js ***!
+  \******************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	var global    = __webpack_require__(/*! ./$.global */ 9)
@@ -344,9 +344,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 9 */
-/*!**************************************************!*\
-  !*** /app/~/core-js/library/modules/$.global.js ***!
-  \**************************************************/
+/*!******************************************************!*\
+  !*** /install/~/core-js/library/modules/$.global.js ***!
+  \******************************************************/
 /***/ function(module, exports) {
 
 	// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
@@ -356,9 +356,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 10 */
-/*!************************************************!*\
-  !*** /app/~/core-js/library/modules/$.core.js ***!
-  \************************************************/
+/*!****************************************************!*\
+  !*** /install/~/core-js/library/modules/$.core.js ***!
+  \****************************************************/
 /***/ function(module, exports) {
 
 	var core = module.exports = {version: '1.2.6'};
@@ -366,9 +366,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 11 */
-/*!***********************************************!*\
-  !*** /app/~/core-js/library/modules/$.ctx.js ***!
-  \***********************************************/
+/*!***************************************************!*\
+  !*** /install/~/core-js/library/modules/$.ctx.js ***!
+  \***************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	// optional / simple context binding
@@ -394,9 +394,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 12 */
-/*!******************************************************!*\
-  !*** /app/~/core-js/library/modules/$.a-function.js ***!
-  \******************************************************/
+/*!**********************************************************!*\
+  !*** /install/~/core-js/library/modules/$.a-function.js ***!
+  \**********************************************************/
 /***/ function(module, exports) {
 
 	module.exports = function(it){
@@ -406,9 +406,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 13 */
-/*!*************************************************!*\
-  !*** /app/~/core-js/library/modules/$.fails.js ***!
-  \*************************************************/
+/*!*****************************************************!*\
+  !*** /install/~/core-js/library/modules/$.fails.js ***!
+  \*****************************************************/
 /***/ function(module, exports) {
 
 	module.exports = function(exec){
@@ -421,9 +421,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 14 */
-/*!**********************************************!*\
-  !*** /app/~/babel-runtime/helpers/typeof.js ***!
-  \**********************************************/
+/*!**************************************************!*\
+  !*** /install/~/babel-runtime/helpers/typeof.js ***!
+  \**************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -438,18 +438,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 15 */
-/*!**********************************************!*\
-  !*** /app/~/babel-runtime/core-js/symbol.js ***!
-  \**********************************************/
+/*!**************************************************!*\
+  !*** /install/~/babel-runtime/core-js/symbol.js ***!
+  \**************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/symbol */ 16), __esModule: true };
 
 /***/ },
 /* 16 */
-/*!*************************************************!*\
-  !*** /app/~/core-js/library/fn/symbol/index.js ***!
-  \*************************************************/
+/*!*****************************************************!*\
+  !*** /install/~/core-js/library/fn/symbol/index.js ***!
+  \*****************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(/*! ../../modules/es6.symbol */ 17);
@@ -458,9 +458,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 17 */
-/*!****************************************************!*\
-  !*** /app/~/core-js/library/modules/es6.symbol.js ***!
-  \****************************************************/
+/*!********************************************************!*\
+  !*** /install/~/core-js/library/modules/es6.symbol.js ***!
+  \********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -693,9 +693,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 18 */
-/*!*******************************************!*\
-  !*** /app/~/core-js/library/modules/$.js ***!
-  \*******************************************/
+/*!***********************************************!*\
+  !*** /install/~/core-js/library/modules/$.js ***!
+  \***********************************************/
 /***/ function(module, exports) {
 
 	var $Object = Object;
@@ -714,9 +714,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 19 */
-/*!***********************************************!*\
-  !*** /app/~/core-js/library/modules/$.has.js ***!
-  \***********************************************/
+/*!***************************************************!*\
+  !*** /install/~/core-js/library/modules/$.has.js ***!
+  \***************************************************/
 /***/ function(module, exports) {
 
 	var hasOwnProperty = {}.hasOwnProperty;
@@ -726,9 +726,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 20 */
-/*!*******************************************************!*\
-  !*** /app/~/core-js/library/modules/$.descriptors.js ***!
-  \*******************************************************/
+/*!***********************************************************!*\
+  !*** /install/~/core-js/library/modules/$.descriptors.js ***!
+  \***********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	// Thank's IE8 for his funny defineProperty
@@ -738,18 +738,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 21 */
-/*!****************************************************!*\
-  !*** /app/~/core-js/library/modules/$.redefine.js ***!
-  \****************************************************/
+/*!********************************************************!*\
+  !*** /install/~/core-js/library/modules/$.redefine.js ***!
+  \********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__(/*! ./$.hide */ 22);
 
 /***/ },
 /* 22 */
-/*!************************************************!*\
-  !*** /app/~/core-js/library/modules/$.hide.js ***!
-  \************************************************/
+/*!****************************************************!*\
+  !*** /install/~/core-js/library/modules/$.hide.js ***!
+  \****************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	var $          = __webpack_require__(/*! ./$ */ 18)
@@ -763,9 +763,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 23 */
-/*!*********************************************************!*\
-  !*** /app/~/core-js/library/modules/$.property-desc.js ***!
-  \*********************************************************/
+/*!*************************************************************!*\
+  !*** /install/~/core-js/library/modules/$.property-desc.js ***!
+  \*************************************************************/
 /***/ function(module, exports) {
 
 	module.exports = function(bitmap, value){
@@ -779,9 +779,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 24 */
-/*!**************************************************!*\
-  !*** /app/~/core-js/library/modules/$.shared.js ***!
-  \**************************************************/
+/*!******************************************************!*\
+  !*** /install/~/core-js/library/modules/$.shared.js ***!
+  \******************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	var global = __webpack_require__(/*! ./$.global */ 9)
@@ -793,9 +793,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 25 */
-/*!*************************************************************!*\
-  !*** /app/~/core-js/library/modules/$.set-to-string-tag.js ***!
-  \*************************************************************/
+/*!*****************************************************************!*\
+  !*** /install/~/core-js/library/modules/$.set-to-string-tag.js ***!
+  \*****************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	var def = __webpack_require__(/*! ./$ */ 18).setDesc
@@ -808,9 +808,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 26 */
-/*!***********************************************!*\
-  !*** /app/~/core-js/library/modules/$.wks.js ***!
-  \***********************************************/
+/*!***************************************************!*\
+  !*** /install/~/core-js/library/modules/$.wks.js ***!
+  \***************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	var store  = __webpack_require__(/*! ./$.shared */ 24)('wks')
@@ -823,9 +823,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 27 */
-/*!***********************************************!*\
-  !*** /app/~/core-js/library/modules/$.uid.js ***!
-  \***********************************************/
+/*!***************************************************!*\
+  !*** /install/~/core-js/library/modules/$.uid.js ***!
+  \***************************************************/
 /***/ function(module, exports) {
 
 	var id = 0
@@ -836,9 +836,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 28 */
-/*!*************************************************!*\
-  !*** /app/~/core-js/library/modules/$.keyof.js ***!
-  \*************************************************/
+/*!*****************************************************!*\
+  !*** /install/~/core-js/library/modules/$.keyof.js ***!
+  \*****************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	var $         = __webpack_require__(/*! ./$ */ 18)
@@ -854,9 +854,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 29 */
-/*!******************************************************!*\
-  !*** /app/~/core-js/library/modules/$.to-iobject.js ***!
-  \******************************************************/
+/*!**********************************************************!*\
+  !*** /install/~/core-js/library/modules/$.to-iobject.js ***!
+  \**********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	// to indexed object, toObject with fallback for non-array-like ES3 strings
@@ -868,9 +868,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 30 */
-/*!***************************************************!*\
-  !*** /app/~/core-js/library/modules/$.iobject.js ***!
-  \***************************************************/
+/*!*******************************************************!*\
+  !*** /install/~/core-js/library/modules/$.iobject.js ***!
+  \*******************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	// fallback for non-array-like ES3 and non-enumerable old V8 strings
@@ -881,9 +881,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 31 */
-/*!***********************************************!*\
-  !*** /app/~/core-js/library/modules/$.cof.js ***!
-  \***********************************************/
+/*!***************************************************!*\
+  !*** /install/~/core-js/library/modules/$.cof.js ***!
+  \***************************************************/
 /***/ function(module, exports) {
 
 	var toString = {}.toString;
@@ -894,9 +894,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 32 */
-/*!*****************************************************!*\
-  !*** /app/~/core-js/library/modules/$.get-names.js ***!
-  \*****************************************************/
+/*!*********************************************************!*\
+  !*** /install/~/core-js/library/modules/$.get-names.js ***!
+  \*********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	// fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
@@ -922,9 +922,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 33 */
-/*!*****************************************************!*\
-  !*** /app/~/core-js/library/modules/$.enum-keys.js ***!
-  \*****************************************************/
+/*!*********************************************************!*\
+  !*** /install/~/core-js/library/modules/$.enum-keys.js ***!
+  \*********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	// all enumerable object keys, includes symbols
@@ -944,9 +944,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 34 */
-/*!****************************************************!*\
-  !*** /app/~/core-js/library/modules/$.is-array.js ***!
-  \****************************************************/
+/*!********************************************************!*\
+  !*** /install/~/core-js/library/modules/$.is-array.js ***!
+  \********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	// 7.2.2 IsArray(argument)
@@ -957,9 +957,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 35 */
-/*!*****************************************************!*\
-  !*** /app/~/core-js/library/modules/$.an-object.js ***!
-  \*****************************************************/
+/*!*********************************************************!*\
+  !*** /install/~/core-js/library/modules/$.an-object.js ***!
+  \*********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	var isObject = __webpack_require__(/*! ./$.is-object */ 36);
@@ -970,9 +970,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 36 */
-/*!*****************************************************!*\
-  !*** /app/~/core-js/library/modules/$.is-object.js ***!
-  \*****************************************************/
+/*!*********************************************************!*\
+  !*** /install/~/core-js/library/modules/$.is-object.js ***!
+  \*********************************************************/
 /***/ function(module, exports) {
 
 	module.exports = function(it){
@@ -981,18 +981,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 37 */
-/*!***************************************************!*\
-  !*** /app/~/core-js/library/modules/$.library.js ***!
-  \***************************************************/
+/*!*******************************************************!*\
+  !*** /install/~/core-js/library/modules/$.library.js ***!
+  \*******************************************************/
 /***/ function(module, exports) {
 
 	module.exports = true;
 
 /***/ },
 /* 38 */
-/*!**************************************************************!*\
-  !*** /app/~/core-js/library/modules/es6.object.to-string.js ***!
-  \**************************************************************/
+/*!******************************************************************!*\
+  !*** /install/~/core-js/library/modules/es6.object.to-string.js ***!
+  \******************************************************************/
 /***/ function(module, exports) {
 
 
@@ -1033,6 +1033,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _logger2.default.log({ message: '[Mediator.subscribe] Topic already exists.', level: 'FATAL' });
 	    throw new Error('Topic already exist, exiting.');
 	  }
+	
 	  _logger2.default.log({ message: '[Mediator.subscribe] Subscribed.', level: 'ALL' });
 	  subscriptions[options.topic] = options.callback;
 	}
@@ -1043,6 +1044,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _logger2.default.log({ message: '[Mediator.unsubscribe] Topic doesn\'t exist.', level: 'WARN' });
 	    return false;
 	  }
+	
 	  delete subscriptions[subscription.topic];
 	  _logger2.default.log({ message: '[Mediator.unsubscribe] Topic unsubscribed.', level: 'ALL' });
 	}
@@ -1071,18 +1073,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 40 */
-/*!***********************************************!*\
-  !*** /app/~/babel-runtime/core-js/promise.js ***!
-  \***********************************************/
+/*!***************************************************!*\
+  !*** /install/~/babel-runtime/core-js/promise.js ***!
+  \***************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/promise */ 41), __esModule: true };
 
 /***/ },
 /* 41 */
-/*!********************************************!*\
-  !*** /app/~/core-js/library/fn/promise.js ***!
-  \********************************************/
+/*!************************************************!*\
+  !*** /install/~/core-js/library/fn/promise.js ***!
+  \************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(/*! ../modules/es6.object.to-string */ 38);
@@ -1093,9 +1095,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 42 */
-/*!*************************************************************!*\
-  !*** /app/~/core-js/library/modules/es6.string.iterator.js ***!
-  \*************************************************************/
+/*!*****************************************************************!*\
+  !*** /install/~/core-js/library/modules/es6.string.iterator.js ***!
+  \*****************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1118,9 +1120,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 43 */
-/*!*****************************************************!*\
-  !*** /app/~/core-js/library/modules/$.string-at.js ***!
-  \*****************************************************/
+/*!*********************************************************!*\
+  !*** /install/~/core-js/library/modules/$.string-at.js ***!
+  \*********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	var toInteger = __webpack_require__(/*! ./$.to-integer */ 44)
@@ -1143,9 +1145,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 44 */
-/*!******************************************************!*\
-  !*** /app/~/core-js/library/modules/$.to-integer.js ***!
-  \******************************************************/
+/*!**********************************************************!*\
+  !*** /install/~/core-js/library/modules/$.to-integer.js ***!
+  \**********************************************************/
 /***/ function(module, exports) {
 
 	// 7.1.4 ToInteger
@@ -1157,9 +1159,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 45 */
-/*!*******************************************************!*\
-  !*** /app/~/core-js/library/modules/$.iter-define.js ***!
-  \*******************************************************/
+/*!***********************************************************!*\
+  !*** /install/~/core-js/library/modules/$.iter-define.js ***!
+  \***********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1231,18 +1233,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 46 */
-/*!*****************************************************!*\
-  !*** /app/~/core-js/library/modules/$.iterators.js ***!
-  \*****************************************************/
+/*!*********************************************************!*\
+  !*** /install/~/core-js/library/modules/$.iterators.js ***!
+  \*********************************************************/
 /***/ function(module, exports) {
 
 	module.exports = {};
 
 /***/ },
 /* 47 */
-/*!*******************************************************!*\
-  !*** /app/~/core-js/library/modules/$.iter-create.js ***!
-  \*******************************************************/
+/*!***********************************************************!*\
+  !*** /install/~/core-js/library/modules/$.iter-create.js ***!
+  \***********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1261,9 +1263,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 48 */
-/*!**********************************************************!*\
-  !*** /app/~/core-js/library/modules/web.dom.iterable.js ***!
-  \**********************************************************/
+/*!**************************************************************!*\
+  !*** /install/~/core-js/library/modules/web.dom.iterable.js ***!
+  \**************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(/*! ./es6.array.iterator */ 49);
@@ -1272,9 +1274,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 49 */
-/*!************************************************************!*\
-  !*** /app/~/core-js/library/modules/es6.array.iterator.js ***!
-  \************************************************************/
+/*!****************************************************************!*\
+  !*** /install/~/core-js/library/modules/es6.array.iterator.js ***!
+  \****************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1314,18 +1316,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 50 */
-/*!**************************************************************!*\
-  !*** /app/~/core-js/library/modules/$.add-to-unscopables.js ***!
-  \**************************************************************/
+/*!******************************************************************!*\
+  !*** /install/~/core-js/library/modules/$.add-to-unscopables.js ***!
+  \******************************************************************/
 /***/ function(module, exports) {
 
 	module.exports = function(){ /* empty */ };
 
 /***/ },
 /* 51 */
-/*!*****************************************************!*\
-  !*** /app/~/core-js/library/modules/$.iter-step.js ***!
-  \*****************************************************/
+/*!*********************************************************!*\
+  !*** /install/~/core-js/library/modules/$.iter-step.js ***!
+  \*********************************************************/
 /***/ function(module, exports) {
 
 	module.exports = function(done, value){
@@ -1334,9 +1336,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 52 */
-/*!*****************************************************!*\
-  !*** /app/~/core-js/library/modules/es6.promise.js ***!
-  \*****************************************************/
+/*!*********************************************************!*\
+  !*** /install/~/core-js/library/modules/es6.promise.js ***!
+  \*********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1631,9 +1633,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 53 */
-/*!***************************************************!*\
-  !*** /app/~/core-js/library/modules/$.classof.js ***!
-  \***************************************************/
+/*!*******************************************************!*\
+  !*** /install/~/core-js/library/modules/$.classof.js ***!
+  \*******************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	// getting tag from 19.1.3.6 Object.prototype.toString()
@@ -1655,9 +1657,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 54 */
-/*!******************************************************!*\
-  !*** /app/~/core-js/library/modules/$.strict-new.js ***!
-  \******************************************************/
+/*!**********************************************************!*\
+  !*** /install/~/core-js/library/modules/$.strict-new.js ***!
+  \**********************************************************/
 /***/ function(module, exports) {
 
 	module.exports = function(it, Constructor, name){
@@ -1667,9 +1669,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 55 */
-/*!**************************************************!*\
-  !*** /app/~/core-js/library/modules/$.for-of.js ***!
-  \**************************************************/
+/*!******************************************************!*\
+  !*** /install/~/core-js/library/modules/$.for-of.js ***!
+  \******************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	var ctx         = __webpack_require__(/*! ./$.ctx */ 11)
@@ -1694,9 +1696,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 56 */
-/*!*****************************************************!*\
-  !*** /app/~/core-js/library/modules/$.iter-call.js ***!
-  \*****************************************************/
+/*!*********************************************************!*\
+  !*** /install/~/core-js/library/modules/$.iter-call.js ***!
+  \*********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	// call something on iterator step with safe closing on error
@@ -1714,9 +1716,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 57 */
-/*!*********************************************************!*\
-  !*** /app/~/core-js/library/modules/$.is-array-iter.js ***!
-  \*********************************************************/
+/*!*************************************************************!*\
+  !*** /install/~/core-js/library/modules/$.is-array-iter.js ***!
+  \*************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	// check on default Array iterator
@@ -1730,9 +1732,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 58 */
-/*!*****************************************************!*\
-  !*** /app/~/core-js/library/modules/$.to-length.js ***!
-  \*****************************************************/
+/*!*********************************************************!*\
+  !*** /install/~/core-js/library/modules/$.to-length.js ***!
+  \*********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	// 7.1.15 ToLength
@@ -1744,9 +1746,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 59 */
-/*!******************************************************************!*\
-  !*** /app/~/core-js/library/modules/core.get-iterator-method.js ***!
-  \******************************************************************/
+/*!**********************************************************************!*\
+  !*** /install/~/core-js/library/modules/core.get-iterator-method.js ***!
+  \**********************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	var classof   = __webpack_require__(/*! ./$.classof */ 53)
@@ -1760,9 +1762,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 60 */
-/*!*****************************************************!*\
-  !*** /app/~/core-js/library/modules/$.set-proto.js ***!
-  \*****************************************************/
+/*!*********************************************************!*\
+  !*** /install/~/core-js/library/modules/$.set-proto.js ***!
+  \*********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	// Works with __proto__ only. Old v8 can't work with null proto objects.
@@ -1794,9 +1796,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 61 */
-/*!******************************************************!*\
-  !*** /app/~/core-js/library/modules/$.same-value.js ***!
-  \******************************************************/
+/*!**********************************************************!*\
+  !*** /install/~/core-js/library/modules/$.same-value.js ***!
+  \**********************************************************/
 /***/ function(module, exports) {
 
 	// 7.2.9 SameValue(x, y)
@@ -1806,9 +1808,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 62 */
-/*!***************************************************************!*\
-  !*** /app/~/core-js/library/modules/$.species-constructor.js ***!
-  \***************************************************************/
+/*!*******************************************************************!*\
+  !*** /install/~/core-js/library/modules/$.species-constructor.js ***!
+  \*******************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	// 7.3.20 SpeciesConstructor(O, defaultConstructor)
@@ -1822,9 +1824,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 63 */
-/*!*****************************************************!*\
-  !*** /app/~/core-js/library/modules/$.microtask.js ***!
-  \*****************************************************/
+/*!*********************************************************!*\
+  !*** /install/~/core-js/library/modules/$.microtask.js ***!
+  \*********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	var global    = __webpack_require__(/*! ./$.global */ 9)
@@ -1894,9 +1896,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 64 */
-/*!************************************************!*\
-  !*** /app/~/core-js/library/modules/$.task.js ***!
-  \************************************************/
+/*!****************************************************!*\
+  !*** /install/~/core-js/library/modules/$.task.js ***!
+  \****************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	var ctx                = __webpack_require__(/*! ./$.ctx */ 11)
@@ -1977,9 +1979,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 65 */
-/*!**************************************************!*\
-  !*** /app/~/core-js/library/modules/$.invoke.js ***!
-  \**************************************************/
+/*!******************************************************!*\
+  !*** /install/~/core-js/library/modules/$.invoke.js ***!
+  \******************************************************/
 /***/ function(module, exports) {
 
 	// fast apply, http://jsperf.lnkit.com/fast-apply/5
@@ -2001,18 +2003,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 66 */
-/*!************************************************!*\
-  !*** /app/~/core-js/library/modules/$.html.js ***!
-  \************************************************/
+/*!****************************************************!*\
+  !*** /install/~/core-js/library/modules/$.html.js ***!
+  \****************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__(/*! ./$.global */ 9).document && document.documentElement;
 
 /***/ },
 /* 67 */
-/*!******************************************************!*\
-  !*** /app/~/core-js/library/modules/$.dom-create.js ***!
-  \******************************************************/
+/*!**********************************************************!*\
+  !*** /install/~/core-js/library/modules/$.dom-create.js ***!
+  \**********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	var isObject = __webpack_require__(/*! ./$.is-object */ 36)
@@ -2025,9 +2027,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 68 */
-/*!********************************************************!*\
-  !*** /app/~/core-js/library/modules/$.redefine-all.js ***!
-  \********************************************************/
+/*!************************************************************!*\
+  !*** /install/~/core-js/library/modules/$.redefine-all.js ***!
+  \************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	var redefine = __webpack_require__(/*! ./$.redefine */ 21);
@@ -2038,9 +2040,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 69 */
-/*!*******************************************************!*\
-  !*** /app/~/core-js/library/modules/$.set-species.js ***!
-  \*******************************************************/
+/*!***********************************************************!*\
+  !*** /install/~/core-js/library/modules/$.set-species.js ***!
+  \***********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2059,9 +2061,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 70 */
-/*!*******************************************************!*\
-  !*** /app/~/core-js/library/modules/$.iter-detect.js ***!
-  \*******************************************************/
+/*!***********************************************************!*\
+  !*** /install/~/core-js/library/modules/$.iter-detect.js ***!
+  \***********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	var ITERATOR     = __webpack_require__(/*! ./$.wks */ 26)('iterator')
@@ -2124,7 +2126,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  for (var action in instance.actions) {
 	    _logger2.default.log({ message: '[Module.createModule] Assigning method ' + instance.actions[action].toString() + '() to object.', level: 'ALL' });
-	    instance[instance.actions[action]] = instance[action].bind(instance);
+	    if (instance[action] instanceof Function) {
+	      instance[instance.actions[action]] = instance[action].bind(instance);
+	    } else {
+	      _logger2.default.log('[Module.createModule] ' + action + ' doesn\'t have a function callback.', 'ERROR');
+	      throw Error('Method not found for action \'' + action + '\'');
+	    }
 	    delete instance[action];
 	  }
 	
@@ -2150,29 +2157,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _logger2.default.log({ message: '[Module.registerActions] Trying to register actions', level: 'ALL' });
 	
 	  var _loop = function _loop(action) {
-	    if (typeof instance[actions[action]] === 'function') {
-	      _logger2.default.log('[Module.registerActions] Subscribing to ' + actions[action].toString() + ' action.', 'ALL');
-	      _channel2.default.subscribe({
-	        topic: actions[action],
-	        callback: function callback(data) {
-	          var response = void 0;
+	    _logger2.default.log('[Module.registerActions] Subscribing to ' + action + ' action.', 'ALL');
+	    _channel2.default.subscribe({
+	      topic: actions[action],
+	      callback: function callback(data) {
+	        var response = void 0;
 	
-	          _logger2.default.log('[Module.callback] Action ' + actions[action].toString() + ' callback called with ' + data, 'ALL');
+	        _logger2.default.log('[Module.callback] Action ' + action + ' callback called with ' + data, 'ALL');
 	
-	          try {
-	            _logger2.default.log('[Module.callback] ' + actions[action].toString() + ' Promise resolved', 'ALL');
-	            response = instance[actions[action]](data);
-	          } catch (e) {
-	            _logger2.default.log('[Module.callback] ' + actions[action].toString() + ' Promise rejected ' + e, 'ERROR');
-	            response = e;
-	          }
-	
-	          return response;
+	        try {
+	          _logger2.default.log('[Module.callback] ' + action + ' Promise resolved', 'ALL');
+	          response = instance[actions[action]](data);
+	        } catch (e) {
+	          _logger2.default.log('[Module.callback] ' + action + ' Promise rejected ' + e, 'ERROR');
+	          response = e;
 	        }
-	      });
-	    } else {
-	      _logger2.default.log('[Module.registerActions] ' + actions[action].toString() + ' doesn\'t have a function callback.', 'ERROR');
-	    }
+	
+	        return response;
+	      }
+	    });
 	  };
 	
 	  for (var action in actions) {
@@ -2185,18 +2188,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 72 */
-/*!*****************************************************!*\
-  !*** /app/~/babel-runtime/core-js/object/assign.js ***!
-  \*****************************************************/
+/*!*********************************************************!*\
+  !*** /install/~/babel-runtime/core-js/object/assign.js ***!
+  \*********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/object/assign */ 73), __esModule: true };
 
 /***/ },
 /* 73 */
-/*!**************************************************!*\
-  !*** /app/~/core-js/library/fn/object/assign.js ***!
-  \**************************************************/
+/*!******************************************************!*\
+  !*** /install/~/core-js/library/fn/object/assign.js ***!
+  \******************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(/*! ../../modules/es6.object.assign */ 74);
@@ -2204,9 +2207,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 74 */
-/*!***********************************************************!*\
-  !*** /app/~/core-js/library/modules/es6.object.assign.js ***!
-  \***********************************************************/
+/*!***************************************************************!*\
+  !*** /install/~/core-js/library/modules/es6.object.assign.js ***!
+  \***************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	// 19.1.3.1 Object.assign(target, source)
@@ -2216,9 +2219,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 75 */
-/*!*********************************************************!*\
-  !*** /app/~/core-js/library/modules/$.object-assign.js ***!
-  \*********************************************************/
+/*!*************************************************************!*\
+  !*** /install/~/core-js/library/modules/$.object-assign.js ***!
+  \*************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	// 19.1.2.1 Object.assign(target, source, ...)
@@ -2276,6 +2279,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _assign2 = _interopRequireDefault(_assign);
 	
+	var _getIterator2 = __webpack_require__(/*! babel-runtime/core-js/get-iterator */ 77);
+	
+	var _getIterator3 = _interopRequireDefault(_getIterator2);
+	
 	var _logger = __webpack_require__(/*! ../logger/logger */ 1);
 	
 	var _logger2 = _interopRequireDefault(_logger);
@@ -2294,8 +2301,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	  instance.Proxy.doAction = doAction.bind(instance);
 	  instance.addMiddleware = addMiddleware.bind(instance);
 	
-	  for (var module in modules) {
-	    instance.Proxy.actions = (0, _assign2.default)(instance.Proxy.actions, modules[module].actions);
+	  var _iteratorNormalCompletion = true;
+	  var _didIteratorError = false;
+	  var _iteratorError = undefined;
+	
+	  try {
+	    for (var _iterator = (0, _getIterator3.default)(modules), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	      var module = _step.value;
+	
+	      instance.Proxy.actions = (0, _assign2.default)(instance.Proxy.actions, module.actions);
+	    }
+	  } catch (err) {
+	    _didIteratorError = true;
+	    _iteratorError = err;
+	  } finally {
+	    try {
+	      if (!_iteratorNormalCompletion && _iterator.return) {
+	        _iterator.return();
+	      }
+	    } finally {
+	      if (_didIteratorError) {
+	        throw _iteratorError;
+	      }
+	    }
 	  }
 	
 	  return instance;
@@ -2312,17 +2340,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	
 	function doAction(action, params) {
+	  var _this = this;
+	
 	  var promise = void 0,
-	      beforeResponse = void 0,
-	      that = this;
+	      beforeResponse = void 0;
 	
 	  _logger2.default.log({ message: '[Proxy.doAction] Calling action ' + action.toString() + ' with ' + params, level: 'ALL' });
 	
 	  promise = new _promise2.default(function (resolve, reject) {
 	    try {
-	      beforeResponse = executeBeforeCallback(action, params, that);
+	      beforeResponse = executeBeforeCallback(action, params, _this);
 	      _logger2.default.log({ message: '[Proxy.doAction] Promise ' + action.toString() + ' resolved.', level: 'ALL' });
-	      resolve(handleBeforeResponseAndMakeRequest(action, beforeResponse, that));
+	      resolve(handleBeforeResponseAndMakeRequest(action, beforeResponse, _this));
 	    } catch (e) {
 	      _logger2.default.log({ message: '[Proxy.doAction] Promise ' + action.toString() + ' rejected ' + e, level: 'ERROR' });
 	      reject(e);
@@ -2389,6 +2418,41 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 77 */
+/*!********************************************************!*\
+  !*** /install/~/babel-runtime/core-js/get-iterator.js ***!
+  \********************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = { "default": __webpack_require__(/*! core-js/library/fn/get-iterator */ 78), __esModule: true };
+
+/***/ },
+/* 78 */
+/*!*****************************************************!*\
+  !*** /install/~/core-js/library/fn/get-iterator.js ***!
+  \*****************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(/*! ../modules/web.dom.iterable */ 48);
+	__webpack_require__(/*! ../modules/es6.string.iterator */ 42);
+	module.exports = __webpack_require__(/*! ../modules/core.get-iterator */ 79);
+
+/***/ },
+/* 79 */
+/*!***************************************************************!*\
+  !*** /install/~/core-js/library/modules/core.get-iterator.js ***!
+  \***************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var anObject = __webpack_require__(/*! ./$.an-object */ 35)
+	  , get      = __webpack_require__(/*! ./core.get-iterator-method */ 59);
+	module.exports = __webpack_require__(/*! ./$.core */ 10).getIterator = function(it){
+	  var iterFn = get(it);
+	  if(typeof iterFn != 'function')throw TypeError(it + ' is not iterable!');
+	  return anObject(iterFn.call(it));
+	};
+
+/***/ },
+/* 80 */
 /*!*********************************************!*\
   !*** ./core/factories/activator.factory.js ***!
   \*********************************************/
@@ -2399,6 +2463,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	
+	var _getIterator2 = __webpack_require__(/*! babel-runtime/core-js/get-iterator */ 77);
+	
+	var _getIterator3 = _interopRequireDefault(_getIterator2);
 	
 	var _logger = __webpack_require__(/*! ../logger/logger */ 1);
 	
@@ -2415,9 +2483,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  instance.request = {};
 	
-	  for (var object in objects) {
-	    if (typeof objects[object].Proxy !== 'undefined') objectIsProxy(objects[object], instance);
-	    if (typeof objects[object].actions !== 'undefined') objectIsModule(objects[object], instance);
+	  var _iteratorNormalCompletion = true;
+	  var _didIteratorError = false;
+	  var _iteratorError = undefined;
+	
+	  try {
+	    for (var _iterator = (0, _getIterator3.default)(objects), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	      var object = _step.value;
+	
+	      if (typeof object.Proxy !== 'undefined') objectIsProxy(object, instance);
+	      if (typeof object.actions !== 'undefined') objectIsModule(object, instance);
+	    }
+	  } catch (err) {
+	    _didIteratorError = true;
+	    _iteratorError = err;
+	  } finally {
+	    try {
+	      if (!_iteratorNormalCompletion && _iterator.return) {
+	        _iterator.return();
+	      }
+	    } finally {
+	      if (_didIteratorError) {
+	        throw _iteratorError;
+	      }
+	    }
 	  }
 	
 	  delete instance.actions;
@@ -2432,12 +2521,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	
 	function objectIsModule(object, instance) {
-	  var proxy = void 0,
-	      makeProxy = _proxy2.default.bind({});
+	  var proxy = void 0;
 	
 	  _logger2.default.log({ message: '[Activator.createActivator] Extending Proxy.', level: 'ALL' });
 	
-	  proxy = makeProxy([object]);
+	  proxy = _proxy2.default.call({}, [object]);
 	  instance.addMiddleware = proxy.addMiddleware;
 	
 	  _logger2.default.log({ message: '[Activator.createActivator] Extending Activator.', level: 'ALL' });
