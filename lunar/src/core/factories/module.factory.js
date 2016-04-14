@@ -1,6 +1,6 @@
 'use strict';
 
-import OrbitMediator from '../mediator/channel';
+import LunarMediator from '../mediator/channel';
 import Logger from '../logger/logger';
 
 function createModule() {
@@ -42,7 +42,7 @@ function registerActions(actions, instance) {
 
   for (let action in actions) {
     Logger.log(`[Module.registerActions] Subscribing to ${action} action.`, 'ALL');
-    OrbitMediator.subscribe({
+    LunarMediator.subscribe({
       topic: actions[action],
       callback: (data) => {
         let response;

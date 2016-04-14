@@ -27,7 +27,7 @@ Develop using feature/* branches, make Pull Requests to develop, and finally to 
 
 ## Reporting Issues
 
-Please use our <a href="http://github.com/hugeinc/orbit">Github repository</a> to report issues. All issues must have:
+Please use our <a href="http://github.com/hugeinc/lunar">Github repository</a> to report issues. All issues must have:
 
 - Your operating system (name and version)
 - The browser you are using (name and version)

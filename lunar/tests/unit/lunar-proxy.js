@@ -13,7 +13,7 @@ const createProxy = proxyquire('../../src/core/factories/proxy.factory', {
   '../mediator/channel': channelMock
 });
 
-test('Orbit.createProxy', function(t) {
+test('Lunar.createProxy', function(t) {
   let proxy = createProxy.call({}, [moduleMock]);
 
   t.plan(6);

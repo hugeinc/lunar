@@ -12,7 +12,7 @@ const createActivator = proxyquire('../../src/core/factories/activator.factory',
   './proxy.factory': proxyMock
 });
 
-test('Orbit.createActivator', function(t) {
+test('Lunar.createActivator', function(t) {
 
   test('From a module', function(t) {
     let activator = createActivator.call({}, [moduleMock]);

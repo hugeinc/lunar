@@ -1,7 +1,7 @@
-![](images/Orbit.png)
-[![npm](https://img.shields.io/npm/dt/orbitjs.svg)]() [![GitHub tag](https://img.shields.io/github/tag/hugeinc/orbit.svg)]() [![Build Status](https://snap-ci.com/gl9NE5npyXBTWeoiSf4AFt3SodPh3s8ySD7rWJ9A6l8/build_image)](https://snap-ci.com/hugeinc/orbit/branch/master) [![Codacy Badge](https://api.codacy.com/project/badge/grade/de26884f60dd4084bd056f97af5ebae5)](https://www.codacy.com/app/caiovaccaromora/orbit)
+![](images/Lunar.png)
+[![npm](https://img.shields.io/npm/dt/lunarjs.svg)]() [![GitHub tag](https://img.shields.io/github/tag/hugeinc/lunar.svg)]() [![Build Status](https://snap-ci.com/gl9NE5npyXBTWeoiSf4AFt3SodPh3s8ySD7rWJ9A6l8/build_image)](https://snap-ci.com/hugeinc/lunar/branch/master) [![Codacy Badge](https://api.codacy.com/project/badge/grade/de26884f60dd4084bd056f97af5ebae5)](https://www.codacy.com/app/caiovaccaromora/lunar)
 
-Orbit **v1.0.1**. Making the core of your application framework-independent.
+Lunar **v1.0.1**. Making the core of your application framework-independent.
 
 **Tested on:**  
 **OS X Chrome 48, 49, Firefox 44, Safari 8 and 9, Opera 12.15.**  
@@ -14,34 +14,34 @@ Orbit **v1.0.1**. Making the core of your application framework-independent.
 - **[Inspiration, fancy names](#inspiration)**
 - **[MVC, Flux and other frameworks, the problem: Refactoring](#mvc)**
 - **[What we propose](#proposal)**
-- **[How is Orbit different than Redux?](#redux)**
+- **[How is Lunar different than Redux?](#redux)**
 - **[Structure](#structure)**
 - **[Angular Example](#angular)**
-- **[Wiki](https://github.com/hugeinc/orbit/wiki/)**
+- **[Wiki](https://github.com/hugeinc/lunar/wiki/)**
 - **[Contributing](#contributing)**
 
 
 <a name="installing"></a>
 ## Installing
-- Run ```npm install orbitjs --save```
-- Alternatively, download the [orbit/dist/orbit.js](https://github.com/hugeinc/orbit/blob/master/orbit/dist/orbit.js) file and place it in your project.
-- Orbit is under UMD. You can require, import it, or use it as a global variable
+- Run ```npm install lunarjs --save```
+- Alternatively, download the [lunar/dist/lunar.js](https://github.com/hugeinc/lunar/blob/master/lunar/dist/lunar.js) file and place it in your project.
+- Lunar is under UMD. You can require, import it, or use it as a global variable
 
 ```javascript
-const Orbit = require('orbitjs'); // or
-import Orbit from 'orbitjs'; // or global variable
-console.log(Orbit);
+const Lunar = require('lunarjs'); // or
+import Lunar from 'lunarjs'; // or global variable
+console.log(Lunar);
 
 const actions = { ONE: 'ONE' };
-const MyFeature = Orbit({...actions}).createModule();
-const ReactComponent = Orbit(this).createActivator([MyFeature,...])
+const MyFeature = Lunar({...actions}).createModule();
+const ReactComponent = Lunar(this).createActivator([MyFeature,...])
 ReactComponent.addMiddleware([...]) // before and after middlwares
 ReactComponent.request[actions.ONE]().then()
 
 // You can add an additional proxy layer
-const AngularService = Orbit(this).createProxy(MyFeature)
+const AngularService = Lunar(this).createProxy(MyFeature)
 AngularService.addMiddleware([...]) // before and after middlwares
-const AngularController = Orbit(this).createActivator([AngularService,...])
+const AngularController = Lunar(this).createActivator([AngularService,...])
 Directive.request[actions.ONE]().then()
 ```  
 **[Back to top](#index)**
@@ -85,8 +85,8 @@ First, you should separate "framework-code" from "application-code". Frameworks 
 **[Back to top](#index)**
 
 <a name="redux"></a>
-## How is Orbit different than Redux?
-Redux is awesome. As the official documentation states, "Redux is a predictable state container for JavaScript apps." and "evolves the ideas of Flux, but avoids its complexity by taking cues from Elm.". Redux is an architecture and it is a state container. Orbit doesn't worry about state or how you structure your application. The difference between them is design. Orbit only concern is how to decouple business logic from frameworks, it doesn't manage state, you can even use Orbit with Redux.
+## How is Lunar different than Redux?
+Redux is awesome. As the official documentation states, "Redux is a predictable state container for JavaScript apps." and "evolves the ideas of Flux, but avoids its complexity by taking cues from Elm.". Redux is an architecture and it is a state container. Lunar doesn't worry about state or how you structure your application. The difference between them is design. Lunar only concern is how to decouple business logic from frameworks, it doesn't manage state, you can even use Lunar with Redux.
 
 **[Back to top](#index)**
 
@@ -96,14 +96,14 @@ Redux is awesome. As the official documentation states, "Redux is a predictable 
 
 ```
 /client  
-    /orbit  
+    /lunar  
     /angular
 ```
 
-#### The orbit folder
+#### The lunar folder
 
 ```
-/orbit
+/lunar
 	/folder-by-feature
 	/eg-home
 	/simulator
@@ -114,7 +114,7 @@ Redux is awesome. As the official documentation states, "Redux is a predictable 
 - If writting tests, add your .spec file in there too.
 
 ```
-/orbit/home
+/lunar/home
 	home.js
 	home.spec.js
 	actions.js
@@ -127,13 +127,13 @@ Your file will look something like this:
 
 ```javascript
 // Import your actions constant file
-import Orbit from 'orbitjs';
+import Lunar from 'lunarjs';
 import actions from './actions';
 
 // Your core feature code, an object with pure functions
-export default Orbit({
+export default Lunar({
 	// You can have private properties if you want
-	title: 'Orbit',
+	title: 'Lunar',
 	actions: actions,
 	[actions.FORMAT_TITLE]: function(data) {
 		return data + ' ' + this.title;
@@ -162,11 +162,11 @@ export default {
 
 <a name="react"></a>
 ## React Example
-We know that React concerns only the V (sort of) of our apps. After you create an Orbit module, you should have an endpoint where you call it. This can be the Component it self.
+We know that React concerns only the V (sort of) of our apps. After you create an Lunar module, you should have an endpoint where you call it. This can be the Component it self.
 
 ```javascript
-import Orbit from 'orbitjs';
-import Home from 'orbit/home';
+import Lunar from 'lunarjs';
+import Home from 'lunar/home';
 
 React.createClass({
 	getInitialState() {
@@ -176,7 +176,7 @@ React.createClass({
 	},
 	componentDidMount() {
 		var self = this;
-		Orbit(this).createActivator([Home]);
+		Lunar(this).createActivator([Home]);
 
 		this.request[Home.actions.FORMAT_TITLE]('Welcome').then(function(data) {
 			self.setState({
@@ -199,25 +199,25 @@ React.createClass({
 ## Angular Example
 The Angular team saw that M, V and C are not enough for code decoupling. They added a few extra things like Services, Factories and Providers. Whenever you have code that you will reuse in multiple places, put them into Services. This is very helpful but still coupled. Refactoring means changing your Service, Controller and Directive at least.
 
-![](images/OrbitLayer.png)  
-[Open full size version](images/OrbitLayer.pdf)
+![](images/LunarLayer.png)  
+[Open full size version](images/LunarLayer.pdf)
 
 
 
-Let's assume that you consider the Angular Service the holder of logic. Controller the scope provider and the Directive where actions get fired. In the previous example we had your Orbit module and an Activator where you fire your actions. If you have/need a layer in between day you can create what we call Proxy. In Angular's architecture that would be in your Service.
+Let's assume that you consider the Angular Service the holder of logic. Controller the scope provider and the Directive where actions get fired. In the previous example we had your Lunar module and an Activator where you fire your actions. If you have/need a layer in between day you can create what we call Proxy. In Angular's architecture that would be in your Service.
 
 ```javascript
-import Home from 'orbit/home';
+import Home from 'lunar/home';
 
 // Service
 // After .extend, the service can add middlewares
 // And have the actions and methods built into itself
-// through the Orbit factory
+// through the Lunar factory
 angular.module('app.home')
     .service('HomeService', HomeService);
 
 function HomeService($http) {
-    Orbit(this).createProxy(Home);
+    Lunar(this).createProxy(Home);
 
 	// This is optional.
 	// You might want to execute something before
@@ -225,7 +225,7 @@ function HomeService($http) {
 	this.addMiddleware({
 		action: Home.actions.FORMAT_TITLE,
 		before: function(data) {
-			// Orbit will send the Promise
+			// Lunar will send the Promise
 			// result to your code.
 		    return $http({
 		        method: 'GET',
@@ -241,7 +241,7 @@ HomeService.$inject = ['$http'];
 ```
 ```javascript
 // Controller
-// The controller doesn't know about Orbit,
+// The controller doesn't know about Lunar,
 // it just uses the service.
 // After .extend, it gets the methods bound into its scope.
 angular.module('app.home')
@@ -252,7 +252,7 @@ function HomeController(HomeService) {
 
     vm.title = 'Hello.';
 
-    Orbit(this).createActivator([HomeService]);
+    Lunar(this).createActivator([HomeService]);
 }
 
 HomeController.$inject = ['HomeService'];
@@ -296,7 +296,7 @@ function HeaderDirective() {
 
 ```
 
-Want to know more? Head to the [wiki](https://github.com/hugeinc/orbit/wiki) to see API explanations, React, Backbone and other examples.  
+Want to know more? Head to the [wiki](https://github.com/hugeinc/lunar/wiki) to see API explanations, React, Backbone and other examples.  
 **[Back to top](#index)**
 
 <a name="contributing"></a>
@@ -315,7 +315,7 @@ $ make setup
 First time only image setup.
 
 ```
-$ make up && docker exec orbit npm run dev
+$ make up && docker exec lunar npm run dev
 ```
 Starts container and run watch tasks.
 

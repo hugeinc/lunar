@@ -2,13 +2,13 @@
 const webpack = require('webpack'),
 	StringReplacePlugin = require("string-replace-webpack-plugin"),
 	path = require('path'),
-	DIST = path.resolve(__dirname, 'orbit/dist'),
+	DIST = path.resolve(__dirname, 'lunar/dist'),
 	env = process.env.WEBPACK_ENV,
 	config = {
-		context: __dirname + '/orbit/src',
+		context: __dirname + '/lunar/src',
     cacheDirectory: false,
 		entry: {
-			orbit: './index.js'
+			lunar: './index.js'
 		},
 
 		resolve: {
@@ -20,9 +20,9 @@ const webpack = require('webpack'),
 
 		output: {
 			path: DIST,
-			filename: env === 'dist' ? 'orbit.min.js' : 'orbit.js',
+			filename: env === 'dist' ? 'lunar.min.js' : 'lunar.js',
 			libraryTarget: 'umd',
-			library: 'Orbit',
+			library: 'Lunar',
 			umdNamedDefine: true
 		},
 

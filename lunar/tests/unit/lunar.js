@@ -9,28 +9,28 @@ let createModuleMock = sinon.spy();
 let createProxyMock = sinon.spy();
 let createActivatorMock = sinon.spy();
 
-const Orbit = proxyquire('../../src/index',{
+const Lunar = proxyquire('../../src/index',{
   './core/factories/module.factory': createModuleMock,
   './core/factories/proxy.factory': createProxyMock,
   './core/factories/activator.factory': createActivatorMock
 });
 
-test('Orbit', function(t) {
-  let orbitModule = Orbit(moduleMock);
+test('Lunar', function(t) {
+  let LunarModule = Lunar(moduleMock);
 
-  orbitModule.createModule();
-  orbitModule.createProxy();
-  orbitModule.createActivator();
+  LunarModule.createModule();
+  LunarModule.createProxy();
+  LunarModule.createActivator();
 
   t.plan(9);
 
-  t.equal(Orbit instanceof Function, true, 'should be an function');
+  t.equal(Lunar instanceof Function, true, 'should be an function');
 
-  t.equal(orbitModule.createModule instanceof Function, true, 'should contain createModule function');
-  t.equal(orbitModule.createProxy instanceof Function, true, 'should contain createModule function');
-  t.equal(orbitModule.createActivator instanceof Function, true, 'should contain createModule function');
-  t.equal(typeof orbitModule.Logger, 'object', 'should contain the Logger');
-  t.equal(typeof orbitModule.Mediator, 'object', 'should contain the Mediator');
+  t.equal(LunarModule.createModule instanceof Function, true, 'should contain createModule function');
+  t.equal(LunarModule.createProxy instanceof Function, true, 'should contain createModule function');
+  t.equal(LunarModule.createActivator instanceof Function, true, 'should contain createModule function');
+  t.equal(typeof LunarModule.Logger, 'object', 'should contain the Logger');
+  t.equal(typeof LunarModule.Mediator, 'object', 'should contain the Mediator');
 
   t.equal(createModuleMock.calledOn(moduleMock), true, `should have been called with 'moduleMock' as 'this'`);
   t.equal(createProxyMock.calledOn(moduleMock), true, `should have been called with 'moduleMock' as 'this'`);

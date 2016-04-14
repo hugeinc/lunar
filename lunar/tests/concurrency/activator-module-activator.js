@@ -1,15 +1,15 @@
 import test from 'blue-tape';
 import _ from 'lodash';
-import Orbit from '../../src/index';
+import Lunar from '../../src/index';
 import RandomGenerator from '../mocks/random';
 
-Orbit().Logger.setLevel('OFF');
+Lunar().Logger.setLevel('OFF');
 
 let ModelExample = {
 	initialize: function(modules) {
 		let middlewares = RandomGenerator.randomMiddleware(modules);
 
-		Orbit(this).createProxy(modules);
+		Lunar(this).createProxy(modules);
 
 		for(let middleware in middlewares) {
 			this.addMiddleware(middlewares[middleware]);
@@ -19,7 +19,7 @@ let ModelExample = {
 
 let ViewExample = {
 	initialize: function(model) {
-		Orbit(this).createActivator([model]);
+		Lunar(this).createActivator([model]);
 	},
 	test: function() {
 		let methods = Object.getOwnPropertySymbols(this.request),
@@ -34,7 +34,7 @@ let ViewExample = {
 };
 
 let Objects = RandomGenerator.randomObjects(3),
-	mockResults = [].concat(Objects[0].mockResults, Objects[1].mockResults, Objects[2].mockResults),
+	mockResults = _.flatten([Objects[0].mockResults, Objects[1].mockResults, Objects[2].mockResults]),
 	realResults;
 
 ModelExample.initialize(Objects);
