@@ -1,4 +1,4 @@
-import Orbit from '../../src/index';
+import Lunar from '../../src/index';
 
 const RandomGenerator = {
 	randomObjects: randomObjects,
@@ -49,7 +49,7 @@ function randomObject(numberOfActions) {
 		counter++;
 	}
 
-	return Orbit(object).createModule();
+	return Lunar(object).createModule();
 }
 
 function randomActions(numberOfActions) {
@@ -112,7 +112,7 @@ function randomMiddlewareFunction(type, counter, action) {
 	return function(data) {
 		return new Promise(function(resolve, reject) {
 			setTimeout(function() {
-				Orbit.Logger.log({ message: '[RandomGenerator.randomMiddlewareFunction] Method ' + action + ', middleware number: ' + counter + ', ' + type + ' middleware run after ' + randomTimeout + ' timeout. At: ' + getDateString(), level: 'ALL' });
+				Lunar.Logger.log({ message: '[RandomGenerator.randomMiddlewareFunction] Method ' + action + ', middleware number: ' + counter + ', ' + type + ' middleware run after ' + randomTimeout + ' timeout. At: ' + getDateString(), level: 'ALL' });
 				resolve(data);
 			}, randomTimeout);
 		})

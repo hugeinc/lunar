@@ -1,7 +1,7 @@
 'use strict';
 
 import Logger from '../logger/logger';
-import OrbitMediator from '../mediator/channel';
+import LunarMediator from '../mediator/channel';
 
 function createProxy(modules) {
   let instance = this;
@@ -88,7 +88,7 @@ function isPromise(data) {
 
 function requestApplication(action, params, instance) {
   Logger.log({ message: `[Proxy.requestApplication] Actually requesting application for ${action.toString(0)} with ${params}`, level: 'ALL' });
-  return OrbitMediator.request({ topic: action, data: params })
+  return LunarMediator.request({ topic: action, data: params })
     .then(data => extractProperDataFromRequest(action, data, instance));
 }
 

@@ -1,7 +1,7 @@
 {
-  "name": "orbitjs",
+  "name": "lunarjs",
   "version": "1.0.1",
-  "description": "Agnostic layer that lets your application live along any framework.",
+  "description": "Layer that lets your application live along any framework.",
   "keywords": [
     "framework",
     "javascript",
@@ -15,9 +15,9 @@
     "abstraction",
     "decoupling"
   ],
-  "main": "orbit/dist/orbit.min.js",
+  "main": "lunar/dist/lunar.min.js",
   "bugs": {
-    "url": "https://github.com/hugeinc/orbit/issues"
+    "url": "https://github.com/hugeinc/lunar/issues"
   },
   "license": "MIT",
   "author": {
@@ -32,7 +32,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/hugeinc/orbit.git"
+    "url": "https://github.com/hugeinc/lunar.git"
   },
   "release": {
     "debug": false
@@ -41,30 +41,30 @@
     "bundle": "WEBPACK_ENV=dist webpack -p | ./reporter-filter",
     "bundle:dev": "webpack -d | ./reporter-filter",
     "dev:tasks": "npm run bundle:dev --loglevel=silent & npm run test --loglevel=silent & npm run coverage --loglevel=silent",
-    "dev": "/install/node_modules/.bin/watch 'npm run dev:tasks' ./orbit/src",
+    "dev": "/install/node_modules/.bin/watch 'npm run dev:tasks' ./lunar/src",
     "watch": "webpack -d --watch | ./reporter-filter",
-    "jshint": "/install/node_modules/jshint/bin/jshint ./orbit/src",
-    "jscs": "/install/node_modules/jscs/bin/jscs ./orbit/src",
-    "jscsfix": "/install/node_modules/jscs/bin/jscs ./orbit/src --fix",
-    "unit": "/install/node_modules/.bin/babel-node /install/node_modules/.bin/blue-tape ./orbit/tests/unit/*.js",
-    "integration": "/install/node_modules/.bin/babel-node /install/node_modules/.bin/blue-tape ./orbit/tests/integration/*.js",
-    "stress": "/install/node_modules/.bin/babel-node /install/node_modules/.bin/blue-tape ./orbit/tests/stress/*.js",
-    "concurrency": "/install/node_modules/.bin/babel-node /install/node_modules/.bin/blue-tape ./orbit/tests/concurrency/*.js",
-    "unit-pretty": "/install/node_modules/.bin/babel-node /install/node_modules/.bin/blue-tape ./orbit/tests/unit/*.js | /install/node_modules/.bin/faucet",
-    "ci-unit-pretty": "./node_modules/.bin/babel-node ./node_modules/.bin/blue-tape ./orbit/tests/unit/*.js | ./node_modules/.bin/faucet",
-    "integration-pretty": "/install/node_modules/.bin/babel-node /install/node_modules/.bin/blue-tape ./orbit/tests/integration/*.js | /install/node_modules/.bin/faucet",
-    "ci-integration-pretty": "./node_modules/.bin/babel-node ./node_modules/.bin/blue-tape ./orbit/tests/integration/*.js | ./node_modules/.bin/faucet",
-    "stress-pretty": "/install/node_modules/.bin/babel-node /install/node_modules/.bin/blue-tape ./orbit/tests/stress/*.js | /install/node_modules/.bin/faucet",
-    "ci-stress-pretty": "./node_modules/.bin/babel-node ./node_modules/.bin/blue-tape ./orbit/tests/stress/*.js | ./node_modules/.bin/faucet",
-    "concurrency-pretty": "/install/node_modules/.bin/babel-node /install/node_modules/.bin/blue-tape ./orbit/tests/concurrency/*.js | /install/node_modules/.bin/faucet",
-    "ci-concurrency-pretty": "./node_modules/.bin/babel-node ./node_modules/.bin/blue-tape ./orbit/tests/concurrency/*.js | ./node_modules/.bin/faucet",
-    "unit-nyan": "/install/node_modules/.bin/babel-node /install/node_modules/.bin/blue-tape ./orbit/tests/unit/*.js | /install/node_modules/.bin/tap-nyan",
-    "integration-nyan": "/install/node_modules/.bin/babel-node /install/node_modules/.bin/blue-tape ./orbit/tests/integration/*.js | /install/node_modules/.bin/tap-nyan",
-    "stress-nyan": "/install/node_modules/.bin/babel-node /install/node_modules/.bin/blue-tape ./orbit/tests/stress/*.js | /install/node_modules/.bin/tap-nyan",
-    "concurrency-nyan": "/install/node_modules/.bin/babel-node /install/node_modules/.bin/blue-tape ./orbit/tests/concurrency/*.js | /install/node_modules/.bin/tap-nyan",
-    "unit-coverage": "/install/node_modules/.bin/babel-node /install/node_modules/.bin/babel-istanbul cover /install/node_modules/.bin/blue-tape ./orbit/tests/unit/*.js",
-    "integration-coverage": "/install/node_modules/.bin/babel-node /install/node_modules/.bin/babel-istanbul cover /install/node_modules/.bin/blue-tape ./orbit/tests/integration/*.js",
-    "coverage": "/install/node_modules/.bin/babel-node /install/node_modules/.bin/babel-istanbul cover /install/node_modules/.bin/blue-tape ./orbit/tests/**/*.js",
+    "jshint": "/install/node_modules/jshint/bin/jshint ./lunar/src",
+    "jscs": "/install/node_modules/jscs/bin/jscs ./lunar/src",
+    "jscsfix": "/install/node_modules/jscs/bin/jscs ./lunar/src --fix",
+    "unit": "/install/node_modules/.bin/babel-node /install/node_modules/.bin/blue-tape ./lunar/tests/unit/*.js",
+    "integration": "/install/node_modules/.bin/babel-node /install/node_modules/.bin/blue-tape ./lunar/tests/integration/*.js",
+    "stress": "/install/node_modules/.bin/babel-node /install/node_modules/.bin/blue-tape ./lunar/tests/stress/*.js",
+    "concurrency": "/install/node_modules/.bin/babel-node /install/node_modules/.bin/blue-tape ./lunar/tests/concurrency/*.js",
+    "unit-pretty": "/install/node_modules/.bin/babel-node /install/node_modules/.bin/blue-tape ./lunar/tests/unit/*.js | /install/node_modules/.bin/faucet",
+    "ci-unit-pretty": "./node_modules/.bin/babel-node ./node_modules/.bin/blue-tape ./lunar/tests/unit/*.js | ./node_modules/.bin/faucet",
+    "integration-pretty": "/install/node_modules/.bin/babel-node /install/node_modules/.bin/blue-tape ./lunar/tests/integration/*.js | /install/node_modules/.bin/faucet",
+    "ci-integration-pretty": "./node_modules/.bin/babel-node ./node_modules/.bin/blue-tape ./lunar/tests/integration/*.js | ./node_modules/.bin/faucet",
+    "stress-pretty": "/install/node_modules/.bin/babel-node /install/node_modules/.bin/blue-tape ./lunar/tests/stress/*.js | /install/node_modules/.bin/faucet",
+    "ci-stress-pretty": "./node_modules/.bin/babel-node ./node_modules/.bin/blue-tape ./lunar/tests/stress/*.js | ./node_modules/.bin/faucet",
+    "concurrency-pretty": "/install/node_modules/.bin/babel-node /install/node_modules/.bin/blue-tape ./lunar/tests/concurrency/*.js | /install/node_modules/.bin/faucet",
+    "ci-concurrency-pretty": "./node_modules/.bin/babel-node ./node_modules/.bin/blue-tape ./lunar/tests/concurrency/*.js | ./node_modules/.bin/faucet",
+    "unit-nyan": "/install/node_modules/.bin/babel-node /install/node_modules/.bin/blue-tape ./lunar/tests/unit/*.js | /install/node_modules/.bin/tap-nyan",
+    "integration-nyan": "/install/node_modules/.bin/babel-node /install/node_modules/.bin/blue-tape ./lunar/tests/integration/*.js | /install/node_modules/.bin/tap-nyan",
+    "stress-nyan": "/install/node_modules/.bin/babel-node /install/node_modules/.bin/blue-tape ./lunar/tests/stress/*.js | /install/node_modules/.bin/tap-nyan",
+    "concurrency-nyan": "/install/node_modules/.bin/babel-node /install/node_modules/.bin/blue-tape ./lunar/tests/concurrency/*.js | /install/node_modules/.bin/tap-nyan",
+    "unit-coverage": "/install/node_modules/.bin/babel-node /install/node_modules/.bin/babel-istanbul cover /install/node_modules/.bin/blue-tape ./lunar/tests/unit/*.js",
+    "integration-coverage": "/install/node_modules/.bin/babel-node /install/node_modules/.bin/babel-istanbul cover /install/node_modules/.bin/blue-tape ./lunar/tests/integration/*.js",
+    "coverage": "/install/node_modules/.bin/babel-node /install/node_modules/.bin/babel-istanbul cover /install/node_modules/.bin/blue-tape ./lunar/tests/**/*.js",
     "test": "npm run unit-pretty && npm run integration-pretty",
     "ci-test": "npm run ci-unit-pretty && npm run ci-integration-pretty",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"

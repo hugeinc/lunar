@@ -6,7 +6,7 @@ import createModuleFactory from './core/factories/module.factory';
 import createProxyFactory from './core/factories/proxy.factory';
 import createActivatorFactory from './core/factories/activator.factory';
 
-function Orbit(component) {
+function Lunar(component) {
   let createModule = createModuleFactory.bind(component),
     createProxy = createProxyFactory.bind(component),
     createActivator = createActivatorFactory.bind(component);
@@ -20,4 +20,4 @@ function Orbit(component) {
   };
 }
 
-export default Orbit;
+export default Lunar;

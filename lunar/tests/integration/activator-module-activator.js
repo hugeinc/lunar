@@ -1,8 +1,8 @@
 import test from 'blue-tape';
-import Orbit from '../../src/index';
+import Lunar from '../../src/index';
 import objectMock from '../mocks/object';
 
-let app = Orbit(objectMock),
+let app = Lunar(objectMock),
   module = app.createModule();
 
 app.Logger.setLevel('OFF');
@@ -12,7 +12,7 @@ test('Activator from Module', function(t) {
 
   t.plan(2);
 
-  Orbit(activator).createActivator([module]);
+  Lunar(activator).createActivator([module]);
 
   activator.request[module.actions.ONE](1).then(function(data) {
     t.equal(data, 2, 'should call Modules function "plus one" and increase the value sent by one');
@@ -39,7 +39,7 @@ test('Activator from Proxy', function(t) {
 
   t.plan(2);
 
-  Orbit(proxy).createProxy([module]);
+  Lunar(proxy).createProxy([module]);
 
   proxy.addMiddleware({
     action: module.actions.TWO,
@@ -51,7 +51,7 @@ test('Activator from Proxy', function(t) {
     }
   });
 
-  Orbit(activator).createActivator([proxy]);
+  Lunar(activator).createActivator([proxy]);
 
   activator.request[module.actions.ONE](1).then(function(data) {
     t.equal(data, 2, 'should call Modules function "plus one" and increase the value sent by one');

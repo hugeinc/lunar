@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Orbit Example</title>
+	<title>Lunar Example</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
@@ -9,7 +9,7 @@
 </head>
 <body>
 	<main id="content"></main>
-	<script src="assets/orbit.min.js"></script>
+	<script src="assets/lunar.min.js"></script>
 	<script src="assets/vendor/react.js"></script>
 	<script src="assets/vendor/react-dom.js"></script>
 	<script src="assets/vendor/lodash.js"></script>
@@ -19,7 +19,7 @@
 		};
 
 		var MyObject = {
-			title: 'Orbit',
+			title: 'Lunar',
 			actions: actions
 		};
 
@@ -27,7 +27,7 @@
 			return data + ' ' + this.title;
 		};
 
-		var SimpleExample = Orbit(MyObject).createModule();
+		var SimpleExample = Lunar(MyObject).createModule();
 
 		var Title = React.createClass({
 			render: function() {
@@ -46,7 +46,7 @@
 			componentDidMount: function() {
 				var self = this;
 
-		    Orbit(this).createActivator([SimpleExample]);
+		    Lunar(this).createActivator([SimpleExample]);
 
 		    this.addMiddleware({
 		        action: SimpleExample.actions.GET_TITLE,
