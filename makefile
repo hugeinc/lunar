@@ -2,82 +2,82 @@ sdocker:
 	@bash '/Applications/Docker/Docker Quickstart Terminal.app/Contents/Resources/Scripts/start.sh'
 
 setup:
-	@npm install -g commitizen && npm i ghooks cz-conventional-changelog validate-commit-message && docker build -t huge/orbit .
+	@npm install -g commitizen && npm i ghooks cz-conventional-changelog validate-commit-message && docker build -t huge/lunar .
 
 up:
-	@docker run --name="orbit" -d -p 4000:4000 -v $(PWD):/app huge/orbit
+	@docker run --name="lunar" -d -p 4000:4000 -v $(PWD):/app huge/lunar
 
 remake:
-	@docker rm -f orbit && docker rmi huge/orbit && make setup && make up
+	@docker rm -f lunar && docker rmi huge/lunar && make setup && make up
 
 bundle:
-	@docker exec orbit npm run bundle
+	@docker exec lunar npm run bundle
 
 ssh:
-	@docker exec -i -t orbit bash
+	@docker exec -i -t lunar bash
 
 jshint:
-	@docker exec orbit npm run jshint
+	@docker exec lunar npm run jshint
 
 jscs:
-	@docker exec orbit npm run jscs
+	@docker exec lunar npm run jscs
 
 jscs-fix:
-	@docker exec orbit npm run jscsfix
+	@docker exec lunar npm run jscsfix
 
 unit:
-	@docker exec orbit npm run unit
+	@docker exec lunar npm run unit
 
 integration:
-	@docker exec orbit npm run integration
+	@docker exec lunar npm run integration
 
 stress:
-	@docker exec orbit npm run stress
+	@docker exec lunar npm run stress
 
 concurrency:
-	@docker exec orbit npm run concurrency
+	@docker exec lunar npm run concurrency
 
 unit-pretty:
-	@docker exec orbit npm run unit-pretty
+	@docker exec lunar npm run unit-pretty
 
 integration-pretty:
-	@docker exec orbit npm run integration-pretty
+	@docker exec lunar npm run integration-pretty
 
 stress-pretty:
-	@docker exec orbit npm run stress-pretty
+	@docker exec lunar npm run stress-pretty
 
 concurrency-pretty:
-	@docker exec orbit npm run concurrency-pretty
+	@docker exec lunar npm run concurrency-pretty
 
 unit-nyan:
-	@docker exec orbit npm run unit-nyan
+	@docker exec lunar npm run unit-nyan
 
 integration-nyan:
-	@docker exec orbit npm run integration-nyan
+	@docker exec lunar npm run integration-nyan
 
 stress-nyan:
-	@docker exec orbit npm run stress-nyan
+	@docker exec lunar npm run stress-nyan
 
 concurrency-nyan:
-	@docker exec orbit npm run concurrency-nyan
+	@docker exec lunar npm run concurrency-nyan
 
 unit-coverage:
-	@docker exec orbit npm run unit-coverage
+	@docker exec lunar npm run unit-coverage
 
 integration-coverage:
-	@docker exec orbit npm run integration-coverage
+	@docker exec lunar npm run integration-coverage
 
 cover:
-	@docker exec orbit npm run coverage
+	@docker exec lunar npm run coverage
 
 test:
-	@docker exec orbit npm run test
+	@docker exec lunar npm run test
 
 ci-test:
-	@docker exec orbit npm run ci-test
+	@docker exec lunar npm run ci-test
 
 watch:
-	@docker exec orbit npm run watch
+	@docker exec lunar npm run watch
 
 dev:
-	@docker exec orbit npm run dev
+	@docker exec lunar npm run dev

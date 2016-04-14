@@ -1,4 +1,4 @@
-# Orbit Code Standards
+# Lunar Code Standards
 
 ## Table of Contents
 
@@ -9,3 +9,4 @@
 __Please read, sign, &amp; commit.__
 
 Caio Vaccaro
+Jonas Mendes

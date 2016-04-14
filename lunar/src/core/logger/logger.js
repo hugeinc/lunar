@@ -55,7 +55,7 @@ function singleLog({ message=null, level='OFF' } = {}) {
 }
 
 function output(message, level) {
-  let finalMessage = `[Orbit.Logger][${level}] ${getDateString()}\n${message}\n`;
+  let finalMessage = `[Lunar.Logger][${level}] ${getDateString()}\n${message}\n`;
 
   console.log(finalMessage);
 

@@ -6,7 +6,7 @@ import sinon from 'sinon';
 import objectMock from '../mocks/object';
 import channelMock from '../mocks/channel';
 
-test('Orbit.createModule', function(t) {
+test('Lunar.createModule', function(t) {
   sinon.spy(objectMock, 'ONE');
   sinon.spy(objectMock, 'TWO');
   channelMock.subscribe = sinon.spy();
