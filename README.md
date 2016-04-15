@@ -1,4 +1,4 @@
-![](images/Lunar.png)
+![](images/Lunar.png)  
 [![npm](https://img.shields.io/npm/dt/lunarjs.svg)]() [![GitHub tag](https://img.shields.io/github/tag/hugeinc/lunar.svg)]() [![Build Status](https://snap-ci.com/gl9NE5npyXBTWeoiSf4AFt3SodPh3s8ySD7rWJ9A6l8/build_image)](https://snap-ci.com/hugeinc/lunar/branch/master) [![Codacy Badge](https://api.codacy.com/project/badge/grade/de26884f60dd4084bd056f97af5ebae5)](https://www.codacy.com/app/caiovaccaromora/lunar)
 
 Lunar **v1.0.1**. Making the core of your application framework-independent.
