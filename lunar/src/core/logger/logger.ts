@@ -1,12 +1,27 @@
 'use strict';
 
+interface ILevels {
+  [propName: string]: symbol
+}
+
+interface ILogger {
+  getLevel: Function;
+  setLevel: Function;
+  log: Function;
+}
+
+interface ILog {
+  message?: string;
+  level?: string;
+}
+
 const OFF = Symbol('No logs will be shown'),
   FATAL = Symbol('Only errors that will break your app will be shown'),
   ERROR = Symbol('Any error will be logged'),
   WARN = Symbol('Errors and warnings will be shown'),
   ALL = Symbol('Everything will be logged and displayed on the console');
 
-const levels = {
+const levels: ILevels = {
   OFF,
   FATAL,
   ERROR,
@@ -17,11 +32,11 @@ const levels = {
 let level = levels['OFF'],
   levelString = 'OFF';
 
-let Logger = {
-  getLevel() {
+let Logger: ILogger = {
+  getLevel(): string {
     return levelString;
   },
-  setLevel(wantedLevel) {
+  setLevel(wantedLevel): void {
     if(levels[wantedLevel]) {
       level = levels[wantedLevel];
       levelString = wantedLevel;
@@ -30,7 +45,7 @@ let Logger = {
   log
 };
 
-function log(options) {
+function log(options: ILog | ILog[]): void | string {
   if(Array.isArray(options)) {
     return multipleLogs(options);
   } else if(typeof options === 'object') {
@@ -38,13 +53,13 @@ function log(options) {
   }
 }
 
-function multipleLogs(logs) {
+function multipleLogs(logs: Object[]): void {
   for(let i = 0; i < logs.length; i++) {
     singleLog(logs[i]);
   }
 }
 
-function singleLog({ message=null, level='OFF' } = {}) {
+function singleLog({ message=null, level='OFF' }: ILog = {}): string {
   let levelsKeys = Object.keys(levels);
 
   if(levelString === 'OFF') return undefined;
@@ -54,7 +69,7 @@ function singleLog({ message=null, level='OFF' } = {}) {
   }
 }
 
-function output(message, level) {
+function output(message: string, level: string): string {
   let finalMessage = `[Lunar.Logger][${level}] ${getDateString()}\n${message}\n`;
 
   console.log(finalMessage);
@@ -62,7 +77,7 @@ function output(message, level) {
   return finalMessage;
 }
 
-function getDateString() {
+function getDateString(): string {
   let now = new Date(),
     period = now.toLocaleString().slice(-3);
 
