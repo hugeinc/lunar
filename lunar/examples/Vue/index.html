@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lunar Example</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+	<link rel="stylesheet" href="assets/styles/main.css">
+</head>
+<body>
+	<main id="content">
+		<my-title :title="title"></my-title>
+	</main>
+	<script src="../../dist/lunar.min.js"></script>
+	<script src="assets/vendor/vue.min.js"></script>
+	<script src="assets/vendor/lodash.js"></script>
+	<script type="text/javascript">
+		var actions = {
+			GET_TITLE: 'GET_TITLE'
+		};
+
+		var MyObject = {
+			title: 'Lunar',
+			actions: actions
+		};
+
+		MyObject[actions.GET_TITLE] = function(data) {
+			return data + ' ' + this.title;
+		};
+
+		var SimpleExample = Lunar(MyObject).createModule();
+
+		Vue.component('my-title', {
+			props: ['title'],
+			template: '<h1>{{ title }}</h1>'
+		});
+
+		var app = new Vue({
+			el: '#content',
+			data: {
+				title: ''
+			},
+			created: function () {
+				var self = this;
+
+				Lunar(this).createActivator([SimpleExample]);
+
+				this.addMiddleware({
+			        action: SimpleExample.actions.GET_TITLE,
+			        before: function(data) {
+			          return 'Huge ' + data;
+			        },
+			        after: function(data) {
+			          return data + ' to the party.';
+			        }
+			    });
+
+			    this.request[SimpleExample.actions.GET_TITLE]('welcomes').then(function(data) {
+					self.title = data;
+				}, function(err) {
+					console.log('Error: ', err);
+				});
+			}
+		});
+	</script>
+</body>
+</html>
